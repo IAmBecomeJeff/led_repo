@@ -33,6 +33,7 @@ void setup(){
 void loop(){
 	ico_fill_rainbow();
 	FastLED.show();
+	FastLED.delay(10);
 }
 
 void ico_fill_rainbow(){
