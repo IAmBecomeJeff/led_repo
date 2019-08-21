@@ -30,11 +30,12 @@ void setup(){
 }
 
 void loop(){
-	ico_fill_rainbow();
+	ico_palette();
 	FastLED.show();
+	FastLED.delay(10);
 }
 
-void ico_fill_rainbow(){
+void ico_palette(){
 	for (int i = 0; i < 4; i++ ){
 		for (int j = 0; j < 5; j++){
 			leds[icosahedron[i][j]] = ColorFromPalette(current_palette, pal_index + i * delta, 255);
