@@ -1,24 +1,24 @@
-
 #include "FastLED.h"
 
 #define DATA_PIN 7
-#define COLOR_ORDER GBR
+#define COLOR_ORDER RGB
 #define LED_TYPE WS2812
 #define NUM_LEDS 20
 
-uint8_t max_bright = 255;
+uint8_t max_bright = 64;
 struct CRGB leds[NUM_LEDS];
+CRGBPalette16 current_palette = RainbowStripeColors_p;
 
-int icosahedron[4][5]
+int icosahedron[4][5];
 
-uint8_t hue;
-uint8_t index = 0;
-uint8_t delta = 10;
-uint8_t increment = 4;
+uint8_t pal_index = 0;
+uint8_t delta = 88;
+uint8_t increment = 2;
+uint8_t ico_delay = 20;
 
 void setup(){
-	Leds.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS);
-	FastLed.setBrightness(max_bright);
+	LEDS.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS);
+	FastLED.setBrightness(max_bright);
 	set_max_power_in_volts_and_milliamps(5, 1000);
 	
 	// Set icosahedron matrix to call via leds[icosahedron[height][pixel]]
@@ -31,19 +31,16 @@ void setup(){
 }
 
 void loop(){
-	ico_fill_rainbow();
+	ico_palette();
 	FastLED.show();
-	FastLED.delay(10);
+	FastLED.delay(ico_delay);
 }
 
-void ico_fill_rainbow(){
-	hue = index;
+void ico_palette(){
 	for (int i = 0; i < 4; i++ ){
 		for (int j = 0; j < 5; j++){
-			leds[icosahedron[i][j]] = CHSV(hue, 255, 240);
+			leds[icosahedron[i][j]] = ColorFromPalette(current_palette, pal_index + i * delta, 255);
 		}
-		hue += delta;
 	}
-	index += increment;
+	pal_index += increment;
 }
-
