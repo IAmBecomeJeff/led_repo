@@ -2,7 +2,7 @@
 #include "FastLED.h"
 
 #define DATA_PIN 7
-#define COLOR_ORDER GBR
+#define COLOR_ORDER RGB
 #define LED_TYPE WS2812
 #define NUM_LEDS 20
 
