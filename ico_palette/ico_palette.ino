@@ -12,8 +12,8 @@ CRGBPalette16 current_palette = RainbowStripeColors_p;
 int icosahedron[4][5];
 
 uint8_t pal_index = 0;
-uint8_t delta = 128;
-uint8_t increment = 2;
+uint8_t delta = 8;
+uint8_t increment = 1;
 uint8_t ico_delay = 20;
 
 void setup(){
