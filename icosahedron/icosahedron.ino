@@ -10,6 +10,8 @@ uint8_t max_bright = 50;
 struct CRGB leds[NUM_LEDS];
 
 int icosahedron[4][5];
+int order[20]= {0, 1, 2, 3, 4, 11, 12, 13, 14, 5, 6, 7, 8, 9, 10, 15, 18, 19, 17, 16};
+int spin_order[10][2] = { {1,5}, {6,17}, {2,7}, {8,16}, {3,9}, {10,15}, {4,11}, {12,19}, {0,13}, {14,18} };
 
 uint8_t hue = 0;
 uint8_t ico_index = 0;
