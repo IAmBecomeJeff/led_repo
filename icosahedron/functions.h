@@ -50,12 +50,18 @@ void juggle_palette() {
 void juggle_up_and_down() {
 	fadeall();
 	for (uint8_t dot = 0; dot < numdots; dot++) {
-		juggle_position = beatsin16(beat + dot + numdots, 0, NUM_LEDS - 1);
-		leds[icosahedron[juggle_position]] += CHSV(hue++, 255, 255);
+		juggle_position = beatsin16(beat + dot + numdots, 0, 3);
+		for (int row = 0; row < 4; row++) {
+			leds[icosahedron[juggle_position][row]] += CHSV(hue++, 255, 255);
+		}
 	}
 }
 
-
+void confetti() {
+	fadeall();
+	confetti_position = random16(NUM_LEDS);
+	leds[confetti_position] += CHSV(hue + random8(64), 200, 255);
+}
 
 
 #endif
