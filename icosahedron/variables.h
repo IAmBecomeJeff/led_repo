@@ -12,8 +12,9 @@ CRGBPalette16 current_palette;
 CRGBPalette16 target_palette = RainbowStripeColors_p;
 uint8_t palette_index = 0;
 
-uint8_t mode = 0;
-uint8_t max_mode = 2;
+uint8_t mode = 2;
+uint8_t max_mode = 7;
+bool isNew = 1;
 
 uint8_t icosahedron[4][5] = { { 0, 1, 2, 3, 4 }, { 5, 7, 9, 11, 13 }, { 6, 8, 10, 12, 14 }, { 15, 16, 17, 18, 19 } };
 uint8_t spiral_order[20] = { 0, 1, 2, 3, 4, 11, 12, 13, 14, 5, 6, 7, 8, 9, 10, 15, 18, 19, 17, 16 };
