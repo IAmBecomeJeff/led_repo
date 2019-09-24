@@ -12,7 +12,7 @@ CRGB leds[NUM_LEDS];
 
 // Palette variables
 CRGBPalette16 current_palette;
-CRGBPalette16 target_palette = ForestColors_p;
+CRGBPalette16 target_palette = RainbowColors_p;
 uint8_t paletteChanges = 24;
 uint8_t palette_index = 0;
 uint8_t palette_index_beat = 10;
@@ -20,20 +20,21 @@ uint8_t palette_index_forward_beat = 25;
 uint8_t palette_index_backward_beat = 30;
 
 // Operational Variables
-uint8_t fade_val = 100;
-uint8_t this_delay = 10;
+uint8_t fade_val = 180;
+uint8_t this_delay = 5;
+uint8_t hue = 0;
 
 // Positional Variables
 int position = 0;
-int position_beat = 2;
+int position_beat = 4;
 
 uint8_t forward_edge;
 uint8_t forward_range = 10;
-uint8_t forward_beat = 8;
+uint8_t forward_beat = 9;
 
 uint8_t backward_edge;
 uint8_t backward_range = 14;
-uint8_t backward_beat = 20;
+uint8_t backward_beat = 21;
 
 
 
@@ -58,25 +59,28 @@ void amoeba(){
 	position = beatsin16(position_beat, 0, NUM_LEDS-1);
 	
 	// Also determine index of palette
-	palette_index = beatsin8(palette_index);
-	leds[position] = ColorFromPalette(current_palette, palette_index);
-	
+	//palette_index = beatsin8(palette_index);
+	//leds[position] = ColorFromPalette(current_palette, palette_index);
+	leds[position] = CHSV(hue, 255,255);
 	forward_edge = beatsin16(forward_beat,0,forward_range);
 	backward_edge = beatsin16(backward_beat,0,backward_range);
 	
 	for (int i = 0; i < forward_edge; i++){
 		if(position + i < NUM_LEDS-1){
 			palette_index = beatsin8(palette_index_forward_beat);
-			leds[position+i] = ColorFromPalette(current_palette, palette_index);
+			//leds[position+i] = ColorFromPalette(current_palette, palette_index);
+		  leds[position+i] = CHSV(hue,255,255);
 		}
 	}
 	
 	for (int i = 0; i < backward_edge; i++){
 		if(position - i > 0){
 			palette_index = beatsin8(palette_index_backward_beat);
-			leds[position-1] = ColorFromPalette(current_palette, palette_index);
+			//leds[position-i] = ColorFromPalette(current_palette, palette_index);
+      leds[position-i] = CHSV(hue,255,255);
 		}
 	}
+ hue++;
 }
 
 
