@@ -169,9 +169,13 @@ void readkeyboard() {
 				display_variables();
 				break;
 
-			//	// T - jug16_phase
-			//case 84:
-			//	break;
+				// T - jug16_phase
+			case 84:
+        this_arg = Serial.parseInt();
+        additive = constrain(this_arg, 0, 1);
+        Serial.print("additive: ");
+        Serial.println(additive);
+				break;
 
 			//	// U - 
 			//case 85:

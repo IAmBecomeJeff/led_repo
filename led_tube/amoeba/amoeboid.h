@@ -18,10 +18,19 @@ void amoeba() {
 		else {
 			palette_index++;
 		}
+   if(additive){
+    leds[position] += ColorFromPalette(current_palette, palette_index);
+   }
+   else{
 		leds[position] = ColorFromPalette(current_palette, palette_index);
+	  }
 	}
 	else {
-		leds[position] = CHSV(hue, 255, 255);
+    if(additive){
+      leds[position] += CHSV(hue, 255, 255);
+    }else{
+		  leds[position] = CHSV(hue, 255, 255);
+	  }
 	}
 
 	// Determine how big the edges are
@@ -46,7 +55,11 @@ void amoeba() {
 					else {
 						palette_index_backward = palette_index - i;
 					}
-					leds[position - i] = ColorFromPalette(current_palette, palette_index_backward);
+          if(additive){
+            leds[position - i] += ColorFromPalette(current_palette, palette_index_backward);
+          }else{
+					  leds[position - i] = ColorFromPalette(current_palette, palette_index_backward);
+				}
 				}
 				else { leds[position - i] = CHSV(hue, 255, 255); }
 				if (show_active_pixels) {
@@ -61,7 +74,7 @@ void amoeba() {
 			}
 		}
 	}
-
+	
 	if (show_active_pixels) {
 		Serial.print("|| ");
 		if (position < 10) { Serial.print("00"); }
@@ -80,7 +93,11 @@ void amoeba() {
 					else {
 						palette_index_forward = palette_index + i;
 					}
+         if(additive){
+           leds[position + i] += ColorFromPalette(current_palette, palette_index_forward);
+         }else{
 					leds[position + i] = ColorFromPalette(current_palette, palette_index_forward);
+				}
 				}
 				else { leds[position + i] = CHSV(hue, 255, 255); }
 				if (show_active_pixels) {

@@ -26,7 +26,8 @@ uint8_t palette_index_backward_beat = 3;
 bool palette_switch = 1;
 bool use_palette = 1;
 bool use_palette_beat = 0;
-bool show_active_pixels = 1;
+bool show_active_pixels = 0;
+bool additive = 0;
 
 // Operational Variables
 uint8_t fade_val = 180;
