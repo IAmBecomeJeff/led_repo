@@ -8,13 +8,14 @@
 #define NUM_LEDS 300
 CRGB leds[NUM_LEDS];
 
-uint8_t pulse_width = 7;
-uint8_t pulse_envelope[pulse_width];
+uint8_t pulse_width = 31;
+uint8_t pulse_envelope[31];
 uint16_t pos = 0;
 uint8_t fade_val = 180;
 uint8_t this_hue = 100;
-int = this_index;
-uint8_t this_delay = 10;
+uint8_t this_sat = 255;
+int this_index;
+uint8_t this_delay = 30;
 
 uint8_t gaussian_table[256] = { 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 
 								5, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11, 12, 13, 
@@ -39,21 +40,21 @@ uint8_t gaussian_table[256] = { 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4,
 								54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 33, 
 								31, 29, 28, 26, 25, 24, 22, 21, 20, 19, 18, 17, 
 								16, 15, 14, 13, 12, 11, 10, 10, 9, 8, 8, 7, 6, 
-								6, 5, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 0, 0 }
+								6, 5, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 0, 0 };
 
 void pulse_setup() {
 	for (uint8_t i = 0; i < pulse_width / 2 + 1; i++) {
 		if (pulse_width % 2 == 0) {
 			pulse_width++;
 		}
-		pulse_envelope[pulse_width / 2 + i] = gaussian_table[128 * (1 + i / (pulse_width + 1)];
-		pulse_envelope[pulse_width / 2 - i] = gaussian_table[128 * (1 - i / (pulse_width + 1)];
+		pulse_envelope[pulse_width / 2 + i] = gaussian_table[128 * (1 + i / (pulse_width + 1))];
+		pulse_envelope[pulse_width / 2 - i] = gaussian_table[128 * (1 - i / (pulse_width + 1))];
 	}
 }
 
 
 void pulse() {
-	//fadeToBlackBy(leds, NUM_LEDS, fade_val);
+	fadeToBlackBy(leds, NUM_LEDS, fade_val);
 	for (uint8_t i = 0; i < pulse_width; i++) {
 		this_index = pos + i - pulse_width / 2;
 		if (this_index < NUM_LEDS && this_index >= 0) {
@@ -61,6 +62,8 @@ void pulse() {
 		}
 	}
 	pos++;
+  if(pos>NUM_LEDS){pos=0;}
+  this_hue++;
 }
 
 void setup() {
@@ -75,5 +78,5 @@ void loop() {
 		this_timer.setPeriod(this_delay);
 		pulse();
 	}
-
+FastLED.show();
 }
