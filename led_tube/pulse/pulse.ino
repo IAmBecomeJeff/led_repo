@@ -8,17 +8,19 @@
 #define NUM_LEDS 300
 CRGB leds[NUM_LEDS];
 
-uint8_t pulse_width = 7;
-int pos = 0 - pulse_width / 2;
+int pulse_width = 7;
+int pulse_start = -pulse_width;
+int pos = pulse_start;
 uint8_t fade_val = 180;
-uint8_t this_hue = 100;
-int = this_index;
-uint8_t this_delay = 10;
+uint8_t this_hue = 0;
+uint8_t this_sat = 255;
+int this_index;
+uint8_t this_delay = 30;
 uint8_t this_val;
 int min_range;
 int max_range;
-int restart_index = 320;
-bool switch_pulse = 0;
+int restart_index = 400;
+bool switch_pulse = 1;
 uint8_t beat = 5;
 uint8_t pulse_min = 3;
 uint8_t pulse_max = 21;
@@ -74,9 +76,10 @@ void pulse() {
 			if (max_range - i <= NUM_LEDS) { leds[max_range - i] = CHSV(this_hue, this_sat, this_val); }
 		}
 	}
-	this_hue++;
+	//this_hue++;
 	pos++;
-	if (pos > restart_index) { pos = 0 - pulse_width / 2; }
+	if (pos > restart_index) { Serial.println("outside index"); pos = pulse_start; }
+  Serial.println(pos);
 }
 
 void dark_pulse() {
@@ -110,6 +113,7 @@ void dark_pulse() {
 
 void setup() {
 	delay(1000);  
+  Serial.begin(115200);
 	FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
 	FastLED.setBrightness(max_bright);
 	set_max_power_in_volts_and_milliamps(5, 2000);
@@ -119,6 +123,7 @@ void loop() {
 
 	EVERY_N_SECONDS(30) {
 		switch_pulse = !switch_pulse;
+    Serial.println(switch_pulse);
 		fill_solid(leds, NUM_LEDS, CRGB::Black);
 	}
 

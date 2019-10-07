@@ -10,12 +10,12 @@
 #define DATA_PIN 7
 #define CLOCK_PIN 14
 #define NUM_LEDS 300
-#define COLOR_ORDER GRB
+#define COLOR_ORDER BGR
 #define BRIGHTNESS 50
 CRGB leds[NUM_LEDS];
 
 uint8_t gHue = 0;  // Used to cycle through rainbow.
-uint8_t moveSpeed = 6;  // Higher value moves pixel faster.
+uint8_t moveSpeed = 10;  // Higher value moves pixel faster.
 uint8_t fadeRate = 80;  // Use lower value to give a fading tail.
 
 
@@ -48,7 +48,7 @@ void beat8_tail()
   EVERY_N_MILLISECONDS( 5 ) {
     fadeToBlackBy( leds, NUM_LEDS, fadeRate);  // Fade out pixels.
   }
-  uint16_t pos = beat8(moveSpeed) % NUM_LEDS;  // modulo the position to be within NUM_LEDS
+  uint16_t pos = beat16(moveSpeed) % NUM_LEDS;  // modulo the position to be within NUM_LEDS
   leds[pos] = CHSV( gHue, 200, 255);
   //Serial.print("pos: "); Serial.println(pos);
 }
