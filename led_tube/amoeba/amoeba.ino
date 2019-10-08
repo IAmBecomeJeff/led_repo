@@ -5,7 +5,6 @@
 #include "read_keyboard.h"
 #include "amoeboid.h"
 
-
 void setup() { 
 	Serial.begin(57600);
 	Serial.println("Beginning life cycle... ");
