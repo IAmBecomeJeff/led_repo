@@ -17,7 +17,7 @@ uint8_t max_bright = 255;
 
 struct CRGB leds[NUM_LEDS];
 
-struct FireworksEffec {
+struct FireworksEffect {
 
 	struct Particle {
 
@@ -101,7 +101,7 @@ struct FireworksEffec {
 				else {
 					age -= ParticlePreignitionTime;
 
-					if (age < ParticleHoldTime + ParticleIgnition){
+					if (age < ParticleHoldTime + ParticleIgnition) {
 						fade = 0;
 					}
 					else if (age > ParticleHoldTime + ParticleIgnition + ParticleFadeTime) {
@@ -114,11 +114,14 @@ struct FireworksEffec {
 				}
 				c = c.fadeToBlackBy(fade);
 			}
-			ParticleSize = (1 - fade) * 5;
-			leds[]// UPDATE with draw function
+			ParticleSize = 5 - 5 * fade / 255;
+			fill_solid(star._position, ParticleSize, c);
+			//leds[star._position] = c;
 		}
 
-
+		while (_Particles.Count > 0 && _Particles.Peek().Age > ParticleHoldTime + ParticleIgnition + ParticleFadeTime) {
+			_Particles.Dequeue();
+		}
 
 	}
 
