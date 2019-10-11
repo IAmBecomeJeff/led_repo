@@ -17,9 +17,9 @@ CRGB leds[NUM_LEDS];
 uint16_t pos, pos2, pos3;  //stores a position for color being blended in
 uint8_t hue = 115;
 uint8_t hue2;  //stores a color
-uint8_t bpm  = 2;
+uint8_t bpm  = 4;
 uint8_t bpm2 = 6;
-uint8_t bpm3 = 2;
+uint8_t bpm3 = 5;
 
 
 
@@ -44,7 +44,7 @@ void loop() {
   fill_rainbow(leds, NUM_LEDS, hue, 255/NUM_LEDS/4);  //draw part of the rainbow into the strip
   fadeToBlackBy(leds, NUM_LEDS, 70);  //fade the whole strip down some
 
-  EVERY_N_MILLISECONDS(15) {
+  EVERY_N_MILLISECONDS(10) {
     pos  = beatsin16(bpm , 0, NUM_LEDS-1);
     pos2 = beatsin16(bpm2, 0, NUM_LEDS-1);
     pos3 = beatsin16(bpm3, 0, NUM_LEDS-1,0,32768);
@@ -76,13 +76,13 @@ void loop() {
   leds[(pos+5)%NUM_LEDS] = nblend(leds[(pos+5)%NUM_LEDS], blendThisIn3, blendAmount/2);
   leds[(pos+6)%NUM_LEDS] = nblend(leds[(pos+6)%NUM_LEDS], blendThisIn4, blendAmount/3);
 
-//  leds[pos2]              = nblend(leds[pos2],              blendThisIn24, blendAmount/3);
-//  leds[(pos2+1)%NUM_LEDS] = nblend(leds[(pos2+1)%NUM_LEDS], blendThisIn23, blendAmount/2);
-//  leds[(pos2+2)%NUM_LEDS] = nblend(leds[(pos2+2)%NUM_LEDS], blendThisIn22, blendAmount);
-//  leds[(pos2+3)%NUM_LEDS] = nblend(leds[(pos2+3)%NUM_LEDS], blendThisIn21,  blendAmount);
-//  leds[(pos2+4)%NUM_LEDS] = nblend(leds[(pos2+4)%NUM_LEDS], blendThisIn22, blendAmount);
-//  leds[(pos2+5)%NUM_LEDS] = nblend(leds[(pos2+5)%NUM_LEDS], blendThisIn23, blendAmount/2);
-//  leds[(pos2+6)%NUM_LEDS] = nblend(leds[(pos2+6)%NUM_LEDS], blendThisIn24, blendAmount/3);
+  leds[pos2]              = nblend(leds[pos2],              blendThisIn24, blendAmount/3);
+  leds[(pos2+1)%NUM_LEDS] = nblend(leds[(pos2+1)%NUM_LEDS], blendThisIn23, blendAmount/2);
+  leds[(pos2+2)%NUM_LEDS] = nblend(leds[(pos2+2)%NUM_LEDS], blendThisIn22, blendAmount);
+  leds[(pos2+3)%NUM_LEDS] = nblend(leds[(pos2+3)%NUM_LEDS], blendThisIn21,  blendAmount);
+  leds[(pos2+4)%NUM_LEDS] = nblend(leds[(pos2+4)%NUM_LEDS], blendThisIn22, blendAmount);
+  leds[(pos2+5)%NUM_LEDS] = nblend(leds[(pos2+5)%NUM_LEDS], blendThisIn23, blendAmount/2);
+  leds[(pos2+6)%NUM_LEDS] = nblend(leds[(pos2+6)%NUM_LEDS], blendThisIn24, blendAmount/3);
 
   leds[pos3]              = nblend(leds[pos3],              blendThisIn4, blendAmount/3);
   leds[(pos3+1)%NUM_LEDS] = nblend(leds[(pos3+1)%NUM_LEDS], blendThisIn3, blendAmount/2);

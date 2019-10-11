@@ -2563,7 +2563,7 @@ const uint8_t g_gradient_palette_count =
 
 void random_palette() {
 	palette_number = random8(g_gradient_palette_count + 1);
-	target_palette = g_gradient_palettes[palette_numger];
+	target_palette = g_gradient_palettes[palette_number];
 }
 
 // Find index of current (target) palette

@@ -22,6 +22,7 @@ uint8_t palette_index_beat = 10;
 uint8_t palette_index_forward_beat = 1;
 uint8_t palette_index_backward_beat = 3;
 
+uint8_t current_pattern_number = 0;
 // Toggles
 bool palette_switch = 1;
 bool use_palette = 1;
@@ -29,11 +30,7 @@ bool use_palette_beat = 0;
 bool show_active_pixels = 0;
 bool additive = 0;
 
-// pattern variables
-typedef void (*PatternList[])();
-PatternList Patterns = { amoeba, blend_into_rainbow, rippling, rainbow, sinelon, bpm, juggle, confetti };
-uint8_t current_pattern_number = 0;
-#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
+
 
 
 // Operational Variables
@@ -59,7 +56,7 @@ uint8_t backward_beat = 21;
 // blend_into_rainbow
 
 uint16_t pos, pos2, pos3;
-uint8_t hue = 115;
+//uint8_t hue = 115;
 uint8_t hue2;
 uint8_t bpm = 2;
 uint8_t bpm2 = 6;
@@ -69,7 +66,7 @@ uint8_t bpm3 = 2;
 #define MAX_RIPPLES 6
 //----------------- Ripple structure definition ----------------------------------------------------------------
 
-struct ripple {                                                                 // Reko Meriö's structures
+struct ripple {                                                                 // Reko Meriï¿½'s structures
 
 // Local definitions
 
@@ -126,6 +123,6 @@ struct ripple {                                                                 
 
 typedef struct ripple Ripple;
 
-Ripple ripples[maxRipples];
+Ripple ripples[MAX_RIPPLES];
 
 #endif

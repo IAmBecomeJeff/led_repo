@@ -25,7 +25,7 @@ void sinelon()
 	leds[position] += CHSV(hue, 255, 192);
 }
 
-void bpm()
+void bpm_fun()
 {
 	// colored stripes pulsing at a defined Beats-Per-Minute (BPM)
 	uint8_t BeatsPerMinute = 62;

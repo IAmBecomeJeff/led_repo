@@ -3,7 +3,7 @@
 
 void rippling() {
 
-	for (int i = 0; i < maxRipples; i += 2) {                                       
+	for (int i = 0; i < MAX_RIPPLES; i += 2) {                                       
 		if (random8() > 224 && !ripples[i].exist) {                                   
 			ripples[i].Init(192, 10);                                                   
 			ripples[i + 1] = ripples[i];                                                
@@ -11,9 +11,9 @@ void rippling() {
 		}
 	}
 
-	for (int i = 0; i < maxRipples; i++) {                                          
+	for (int i = 0; i < MAX_RIPPLES; i++) {                                          
 		if (ripples[i].exist) {
-			leds[ripples[i].pos] = ColorFromPalette(currentPalette, ripples[i].color, ripples[i].brightness, LINEARBLEND);
+			leds[ripples[i].pos] = ColorFromPalette(current_palette, ripples[i].color, ripples[i].brightness, LINEARBLEND);
 			ripples[i].Move();
 		}
 	}

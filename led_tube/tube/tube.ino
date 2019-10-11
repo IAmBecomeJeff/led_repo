@@ -1,14 +1,18 @@
 #include <FastLED.h>
 #include "variables.h"
 #include "gradient_palettes.h"
-#include "support_functions.h"
+
 #include "amoeboid.h"
 #include "blend_into_rainbow.h"
 #include "ripples.h"
+#include "basic_patterns.h"
 
+// pattern variables
+typedef void (*PatternList[])();
+PatternList Patterns = { amoeba, blend_into_rainbow, rippling, rainbow, sinelon, bpm_fun, juggle, confetti };
+#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
-
-
+#include "support_functions.h"
 
 
 void setup() {

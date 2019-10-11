@@ -4,7 +4,7 @@
 // Fade function
 void fadeall() { for (int i = 0; i < NUM_LEDS; i++) { leds[i].nscale8(fade_val); } }
 
-
+/*
 void SetupMySimilar4Palette() {                                                   // Create a palette with colours close to each other.
 
 	uint8_t thishue = random8();
@@ -21,7 +21,7 @@ void nextPattern()
 	// add one to the current pattern number, and wrap around at the end
 	current_pattern_number = (current_pattern_number + 1) % ARRAY_SIZE(Patterns);
 }
-
+*/
 void randomPattern()
 {
 	current_pattern_number = random8(ARRAY_SIZE(Patterns));

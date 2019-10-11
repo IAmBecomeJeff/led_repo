@@ -1,6 +1,6 @@
 #ifndef AMOEBOID_H
 #define AMOEBOID_H
-
+void fadeall();
 // Amoeba program
 void amoeba() {
 
