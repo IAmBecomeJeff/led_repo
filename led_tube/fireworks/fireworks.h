@@ -11,6 +11,11 @@
 #define MIN_NUMBER_OF_SPARKS 20       // The minimum number of sparks from a firework explosion
 #define SPARK_FADE_TIME 5000          // Amount of miliseconds to stay in FADE stage
 
+//#define STRIP_SPLIT 2   //Define how many "virtual strips" each of the outputs should be split into
+////NUM_LEDS_PER_STRIP must be dividable by this number
+//#define NUM_LEDS_PER_STRIP 300
+//#define NUM_STRIPS 8
+
 extern CRGBPalette16 spark_palette;
 
 void fireworks();
