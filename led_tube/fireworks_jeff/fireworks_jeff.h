@@ -4,12 +4,12 @@
 #include "FastLED.h"
 #define MAX_NUMBER_OF_SPARKS 60
 #define MIN_NUMBER_OF_SPARKS 20
-#define SPARK_FADE_TIME 5000
+#define SPARK_FADE_TIME 2000
 #define NUM_FIREWORKS 4
 // Fixed definitions cannot change on the fly.
 #define LED_DT 7                                                                // Serial data pin for all strands
 #define LED_CK 14                                                               // Serial clock pin for WS2801 or APA102
-#define COLOR_ORDER BGR                                                         // It's GRB for WS2812
+#define COLOR_ORDER GRB                                                         // It's GRB for WS2812
 #define LED_TYPE APA102                                                         // Alternatively WS2801, or WS2812
 #define NUM_LEDS 300                                                            // Maximum number of LED's defined (at compile time).
 
@@ -17,7 +17,7 @@ uint8_t max_bright = 255;                                                       
 
 struct CRGB leds[NUM_LEDS];                                                     // Initialize our LED array. We'll be using less in operation.
 extern CRGBPalette16 spark_palette;
-int this_delay = 20;
+int this_delay = 10;
 
 
 class Firework {
@@ -280,8 +280,8 @@ void Firework::initialize() {
   current_stage = WAITING;
   gravity = 0.99;
   get_random_palette = true;
-  next_launch_max_wait = 10000;
-  next_launch_min_wait = 5000;
+  next_launch_max_wait = 2000;
+  next_launch_min_wait = 1000;
   flare_hue = 10;
   flare_sat = 255;
   flare_val = 255;
@@ -295,7 +295,8 @@ void Firework::prepare_for_launch() {
   flare_position = 0.0;
   uint16_t random_add = random16(next_launch_min_wait, next_launch_max_wait);
   next_launch_time = millis() + random_add;
-  flare_velocity = float(random16(50, 100)) / 100;
+  flare_hue = random8();
+  flare_velocity = float(random16(75, 200)) / 100;
   launched = false;
 //  fill_solid(leds, NUM_LEDS, CRGB::Black);
 }
@@ -313,7 +314,7 @@ void Firework::launch() {
   }
   else {
     if (!launched) {
-      leds[(int)flare_position] = CHSV(flare_hue, flare_sat, flare_val);
+      leds[(int)flare_position] += CHSV(flare_hue, flare_sat, flare_val);
       launched = true;
     }
     else {
@@ -333,7 +334,7 @@ void Firework::explosion() {
     leds[x].fadeToBlackBy(128);
   }
   for (uint8_t x = 0; x < number_of_sparks; x++) {
-    uint16_t pixel = leds[(int)spark_position[x]];
+    uint16_t pixel = (int)spark_position[x];
     CRGB pixel_color = ColorFromPalette(*active_spark_palette, spark_gradient_index[x]);
     leds[pixel] += pixel_color;
     if (spark_velocity_direction[x]) {
@@ -343,7 +344,7 @@ void Firework::explosion() {
       spark_position[x] -= spark_velocity[x];
     }
     spark_position[x] = constrain(spark_position[x], 0.0, (float)(NUM_LEDS));
-    spark_velocity[x] *= 0.98;
+    spark_velocity[x] *= 0.97;
   }
   float fastest_spark = 0.0;
   for (uint8_t x = 0; x < number_of_sparks; x++) {
@@ -351,7 +352,7 @@ void Firework::explosion() {
       fastest_spark = spark_velocity[x];
     }
   }
-  if (fastest_spark < 0.5) {
+  if (fastest_spark < 0.1) {
     current_stage = FADING;
     spark_fade_end = millis() + SPARK_FADE_TIME;
   }
@@ -359,7 +360,7 @@ void Firework::explosion() {
 
 void Firework::fading() {
   for (uint16_t x = 0; x < NUM_LEDS; x++) {
-    leds[x].fadeToBlackBy(8);
+    leds[x].fadeToBlackBy(32);
   }
   if (millis() > spark_fade_end) {
     current_stage = WAITING;
