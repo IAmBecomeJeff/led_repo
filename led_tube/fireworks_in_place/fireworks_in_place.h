@@ -88,7 +88,7 @@ void Firework::prepare_for_explosion() {
 		next_explosion_time = millis() + random_add;
 		flare_hue = random8();
 		exploded = false;
-		use_palette = false;
+		use_palette = true;
 		Serial.print("Firework being created at location ");
 		Serial.print(flare_position);
 		Serial.print(" at time: ");
@@ -154,8 +154,8 @@ void Firework::explosion() {
 }
 
 void Firework::fading() {
-	for (uint8_t x = 0; x < number_of_sparks; x++) {
-		leds[(int)spark_position[x]].fadeToBlackBy(32);
+	for (uint16_t x = 0; x < NUM_LEDS; x++) {
+		leds[x].fadeToBlackBy(32);
 	}
 	for (uint8_t x = 0; x < number_of_sparks; x++) {
 		uint16_t pixel = (int)spark_position[x];

@@ -11,6 +11,7 @@ void setup() {
 	LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER >(leds, NUM_LEDS);           // APA102 or WS2801 definition
 	set_max_power_in_volts_and_milliamps(5, 2000);                                  // 5V, 2A
 	fireworks_init();
+	fill_solid(leds, NUM_LEDS, CRGB::Black);
 } // setup()
 
 void loop() {
