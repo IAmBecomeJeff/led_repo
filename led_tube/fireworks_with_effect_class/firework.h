@@ -32,17 +32,17 @@ class FireworkEffect: public LedEffect {
         uint8_t firework_hue;
         uint16_t firework_bri;
         stage current_stage;
-        uint16_t max_wait = 8000;
-        uint16_t min_wait = 2000;
+        uint16_t max_wait = 2000;
+        uint16_t min_wait = 500;
         uint32_t next_explosion_time;
         bool exploded;
-        float gravity = 0.99;
+        float gravity = 0.97;
         uint8_t number_of_sparks;
         float spark_position[MAX_NUMBER_OF_SPARKS];
         float spark_velocity[MAX_NUMBER_OF_SPARKS];
         bool spark_direction[MAX_NUMBER_OF_SPARKS];
         float spark_fade[MAX_NUMBER_OF_SPARKS];
-        uint8_t bg_fade = 28;
+        uint8_t bg_fade = 72;
         float spark_bri[MAX_NUMBER_OF_SPARKS];
         uint8_t brightest_spark;
 
@@ -60,7 +60,7 @@ class FireworkEffect: public LedEffect {
                 firework_hue = startHue;
                 }
             current_stage = WAITING;
-            next_explosion_time = 0;
+            next_explosion_time = random16(0,3000);
         }
 
         void prepare_for_explosion();
@@ -91,7 +91,7 @@ void FireworkEffect::fadeup(){
             spark_position[i] = (float)firework_position;
             spark_velocity[i] = (float)(random16(10,125)) / 100;
             spark_direction[i] = random8(0,2);
-            spark_fade[i] = random8(3,15);
+            spark_fade[i] = random8(5,15);
             spark_bri[i] = 255;
         }
         led_data[firework_position] = CRGB::White;
@@ -130,7 +130,8 @@ void FireworkEffect::explosion(){
         // Determine brighest spark to see when they are all at 0 brightness.
         if((uint8_t)spark_bri[x] > brightest_spark){brightest_spark = (uint8_t)spark_bri[x];}
     }
-    if (brightest_spark == 0){
+    if (brightest_spark == 00){
+        fill_solid(led_data,NUM_LEDS,CRGB::Black);
         current_stage = WAITING;
         next_explosion_time = millis() + random16(min_wait + max_wait);
     }

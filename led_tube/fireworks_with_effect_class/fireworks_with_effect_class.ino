@@ -21,8 +21,15 @@ CRGBSet ledData(leds(0,NUM_LEDS));
 FireworkEffect firework1(0,0);
 FireworkEffect firework2(0,0);
 FireworkEffect firework3(0,0);
+FireworkEffect firework4(40,0);
+FireworkEffect firework5(100,0);
+FireworkEffect firework6(200,0);
+FireworkEffect firework7(150,0);
+FireworkEffect firework8(0,0);
+FireworkEffect firework9(0,0);
+FireworkEffect firework10(0,0);
 
-LedEffect *effects[] = { &firework1, &firework2, &firework3 };
+LedEffect *effects[] = { &firework1, &firework2, &firework3, &firework4, &firework5, &firework6, &firework7, &firework8, &firework9, &firework10 };
 
 const uint8_t num_effects = sizeof( effects ) / sizeof(effects[0]);
 uint8_t frame_number = 0;
@@ -56,9 +63,15 @@ void setup() {
   }
 
   effects[0]->enable();
-  //effects[1]->enable();
-  //effects[2]->enable();
-  //effects[3]->enable();
+  effects[1]->enable();
+  effects[2]->enable();
+  effects[3]->enable();
+  effects[4]->enable();
+  effects[5]->enable();
+  effects[6]->enable();
+  effects[7]->enable();
+  effects[8]->enable();
+  effects[9]->enable();
 }
 
 

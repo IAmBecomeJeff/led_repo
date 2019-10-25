@@ -10,7 +10,7 @@ class LedEffect{
         CRGBArray<NUM_LEDS> led_data;
         virtual void render() = 0;
         unsigned long last_update;
-        unsigned long interval = 20;
+        unsigned long interval = 10;
 
         void enable(){ enabled = true; }
         void disable(){ enabled = false; }
