@@ -16,9 +16,8 @@
 //  4 - WAITING
 //      - Wait some random amount of time before next firework
 
-#define MAX_NUMBER_OF_SPARKS 40
+#define MAX_NUMBER_OF_SPARKS 60
 #define MIN_NUMBER_OF_SPARKS 20
-#define SPARK_FADE_TIME 5000
 
 class FireworkEffect: public LedEffect {
     private:
@@ -42,7 +41,7 @@ class FireworkEffect: public LedEffect {
         float spark_velocity[MAX_NUMBER_OF_SPARKS];
         bool spark_direction[MAX_NUMBER_OF_SPARKS];
         float spark_fade[MAX_NUMBER_OF_SPARKS];
-        uint8_t bg_fade = 72;
+        uint8_t bg_fade = 128;
         float spark_bri[MAX_NUMBER_OF_SPARKS];
         uint8_t brightest_spark;
 
@@ -130,7 +129,7 @@ void FireworkEffect::explosion(){
         // Determine brighest spark to see when they are all at 0 brightness.
         if((uint8_t)spark_bri[x] > brightest_spark){brightest_spark = (uint8_t)spark_bri[x];}
     }
-    if (brightest_spark == 00){
+    if (brightest_spark <= 00){
         fill_solid(led_data,NUM_LEDS,CRGB::Black);
         current_stage = WAITING;
         next_explosion_time = millis() + random16(min_wait + max_wait);

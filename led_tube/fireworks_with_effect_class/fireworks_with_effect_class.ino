@@ -28,8 +28,13 @@ FireworkEffect firework7(150,0);
 FireworkEffect firework8(0,0);
 FireworkEffect firework9(0,0);
 FireworkEffect firework10(0,0);
+FireworkEffect firework11(0,0);
+FireworkEffect firework12(0,0);
+FireworkEffect firework13(0,0);
+FireworkEffect firework14(0,0);
+FireworkEffect firework15(0,0);
 
-LedEffect *effects[] = { &firework1, &firework2, &firework3, &firework4, &firework5, &firework6, &firework7, &firework8, &firework9, &firework10 };
+LedEffect *effects[] = { &firework1, &firework2, &firework3, &firework4, &firework5, &firework6, &firework7, &firework8, &firework9, &firework10, &firework11, &firework12, &firework13, &firework14, &firework15 };
 
 const uint8_t num_effects = sizeof( effects ) / sizeof(effects[0]);
 uint8_t frame_number = 0;
@@ -72,6 +77,11 @@ void setup() {
   effects[7]->enable();
   effects[8]->enable();
   effects[9]->enable();
+  effects[10]->enable();
+  effects[11]->enable();
+  effects[12]->enable();
+  effects[13]->enable();
+  effects[14]->enable();
 }
 
 
