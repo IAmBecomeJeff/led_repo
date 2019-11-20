@@ -3,7 +3,7 @@
 
 #include <FastLED.h>
 #include "vars.h"
-#include "ledeffect.cpp"
+#include "ledeffect.h"
 // Fireworks
 
 // Stages
@@ -81,7 +81,7 @@ void FireworkEffect::prepare_for_explosion(){
     firework_hue = random8();
     firework_bri = 0;
     exploded = false;
-    fill_solid(led_data, NUM_LEDS, CRGB::Black);
+    fill_solid(leddata, NUM_LEDS, CRGB::Black);
 }
 
 void FireworkEffect::fadeup(){
@@ -96,27 +96,27 @@ void FireworkEffect::fadeup(){
             spark_fade[i] = random8(5,15);
             spark_bri[i] = 255;
         }
-        led_data[firework_position] = CRGB::White;
+        leddata[firework_position] = CRGB::White;
     }
     else{
         firework_bri += 5;
-        led_data[firework_position] = CHSV(firework_hue, 255, firework_bri);
+        leddata[firework_position] = CHSV(firework_hue, 255, firework_bri);
         Serial.print("firework_bri: "); Serial.println(firework_bri);
         if(firework_bri >= 255){
             exploded = true;
         }
     }
-}
+};
 
 void FireworkEffect::explosion(){
   Serial.println("EXPLOSION!");
     // Fade all LEDs, we will light up the sparks to their own value.
-    led_data.fadeToBlackBy(bg_fade);
+    leddata.fadeToBlackBy(bg_fade);
     brightest_spark = 0;
     for (uint8_t x = 0; x < number_of_sparks; x++){
 
         // Update LED data with spark position
-        led_data[(int)spark_position[x]] += CHSV(firework_hue,255,(uint8_t)spark_bri[x]);
+        leddata[(int)spark_position[x]] += CHSV(firework_hue,255,(uint8_t)spark_bri[x]);
 
         // Change position of each spark
         if(spark_direction[x]){ spark_position[x] += spark_velocity[x];}
@@ -133,11 +133,11 @@ void FireworkEffect::explosion(){
         if((uint8_t)spark_bri[x] > brightest_spark){brightest_spark = (uint8_t)spark_bri[x];}
     }
     if (brightest_spark <= 0){
-        fill_solid(led_data,NUM_LEDS,CRGB::Black);
+        fill_solid(leddata,NUM_LEDS,CRGB::Black);
         current_stage = WAITING;
         next_explosion_time = millis() + random16(min_wait + max_wait);
     }
-}
+};
 
 void FireworkEffect::render(){
     counter++;
@@ -158,7 +158,7 @@ void FireworkEffect::render(){
     else {
         Serial.println("How did you get here?");
     }
-}
+};
 
 
 #endif

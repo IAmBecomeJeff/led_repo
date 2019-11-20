@@ -3,12 +3,14 @@
 
 #include <FastLED.h>
 #include "vars.h"
-#include "ledeffect.cpp"
+#include "ledeffect.h"
 
 // We subclass from the LedEffect abstract class
 class FireEffect: public LedEffect {
     private:
         byte heat[NUM_LEDS];
+        uint8_t sparking;
+        uint8_t cooling;
 
     public:
         // Default constructor
@@ -45,16 +47,18 @@ class FireEffect: public LedEffect {
                 leddata[k] = CRGB(hcolor.r, hcolor.g, hcolor.b);
             }
         }
-}
+};
 
 
 class FireMirrorEffect : public LedEffect {
 private:
 	byte heat[NUM_LEDS/2];
+  uint8_t sparking;
+  uint8_t cooling;
 
 public:
 	// Default constructor
-	FireEffect(uint8_t providedSparking = 80, uint8_t providedCooling = 90, uint8_t providedSpeedDivisor = 4) {
+	FireMirrorEffect(uint8_t providedSparking = 80, uint8_t providedCooling = 90, uint8_t providedSpeedDivisor = 4) {
 		sparking = providedSparking;
 		cooling = providedCooling;
 		counter = 0;
@@ -82,6 +86,6 @@ public:
 			leddata[(NUM_LEDS / 2) - 1 - k] = CRGB(hcolor.r, hcolor.g, hcolor.b);
 		}
 	}
-}
+};
 
 #endif

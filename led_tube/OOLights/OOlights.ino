@@ -11,14 +11,14 @@
 // Our led effect classes
 #include "ledeffect.h"
 
-#include "bpm.h"
+//#include "bpm.h"
 #include "cylon.h"
 #include "fire.h"
 #include "firework.h"
 #include "halloween.h"
-#include "ripple.h"
-#include "strobe.h"
-#include "trails.h"
+//#include "ripple.h"
+//#include "strobe.h"
+//#include "trails.h"
 
 // Create the master led array
 // Declarations such as NUM_LEDS... are in variables.h
@@ -27,12 +27,13 @@ CRGBSet ledData(leds(0, NUM_LEDS));
 
 // Create effects here:
 CylonEffect		effect0(160,4);
-FireworkEffect	effect1(0, 0);
+//FireworkEffect	effect1(0, 0);
 FireEffect		effect2(80, 90);
 HalloweenEffect effect3(4);
+FireMirrorEffect effect4(80,66);
 
 // Array to hold effects
-LedEffect* effects[] = { &effect0, &effect1, &effect2, &effect3 };
+LedEffect* effects[] = { &effect0, &effect2, &effect3 };
 
 const uint8_t num_effects = sizeof(effects) / sizeof(effects[0]);
 
@@ -44,7 +45,7 @@ void setup() {
   delay(1000);
 
   // Setup LEDs
-  FastLED.addLeds<APA102, LED_PIN, CLOCK_PIN, BGR>(leds, NUM_LEDS);
+  FastLED.addLeds<APA102, LED_PIN, CLOCK_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(MAX_BRIGHT);
   FastLED.setCorrection(TypicalLEDStrip);
 
@@ -60,8 +61,8 @@ void setup() {
 
 
   // Enable whatever effects we want
-  effect1.enable();
-  effect2.enable();
+  effect0.enable();
+  //effect2.enable();
 
   Serial.println("<END SETUP>");
   Serial.println(" ");
@@ -69,8 +70,11 @@ void setup() {
 
 void renderActiveEffects() {
   // Iterate over every effect
+  Serial.println("In renderActiveEffects");
   for(int i=0; i<num_effects; i++) {
     // Skip inactive / disabled effects
+    Serial.print("effect: ");
+    Serial.println(i);
     if (!(effects[i] -> enabled)) {
       continue;
     }
@@ -83,6 +87,7 @@ void renderActiveEffects() {
       ledData[j] += (effects[i] -> leddata)[j];
     }
   }
+  Serial.println("finished with renderActiveEffects");
 }
 
 // Handle input - just a single character.
@@ -113,7 +118,7 @@ void handleInput(char input) {
 void displayEffectData() {
   Serial.println("--- Current Effects ---");
 
-  for(uint8_t i=0; i<effects.Size(); i++){
+  for(uint8_t i=0; i<num_effects; i++){
     Serial.print("--> Effect ");
     Serial.print(i);
     Serial.print(": ");
@@ -134,7 +139,8 @@ void displayEffectData() {
 // 10ms = 200fps
 void loop() {
   EVERY_N_MILLIS(10) {
-    FastLED.clear();
+    //FastLED.clear();
+    Serial.println("in loop");
     renderActiveEffects();
     FastLED.show();
   }

@@ -3,7 +3,7 @@
 
 #include <FastLED.h>
 #include "vars.h"
-#include "ledeffect.cpp"
+#include "ledeffect.h"
 
 // We subclass from the LEDEffect abstract class.
 class HalloweenEffect: public LedEffect {
@@ -15,7 +15,7 @@ class HalloweenEffect: public LedEffect {
 
   public:
     // Default constructor - 4x slowdown
-	  HalloweenEffect(uint8_t providedSpeedDivisor = 4;) {
+	  HalloweenEffect(uint8_t providedSpeedDivisor = 4) {
       leddata(11, NUM_LEDS-1) = CRGB::DarkOrange;
       counter = 0;
       speedDivisor = providedSpeedDivisor;

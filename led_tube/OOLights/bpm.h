@@ -3,7 +3,7 @@
 
 #include <FastLED.h>
 #include "vars.h"
-#include "ledeffect.cpp"
+#include "ledeffect.h"
 
 // We subclass from the LEDEffect abstract class.
 class BPMEffect: public LedEffect {
