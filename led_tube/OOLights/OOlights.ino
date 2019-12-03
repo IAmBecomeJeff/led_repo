@@ -16,9 +16,11 @@
 #include "fire.h"
 #include "firework.h"
 #include "halloween.h"
+#include "cubiccylon.h"
 //#include "ripple.h"
 //#include "strobe.h"
 //#include "trails.h"
+#include "temp.h"
 
 // Create the master led array
 // Declarations such as NUM_LEDS... are in variables.h
@@ -26,14 +28,16 @@ CRGBArray<NUM_LEDS> leds;
 CRGBSet ledData(leds(0, NUM_LEDS));
 
 // Create effects here:
-CylonEffect		effect0(160,4);
-//FireworkEffect	effect1(0, 0);
-FireEffect		effect2(80, 90);
-HalloweenEffect effect3(4);
-FireMirrorEffect effect4(80,66);
+//CylonEffect			effect0(160,4);
+//FireworkEffect		effect1(0, 0);
+//FireEffect			effect2(80, 90);
+//HalloweenEffect		effect3(4);
+//FireMirrorEffect	effect4(80,66);
+//CubicCylonEffect	effect5(1, 13, false, true);
+CubicCylonAmoebaEffect effect(1, 13, false, true, 4, 8, 10, 2);
 
 // Array to hold effects
-LedEffect* effects[] = { &effect0, &effect2, &effect3 };
+LedEffect* effects[] = { &effect };// 0, & effect1, & effect2, & effect3, & effect4, & effect5 };
 
 const uint8_t num_effects = sizeof(effects) / sizeof(effects[0]);
 
@@ -61,7 +65,8 @@ void setup() {
 
 
   // Enable whatever effects we want
-  effect0.enable();
+  effect.enable();
+  //effect1.enable();
   //effect2.enable();
 
   Serial.println("<END SETUP>");
@@ -70,11 +75,8 @@ void setup() {
 
 void renderActiveEffects() {
   // Iterate over every effect
-  Serial.println("In renderActiveEffects");
   for(int i=0; i<num_effects; i++) {
     // Skip inactive / disabled effects
-    Serial.print("effect: ");
-    Serial.println(i);
     if (!(effects[i] -> enabled)) {
       continue;
     }
@@ -83,11 +85,10 @@ void renderActiveEffects() {
     effects[i] -> render();
 
     // Copy the led data over to the global array (additively)
-    for (uint8_t j=0; j<NUM_LEDS-1; j++) {
-      ledData[j] += (effects[i] -> leddata)[j];
+    for (uint16_t j=0; j<NUM_LEDS; j++) {
+      ledData[j] += effects[i]->leddata[j];
     }
   }
-  Serial.println("finished with renderActiveEffects");
 }
 
 // Handle input - just a single character.
@@ -140,7 +141,6 @@ void displayEffectData() {
 void loop() {
   EVERY_N_MILLIS(10) {
     //FastLED.clear();
-    Serial.println("in loop");
     renderActiveEffects();
     FastLED.show();
   }

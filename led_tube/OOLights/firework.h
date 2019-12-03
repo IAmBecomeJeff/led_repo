@@ -74,7 +74,7 @@ class FireworkEffect: public LedEffect {
 
 
 void FireworkEffect::prepare_for_explosion(){
-    Serial.println("Prepare for Explosion");
+    //Serial.println("Prepare for Explosion");
     random16_add_entropy(analogRead(2));
     firework_position = random16(10,NUM_LEDS-10);
     current_stage = FADEUP;
@@ -85,7 +85,7 @@ void FireworkEffect::prepare_for_explosion(){
 }
 
 void FireworkEffect::fadeup(){
-  Serial.println("Stage: FADEUP");
+  //Serial.println("Stage: FADEUP");
     if(exploded){
         current_stage = EXPLOSION;
         number_of_sparks = random8(MIN_NUMBER_OF_SPARKS,MAX_NUMBER_OF_SPARKS+1);
@@ -101,7 +101,7 @@ void FireworkEffect::fadeup(){
     else{
         firework_bri += 5;
         leddata[firework_position] = CHSV(firework_hue, 255, firework_bri);
-        Serial.print("firework_bri: "); Serial.println(firework_bri);
+        //Serial.print("firework_bri: "); Serial.println(firework_bri);
         if(firework_bri >= 255){
             exploded = true;
         }
@@ -109,7 +109,7 @@ void FireworkEffect::fadeup(){
 };
 
 void FireworkEffect::explosion(){
-  Serial.println("EXPLOSION!");
+  //Serial.println("EXPLOSION!");
     // Fade all LEDs, we will light up the sparks to their own value.
     leddata.fadeToBlackBy(bg_fade);
     brightest_spark = 0;
@@ -144,7 +144,7 @@ void FireworkEffect::render(){
     if (counter%speedDivisor != 0) {return;}
     
     if(current_stage == WAITING){
-      Serial.println("WAITING");
+      //Serial.println("WAITING");
         if(millis() >= next_explosion_time){
             prepare_for_explosion();
         }
