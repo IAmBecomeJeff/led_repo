@@ -7,7 +7,7 @@
 #define DEBUG_STARTCOLOR true
 #define MAX_BRIGHT 255
 // QUICK CHANGE VARIABLES
-this_delay = 10;
+uint8_t this_delay = 10;
 
 // Midi Notes
       // Kick         - 36
