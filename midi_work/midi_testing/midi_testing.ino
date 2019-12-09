@@ -38,8 +38,10 @@ void setup() {
 	FastLED.setBrightness(MAX_BRIGHT);
 	FastLED.setCorrection(TypicalLEDStrip);
 
+  fill_solid(leds, CRGB::Blue);  FastLED.delay(500);  fill_solid(leds, CRGB::Black);  FastLED.delay(500);
+
 	// MIDI Setup
-	MIDI.begin(1);
+	MIDI.begin(MIDI_CHANNEL_OMNI);
 	// MIDI.turnThruOff();  // Why??
 	
 	// Serial setup
@@ -53,6 +55,7 @@ void loop() {
 		leds.fadeToBlackBy(10);
 		FastLED.show();
 	}
+ 
 
 	int type, note, velocity, channel, d1, d2;
 	if (MIDI.read()) {
