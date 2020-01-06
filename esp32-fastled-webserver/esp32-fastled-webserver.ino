@@ -74,8 +74,8 @@ unsigned long paletteTimeout = 0;
 #define LED_TYPE    APA102
 #define COLOR_ORDER BGR
 #define NUM_STRIPS 1
-#define NUM_LEDS_PER_STRIP 30
-#define NUM_LEDS 30
+#define NUM_LEDS_PER_STRIP 150
+#define NUM_LEDS 150
 CRGB leds[NUM_LEDS];
 
 #define MILLI_AMPS         4000 // IMPORTANT: set the max milli-Amps of your power supply (4A = 4000mA)
