@@ -32,7 +32,7 @@ void colorwave() {
 	sHue16 += deltams * beatsin88(400, 5, 9);
 	brightnesstheta16 = sPseudotime;
 
-	if (use_all_shelves) {
+	if (!use_all_shelves) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			for (byte c = 0; c < 4; c++) {
 				hue16 += hueinc16;

@@ -9,7 +9,7 @@ void pride() {
 		use_palette = 0;
 		this_delay = 10;
 		use_all_shelves = random8(2);
-   Serial.println("pride");
+		Serial.println("pride");
 	}
 	static uint16_t sPseudotime = 0;
 	static uint16_t sLastMillis = 0;
@@ -30,7 +30,7 @@ void pride() {
 	sHue16 += deltams * beatsin88(400, 5, 9);
 	uint16_t brightnesstheta16 = sPseudotime;
 
-	if (use_all_shelves) {
+	if (!use_all_shelves) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			hue16 += hueinc16;
 			uint8_t hue8 = hue16 / 256;

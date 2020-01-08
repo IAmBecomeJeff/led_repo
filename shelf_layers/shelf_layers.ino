@@ -17,7 +17,7 @@
 
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = {  full_shelves_fading, rainbow_split, fire_mirror_pal, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
+SimpleModeList modes = {  brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
 
 uint8_t current_mode_number = 0;
 
@@ -72,6 +72,7 @@ void loop()
   // Change mode 
   EVERY_N_SECONDS(20) {
 	  mode_change = 1;
+      fill_solid(leds,NUM_LEDS,CRGB::Black);
 	  //current_mode_number = random8(ARRAY_SIZE(modes));
 	  current_mode_number = (current_mode_number + 1) % ARRAY_SIZE(modes);
   }
