@@ -19,6 +19,7 @@ void rainbow_march() {
 		this_diff = random8(1, 9);
 		this_delay = 10;
 		use_all_shelves = random8(2);
+   Serial.println("rainbow_march");
 	}
 	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
 	if (use_all_shelves) {
@@ -40,6 +41,7 @@ void rainbow_split(){
     this_diff = random8(1,9);
     this_delay = 15;
     use_all_shelves = random8(2);
+    Serial.println("rainbow_split");
   }
   if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
   if (use_all_shelves) {

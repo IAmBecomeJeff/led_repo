@@ -12,6 +12,7 @@ void sinelon()
 		sinelon_color_change = random8(2);
 		this_delay = 10;
 		use_all_shelves = random8(2);
+	  Serial.println("sinelon");
 	}
 	fadeToBlackBy(leds, NUM_LEDS, this_fade);
 	if (use_all_shelves) {
@@ -46,6 +47,7 @@ void sinelon_squiggle(){
 		this_delay = 10;
 		that_beat = random8(3, 10);
 		use_all_shelves = random8(2);
+   Serial.println("sinelon_squiggle");
 	}
 	// a colored dot sweeping back and forth, with fading trails
 	fadeToBlackBy(leds, NUM_LEDS, this_fade);

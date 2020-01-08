@@ -17,7 +17,7 @@
 
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = { full_shelves, full_shelves_fading, rainbow_split, fire_mirror_pal, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
+SimpleModeList modes = {  full_shelves_fading, rainbow_split, fire_mirror_pal, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
 
 uint8_t current_mode_number = 0;
 
@@ -25,6 +25,7 @@ uint8_t current_mode_number = 0;
 
 
 void setup() {
+  Serial.begin(57600);
   delay(2000); // 2 second delay for recovery
   
   // tell FastLED about the LED strip configuration

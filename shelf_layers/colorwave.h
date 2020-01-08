@@ -15,6 +15,7 @@ void colorwave() {
 		mode_change = 0;
 		this_delay = 10;
 		use_all_shelves = random8(2);
+   Serial.println("colorwave");
 	}
 	//uint8_t sat8 = beatsin88(87, 220, 250);
 	brightdepth = beatsin88(341, 96, 224);

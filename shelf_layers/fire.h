@@ -11,6 +11,7 @@ void fire() {
 		use_palette = 0;
 		this_delay = 15;
 		use_all_shelves = random8(2);
+   Serial.println("fire");
 	}
 	if (use_all_shelves) {
 		// Array of temperature readings at each simulation cell
@@ -70,6 +71,7 @@ void fire_pal() {
 		cooling = random8(50, 120);
 		use_palette = 1;
 		this_delay = 15;
+     Serial.println("fire_pal");
 	}
 	static byte heat[NUM_LEDS];
 
@@ -104,6 +106,7 @@ void fire_mirror() {
 		this_dir = random8(2);
 		this_delay = 15;
 		use_all_shelves = random8(2);
+    Serial.println("fire_mirror");
 	}
 	if (use_all_shelves) {
 		static byte heat[NUM_LEDS / 2];
@@ -171,6 +174,7 @@ void fire_mirror_pal() {
 		this_dir = random8(2);
 		this_delay = 15;
 		use_all_shelves = random8(2);
+     Serial.println("fire_mirror_pal");	
 	}
 	if (use_all_shelves) {
 		static byte heat[NUM_LEDS / 2];

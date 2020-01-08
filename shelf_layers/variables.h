@@ -31,22 +31,22 @@ CRGB leds[NUM_LEDS];
 #define STARTMODE 0
 
 // Shelf arrays
-uint8_t shelf1[63];
-uint8_t shelf2[65];
+uint8_t shelf1[64];
+uint8_t shelf2[64];
 uint8_t shelf3[30];
 uint8_t shelf4[30];
 
-//uint8_t shelf1_num_leds = 63;
-//uint8_t shelf2_num_leds = 65;
+//uint8_t shelf1_num_leds = 64;
+//uint8_t shelf2_num_leds = 64;
 //uint8_t shelf3_num_leds = 30;
 //uint8_t shelf4_num_leds = 30;
 
-uint8_t shelf[4][65];
-uint8_t shelf_num_leds[4] = { 63, 65, 30, 30 };
+uint8_t shelf[4][64];
+uint8_t shelf_num_leds[4] = { 65, 63, 30, 30 };
 
 void shelf_array_setup() {
-	for (uint8_t i = 0; i < 63; i++) { shelf1[i] = i;		shelf[0][i] = i; }
-	for (uint8_t i = 0; i < 65; i++) { shelf2[i] = 63 + i;  shelf[1][i] = 63 + i; }
+	for (uint8_t i = 0; i < 65; i++) { shelf1[i] = i;		shelf[0][i] = i; }
+	for (uint8_t i = 0; i < 63; i++) { shelf2[i] = 65 + i;  shelf[1][i] = 65 + i; }
 	for (uint8_t i = 0; i < 30; i++) { shelf3[i] = 128 + i; shelf[2][i] = 128 + i;
 									   shelf4[i] = 158 + i; shelf[3][i] = 158 + i; }
 }
@@ -173,7 +173,7 @@ long  tLast[NUM_BALLS];                     // The clock time of the last ground
 float COR[NUM_BALLS];                       // Coefficient of Restitution (bounce damping)
 uint8_t ball_hue = 0;
 
-/*
+
 LIB8STATIC uint16_t beatsin16_halfdown( accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
                                uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
@@ -195,7 +195,7 @@ LIB8STATIC uint16_t beatsin16_halfup( accum88 beats_per_minute, uint16_t lowest 
     uint16_t result = lowest + scaledbeat;
     return result;
 }
-*/
+
 
 // Fireworks Variables---------------
 
