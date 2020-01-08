@@ -7,10 +7,10 @@ void confetti()
 		mode_change = 0;
 		use_palette = 1;
 		this_fade = random8(10, 48);
-    this_delay = 20;
+		this_delay = 20;
 	}
 	// random colored speckles that blink in and fade smoothly
-	fadeToBlackBy(leds, NUM_LEDS, 10);
+	fadeToBlackBy(leds, NUM_LEDS, this_fade);
 	int pos = random16(NUM_LEDS);
 	this_index = random8();
 	leds[pos] += ColorFromPalette(current_palette, this_index);

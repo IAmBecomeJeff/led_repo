@@ -13,7 +13,7 @@ void colorwave() {
 	if (mode_change) {
 		use_palette = 1;
 		mode_change = 0;
-    this_delay = 10;
+		this_delay = 10;
 	}
 	//uint8_t sat8 = beatsin88(87, 220, 250);
 	brightdepth = beatsin88(341, 96, 224);

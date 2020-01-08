@@ -1,3 +1,9 @@
+// Forward declarations of an array of cpt-city gradient palettes, and 
+// a count of how many there are.  The actual color palette definitions
+// are at the bottom of this file.
+extern const TProgmemRGBGradientPalettePtr g_gradient_palettes[];
+extern const uint8_t g_gradient_palette_count;
+uint8_t palette_index = 0;
 
 DEFINE_GRADIENT_PALETTE(ib_jul01_gp) {
   0, 194, 1, 1,
@@ -2465,7 +2471,7 @@ DEFINE_GRADIENT_PALETTE(blade_runner_2049_gp) {
 //
 // This list of color palettes acts as a "playlist"; you can
 // add or delete, or re-arrange as you wish.
-const TProgmemRGBGradientPalettePtr gGradientPalettes[] = {
+const TProgmemRGBGradientPalettePtr g_gradient_palettes[] = {
   ib_jul01_gp,
   es_vintage_57_gp,
   es_vintage_01_gp,
@@ -2568,6 +2574,16 @@ const TProgmemRGBGradientPalettePtr gGradientPalettes[] = {
 
 
 // Count of how many cpt-city gradients are defined:
-const uint8_t gGradientPaletteCount = 
-  sizeof( gGradientPalettes) / sizeof( TProgmemRGBGradientPalettePtr );
-  // Count of how many cpt-city gradients are defined:
+
+const uint8_t g_gradient_palette_count =
+  sizeof( g_gradient_palettes) / sizeof( TProgmemRGBGradientPalettePtr );
+
+// Find index of current (target) palette
+void updatePaletteIndex(CRGBPalette16 pal){
+  for (int i = 0; i < g_gradient_palette_count; i++){
+    if (pal == g_gradient_palettes[i]){
+      palette_index = i;
+      break;
+    }
+  }
+}

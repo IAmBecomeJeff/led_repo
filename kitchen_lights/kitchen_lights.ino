@@ -3,7 +3,7 @@
 #include "variables.h"
 #include "gradient_palettes.h"
 
-#include "bouncing_balls.h"
+//#include "bouncing_balls.h"
 #include "colorwave.h"
 #include "confetti.h"
 //#include "cylon.h"

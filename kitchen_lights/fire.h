@@ -9,7 +9,7 @@ void fire() {
 		sparking = random8(50, 110);
 		cooling = random8(50, 120);
 		use_palette = 0;
-    this_delay = 15;
+		this_delay = 15;
 	}
 	// Array of temperature readings at each simulation cell
 	static byte heat[NUM_LEDS];
@@ -44,7 +44,7 @@ void fire_pal() {
 		sparking = random8(50, 110);
 		cooling = random8(50, 120);
 		use_palette = 1;
-    this_delay = 15;
+		this_delay = 15;
 	}
 	static byte heat[NUM_LEDS];
 
@@ -81,8 +81,8 @@ void fire_mirror() {
 		sparking = random8(50, 110);
 		cooling = random8(50, 120);
 		use_palette = 0;
-		this_dir = random8(1);
-    this_delay = 15;
+		this_dir = random8(2);
+		this_delay = 15;
 	}
 		static byte heat[NUM_LEDS / 2];
 		for (int i = 0; i < NUM_LEDS / 2; i++) {
@@ -118,8 +118,8 @@ void fire_mirror_pal() {
 		sparking = random8(50, 110);
 		cooling = random8(50, 120);
 		use_palette = 1;
-		this_dir = random8(1);
-    this_delay = 15;
+		this_dir = random8(2);
+		this_delay = 15;
 	}
 	static byte heat[NUM_LEDS / 2];
 	for (int i = 0; i < NUM_LEDS / 2; i++) {
