@@ -8,7 +8,7 @@ void pride() {
 		mode_change = 0;
 		use_palette = 0;
 		this_delay = 10;
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;// random8(2);
 		Serial.println("pride");
 	}
 	static uint16_t sPseudotime = 0;

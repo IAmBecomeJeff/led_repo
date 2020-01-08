@@ -152,8 +152,8 @@ void brighten_randomly() {
 			PixelBright[i] = 0;
 			PixelColorIndex[i] = random8();
 		}
-		chance_of_brighten = random8(2,20);
-		delta_bright = random8(1, 6);
+		chance_of_brighten = 1;// random8(2,20);
+		delta_bright = random8(1, 3);
 		full_count = 0;
 		hold_counter = 0;
 		hold_time = random16(10, 1000);
@@ -190,6 +190,7 @@ void brighten_randomly() {
 			mode_change = 1;
 		}
 	}
+	leds[0] = CRGB::Black;
 
 
 }

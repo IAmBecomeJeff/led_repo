@@ -8,7 +8,7 @@ void confetti()
 		use_palette = 1;
 		this_fade = random8(10, 48);
 		this_delay = 20;
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;//random8(2);
 		Serial.println("confetti");
 	}
 	// random colored speckles that blink in and fade smoothly

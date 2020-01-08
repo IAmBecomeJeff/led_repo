@@ -11,7 +11,7 @@ void sinelon(){
 		this_beat = random8(4, 18);
 		sinelon_color_change = random8(2);
 		this_delay = 10;
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;//random8(2);
 		Serial.println("sinelon");
 	}
 	fadeToBlackBy(leds, NUM_LEDS, this_fade);
@@ -46,7 +46,7 @@ void sinelon_squiggle(){
 		sinelon_color_change = random8(2);
 		this_delay = 10;
 		that_beat = random8(3, 10);
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;//random8(2);
 		Serial.println("sinelon_squiggle");
 	}
 	// a colored dot sweeping back and forth, with fading trails
@@ -84,7 +84,7 @@ void sinelon_timing() {
 		this_beat = random8(4, 18);
 		sinelon_color_change = random8(2);
 		this_delay = 10;
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;//random8(2);
 		Serial.println("sinelon");
 	}
 	fadeToBlackBy(leds, NUM_LEDS, this_fade);
@@ -121,7 +121,7 @@ void sinelon_squiggle_timing() {
 		sinelon_color_change = random8(2);
 		this_delay = 10;
 		that_beat = random8(3, 10);
-		use_all_shelves = random8(2);
+		use_all_shelves = 1;//random8(2);
 		Serial.println("sinelon_squiggle");
 	}
 	// a colored dot sweeping back and forth, with fading trails
@@ -161,16 +161,17 @@ bool bounce_dir;
 void sinelon_bouncing() {
 	if (mode_change) {
 		mode_change = 0;
-		this_delay = 1;
+		this_delay = 10;
 		use_palette = 1;
-		this_beat = random8(4, 10);
-		bounce_length = random8(10, bounce_max);
+		this_beat = 80;// random8(4, 10);
+		bounce_length = 16;// random8(10, bounce_max);
 		bounce_start = 0;
 		current_shelf = 0;
 		this_diff = random8(1, 9);
 		this_index = random8();
-		this_fade = random8(128, 220);
+		this_fade = 100;// random8(128, 220);
 		bounce_dir = 1;
+		Serial.println("sinelon_bouncing");
 	}
 
 	fill_rainbow(&(leds[shelf[current_shelf][0]]), shelf_num_leds[current_shelf], this_index++, this_diff);
@@ -184,14 +185,16 @@ void sinelon_bouncing() {
 		nblend(leds[shelf[current_shelf][bounce_start + i]], bounce_pos[i], 255);
 	}
 
-	if (bounce_dir && bounce_start + bounce_length < shelf_num_leds[current_shelf]) {
-		bounce_start++;
-	}
-	else if (!bounce_dir && bounce_start > 0) {
-		bounce_start--;
-	}
-	else {
-		bounce_dir = !bounce_dir;
+	EVERY_N_MILLIS(25) {
+		if (bounce_dir && bounce_start + bounce_length < shelf_num_leds[current_shelf]) {
+			bounce_start++;
+		}
+		else if (!bounce_dir && bounce_start > 0) {
+			bounce_start--;
+		}
+		else {
+			bounce_dir = !bounce_dir;
+		}
 	}
 	
 }

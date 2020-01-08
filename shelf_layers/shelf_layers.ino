@@ -17,7 +17,7 @@
 
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = {  brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
+SimpleModeList modes = {  sinelon_bouncing /*,brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split*/, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
 
 uint8_t current_mode_number = 0;
 
@@ -31,10 +31,10 @@ void setup() {
   // tell FastLED about the LED strip configuration
   FastLED.addLeds<LED_TYPE,DATA_PIN,CLK_PIN,COLOR_ORDER>(leds, NUM_LEDS)
     .setCorrection(TypicalLEDStrip) // cpt-city palettes have different color balance
-    .setDither(BRIGHTNESS < 255);
+    .setDither(180 < 255);
 
   // set master brightness control
-  FastLED.setBrightness(BRIGHTNESS);
+  FastLED.setBrightness(180);
 
   shelf_array_setup();
 
@@ -82,7 +82,7 @@ void loop()
 	  this_timer.setPeriod(this_delay);
 	  modes[current_mode_number]();
   }
-
+  leds[0] = CRGB::Black;
   // Show LEDs
   FastLED.show();
 }
