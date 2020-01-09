@@ -40,12 +40,11 @@ void juggle_pal() {
 			this_index += this_diff;
 		}
 	}else {
-		for (uint8_t s = 0; s < 4; s++) {
-			for (uint8_t i = 0; i < numdots; i++) {
-				leds[shelf[s][beatsin16(this_beat + i + numdots, 0, shelf_num_leds[s])]] += ColorFromPalette(current_palette, this_index, 255, current_blending);
-				this_index += this_diff;
-			}
+		for (uint8_t i = 0; i < numdots; i++) {
+			leds[shelf[0][beatsin16(this_beat + i + numdots, 0, shelf_num_leds[0])]] += ColorFromPalette(current_palette, this_index, 255, current_blending);
+			this_index += this_diff;
 		}
+		shelf_copy();
 	}
 
 } // juggle_pal()
@@ -84,17 +83,16 @@ void juggle_pal_onedir() {
 			this_index += this_diff;
 		}
 	}else {
-		for (uint8_t s = 0; s < 4; s++) {
-			for (int i = 0; i < numdots; i++) {
-				if (!this_dir) {
-					leds[shelf[s][beatsin16_halfdown(this_beat + 2 * i + numdots, 0, shelf_num_leds[s] - 1)]] += ColorFromPalette(current_palette, this_index, this_bright, current_blending);
-				}
-				else {
-					leds[shelf[s][beatsin16_halfup(this_beat + 2 * i + numdots, 0, shelf_num_leds[s] - 1)]] += ColorFromPalette(current_palette, this_index, this_bright, current_blending);
-				}
-				this_index += this_diff;
+		for (int i = 0; i < numdots; i++) {
+			if (!this_dir) {
+				leds[shelf[0][beatsin16_halfdown(this_beat + 2 * i + numdots, 0, shelf_num_leds[0] - 1)]] += ColorFromPalette(current_palette, this_index, this_bright, current_blending);
 			}
+			else {
+				leds[shelf[0][beatsin16_halfup(this_beat + 2 * i + numdots, 0, shelf_num_leds[0] - 1)]] += ColorFromPalette(current_palette, this_index, this_bright, current_blending);
+			}
+			this_index += this_diff;
 		}
+		shelf_copy();
 	}
 } // 
 

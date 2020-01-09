@@ -21,10 +21,9 @@ void confetti()
 	else {
 		uint8_t pos = random8();
 		this_index = random8();
-		for (uint8_t s = 0; s < 4; s++)	{
-			uint8_t scale_pos = scale8(pos, shelf_num_leds[s]);
-			leds[shelf[s][scale_pos]] += ColorFromPalette(current_palette, this_index);
-		}
+		uint8_t scale_pos = scale8(pos, shelf_num_leds[0]);
+		leds[shelf[0][scale_pos]] += ColorFromPalette(current_palette, this_index);
+		shelf_copy();
 	}
 }
 

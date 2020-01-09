@@ -9,6 +9,7 @@
 #include "rainbow_march.h"
 #include "sinelon.h"
 #include "full_shelves.h"
+#include "fireworks.h"
 
 
 #if FASTLED_VERSION < 3001000
@@ -17,7 +18,7 @@
 
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = {  sinelon_bouncing /*,brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split*/, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march, sinelon_squiggle };
+SimpleModeList modes = { fire_shelves, fire_mirror_shelves, sinelon_bouncing, brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split2, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march2, sinelon_squiggle };
 
 uint8_t current_mode_number = 0;
 

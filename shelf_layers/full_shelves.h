@@ -4,7 +4,7 @@
 
 
 
-void full_shelves() {
+void full_shelves_one_color() {
 	if (mode_change) {
 		mode_change = 0;
 		use_palette = 1;
@@ -14,13 +14,13 @@ void full_shelves() {
 		stay_on_shelf_time = random16(50, 500);
 		this_index = random8();
 		change_index = random8(2);
-    Serial.println("full_shelves");
+		Serial.println("full_shelves");
 	}
 
 	fill_solid(leds, NUM_LEDS, CRGB::Black);
 
-	for (uint8_t i = shelf[current_shelf][0]; i < shelf[current_shelf][0] + shelf_num_leds[current_shelf]; i++) {
-		leds[i] = ColorFromPalette(current_palette, this_index);
+	for (uint8_t i =0; i < shelf_num_leds[current_shelf]; i++) {
+		leds[shelf[current_shelf][i]] = ColorFromPalette(current_palette, this_index);
 	}
 
 	if (change_index) {

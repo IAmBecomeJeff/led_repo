@@ -62,4 +62,47 @@ void rainbow_split(){
 }
 
 
+
+void rainbow_march2() {
+	if (mode_change) {
+		mode_change = 0;
+		use_palette = 0;
+		this_dir = random8(2);
+		this_rot = random8(1, 5);
+		this_diff = random8(1, 9);
+		this_delay = 10;
+		use_all_shelves = 1;//random8(2);
+		Serial.println("rainbow_march");
+	}
+	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
+	if (!use_all_shelves) {
+		fill_rainbow(leds, NUM_LEDS, this_index, this_diff);
+	}
+	else {
+		fill_rainbow(leds, shelf_num_leds[0], this_index, this_diff);
+		shelf_copy();
+	}
+}
+
+
+
+void rainbow_split2() {
+	if (mode_change) {
+		mode_change = 0;
+		use_palette = 0;
+		this_dir = random8(2);
+		this_rot = random8(1, 5);
+		this_diff = random8(1, 9);
+		this_delay = 15;
+		use_all_shelves = 1;// random8(2);
+		Serial.println("rainbow_split");
+	}
+	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
+	if (!use_all_shelves) {
+		fill_rainbow(leds, NUM_LEDS / 2, this_index, this_diff); // 0 - 71
+		shelf_copy();
+	}
+
+}
+
 #endif

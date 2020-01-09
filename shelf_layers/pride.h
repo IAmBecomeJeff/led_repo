@@ -50,25 +50,24 @@ void pride() {
 		}
 	}
 	else {
-		for (uint8_t s = 0; s < 4; s++) {
-			for (uint16_t i = 0; i < shelf_num_leds[s]; i++) {
-				hue16 += hueinc16;
-				uint8_t hue8 = hue16 / 256;
+		for (uint16_t i = 0; i < shelf_num_leds[0]; i++) {
+			hue16 += hueinc16;
+			uint8_t hue8 = hue16 / 256;
 
-				brightnesstheta16 += brightnessthetainc16;
-				uint16_t b16 = sin16(brightnesstheta16) + 32768;
+			brightnesstheta16 += brightnessthetainc16;
+			uint16_t b16 = sin16(brightnesstheta16) + 32768;
 
-				uint16_t bri16 = (uint32_t)((uint32_t)b16 * (uint32_t)b16) / 65536;
-				uint8_t bri8 = (uint32_t)(((uint32_t)bri16) * brightdepth) / 65536;
-				bri8 += (255 - brightdepth);
+			uint16_t bri16 = (uint32_t)((uint32_t)b16 * (uint32_t)b16) / 65536;
+			uint8_t bri8 = (uint32_t)(((uint32_t)bri16) * brightdepth) / 65536;
+			bri8 += (255 - brightdepth);
 
-				CRGB newcolor = CHSV(hue8, sat8, bri8);
+			CRGB newcolor = CHSV(hue8, sat8, bri8);
 
-				uint16_t pixelnumber = i;
-				pixelnumber = (shelf_num_leds[s] - 1) - pixelnumber;
-				nblend(leds[shelf[s][pixelnumber]], newcolor, 64);
-			}
+			uint16_t pixelnumber = i;
+			pixelnumber = (shelf_num_leds[0] - 1) - pixelnumber;
+			nblend(leds[shelf[0][pixelnumber]], newcolor, 64);
 		}
+		shelf_copy();
 	}
 }
 #endif

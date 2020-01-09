@@ -50,6 +50,15 @@ void shelf_array_setup() {
 	for (uint8_t i = 0; i < 30; i++) {  shelf[2][i] = 128 + i;
 									    shelf[3][i] = 187 - i; }
 }
+void shelf_copy() {
+    for (uint8_t j = 0; j < shelf_num_leds[1]; j++) {
+        leds[shelf[1][j]] = leds[shelf[0][j + 1]];
+    }
+    for (uint8_t j = 0; j < shelf_num_leds[2]; j++) {
+        leds[shelf[2][j]] = leds[shelf[0][(int)(((float)shelf_num_leds[0] / shelf_num_leds[2]) * j)]];
+        leds[shelf[3][j]] = leds[shelf[0][(int)(((float)shelf_num_leds[0] / shelf_num_leds[2]) * j)]];
+    }
+}
 
 uint8_t current_shelf = 0;
 uint16_t stay_on_shelf;
@@ -178,7 +187,7 @@ long  tLast[NUM_BALLS];                     // The clock time of the last ground
 float COR[NUM_BALLS];                       // Coefficient of Restitution (bounce damping)
 uint8_t ball_hue = 0;
 
-
+/*
 LIB8STATIC uint16_t beatsin16_halfdown( accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
                                uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
@@ -200,7 +209,7 @@ LIB8STATIC uint16_t beatsin16_halfup( accum88 beats_per_minute, uint16_t lowest 
     uint16_t result = lowest + scaledbeat;
     return result;
 }
-
+*/
 
 // Fireworks Variables---------------
 

@@ -66,39 +66,38 @@ void colorwave() {
 		}
 	}
 	else {
-		for (uint8_t s = 0; s < 4; s++) {
-			for (uint16_t i = 0; i < shelf_num_leds[s]; i++) {
-				for (byte c = 0; c < 4; c++) {
-					hue16 += hueinc16;
-					hue8 = hue16 / 256;
-					h16_128 = hue16 >> 7;
-					if (h16_128 & 0x100) {
-						hue8 = 255 - (h16_128 >> 1);
-					}
-					else {
-						hue8 = h16_128 >> 1;
-					}
-
-					brightnesstheta16 += brightnessthetainc16;
-					b16 = sin16(brightnesstheta16) + 32768;
-
-					bri16 = (uint32_t)((uint32_t)b16 * (uint32_t)b16) / 65536;
-					bri8 = (uint32_t)(((uint32_t)bri16) * brightdepth) / 65536;
-					bri8 += (255 - brightdepth);
-
-					cwave_index = hue8;
-					//index = triwave8( index);
-					cwave_index = scale8(cwave_index, 240);
-
-					CRGB newcolor = ColorFromPalette(current_palette, cwave_index, bri8);
-
-					pixelnumber = i;
-					pixelnumber = (shelf_num_leds[s] - 1) - pixelnumber;
-
-					nblend(leds[shelf[s][pixelnumber]], newcolor, 128);
+		for (uint16_t i = 0; i < shelf_num_leds[0]; i++) {
+			for (byte c = 0; c < 4; c++) {
+				hue16 += hueinc16;
+				hue8 = hue16 / 256;
+				h16_128 = hue16 >> 7;
+				if (h16_128 & 0x100) {
+					hue8 = 255 - (h16_128 >> 1);
 				}
+				else {
+					hue8 = h16_128 >> 1;
+				}
+
+				brightnesstheta16 += brightnessthetainc16;
+				b16 = sin16(brightnesstheta16) + 32768;
+
+				bri16 = (uint32_t)((uint32_t)b16 * (uint32_t)b16) / 65536;
+				bri8 = (uint32_t)(((uint32_t)bri16) * brightdepth) / 65536;
+				bri8 += (255 - brightdepth);
+
+				cwave_index = hue8;
+				//index = triwave8( index);
+				cwave_index = scale8(cwave_index, 240);
+
+				CRGB newcolor = ColorFromPalette(current_palette, cwave_index, bri8);
+
+				pixelnumber = i;
+				pixelnumber = (shelf_num_leds[0] - 1) - pixelnumber;
+
+				nblend(leds[shelf[0][pixelnumber]], newcolor, 128);
 			}
 		}
+		shelf_copy();
 	}
 }
 
