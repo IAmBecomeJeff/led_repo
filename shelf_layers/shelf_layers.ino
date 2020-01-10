@@ -18,7 +18,7 @@
 
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = { fire_shelves, fire_mirror_shelves, sinelon_bouncing, brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split2, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march2, sinelon_squiggle };
+SimpleModeList modes = { fireworks, fire_shelves, fire_mirror_shelves, sinelon_bouncing, brighten_randomly, all_shelves, full_shelves_palette, full_shelves_fading, rainbow_split2, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march2, sinelon_squiggle };
 
 uint8_t current_mode_number = 0;
 
@@ -54,8 +54,7 @@ void setup() {
 
 
 
-void loop()
-{
+void loop(){
   // Blend Palettes
   EVERY_N_MILLISECONDS(50) {
     nblendPaletteTowardPalette( current_palette, target_palette, 24);
@@ -71,11 +70,11 @@ void loop()
   }
 
   // Change mode 
-  EVERY_N_SECONDS(20) {
+  EVERY_N_SECONDS(120) {
 	  mode_change = 1;
       fill_solid(leds,NUM_LEDS,CRGB::Black);
-	  //current_mode_number = random8(ARRAY_SIZE(modes));
-	  current_mode_number = (current_mode_number + 1) % ARRAY_SIZE(modes);
+	  current_mode_number = random8(ARRAY_SIZE(modes));
+	  //current_mode_number = (current_mode_number + 1) % ARRAY_SIZE(modes);
   }
 
   // Send values to LEDs

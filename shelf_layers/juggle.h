@@ -26,7 +26,7 @@ void juggle_pal() {
 		this_beat = random8(4, 20);
 		this_diff = random8(0, 255/numdots);
 		this_delay = 10;
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("juggle_pal");
 	}
 	if (reset_juggle_index) {
@@ -62,7 +62,7 @@ void juggle_pal_onedir() {
 		this_diff = random8(0, 255 / numdots);
 		this_dir = random8(2);
 		this_delay =10; 
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("juggle_pal_ondeir");
 	}
 

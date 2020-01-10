@@ -10,7 +10,7 @@ uint8_t firework_hue;
 uint8_t firework_bri;
 stage current_stage;
 uint16_t max_wait = 2000;
-uint16_ min_wait = 500;
+uint16_t min_wait = 500;
 uint32_t next_explosion_time;
 bool exploded;
 float gravity = 0.97;
@@ -56,10 +56,10 @@ void fadeup() {
 }
 
 void explosion() {
-	leds.fadeToBlackBy(firework_bg_fade);
+	fadeToBlackBy(leds, NUM_LEDS, firework_bg_fade);
 	brightest_spark = 0;
 	for (uint8_t x = 0; x < number_of_sparks; x++) {
-		leds[shelf[0][(int)spark_position[x]] += CHSV(firework_hue, 255, (uint8_t)spark_bri[x]);
+		leds[shelf[0][(int)spark_pos[x]]] += CHSV(firework_hue, 255, (uint8_t)spark_bri[x]);
 		if (spark_dir[x]) { spark_pos[x] += spark_vel[x]; }
 		else              { spark_pos[x] -= spark_vel[x]; }
 		spark_pos[x] = constrain(spark_pos[x], 0.0, (float)(shelf_num_leds[0] - 1));
@@ -89,7 +89,7 @@ void render_firework() {
 	}
 }
 
-void firework() {
+void fireworks() {
 	if (mode_change) {
 		mode_change = 0;
 		use_palette = 0;

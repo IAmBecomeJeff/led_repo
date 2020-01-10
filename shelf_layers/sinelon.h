@@ -11,7 +11,7 @@ void sinelon(){
 		this_beat = random8(4, 18);
 		sinelon_color_change = random8(2);
 		this_delay = 10;
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("sinelon");
 	}
 	fadeToBlackBy(leds, NUM_LEDS, this_fade);
@@ -45,7 +45,7 @@ void sinelon_squiggle(){
 		sinelon_color_change = random8(2);
 		this_delay = 10;
 		that_beat = random8(3, 10);
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("sinelon_squiggle");
 	}
 	// a colored dot sweeping back and forth, with fading trails
@@ -80,7 +80,7 @@ CRGB bounce_pos[bounce_max];
 uint8_t bounce_length;
 uint8_t bounce_start;
 bool bounce_dir;
-uint8_t bounce_start_pos;
+//uint8_t bounce_start_pos;
 uint8_t bounce_start_beat;
 
 void sinelon_bouncing() {
@@ -98,7 +98,7 @@ void sinelon_bouncing() {
 		bounce_dir = 1;
 		bounce_start_beat = random8(6, 16);
 		Serial.println("sinelon_bouncing");
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 	}
 
 	fill_rainbow(&(leds[shelf[current_shelf][0]]), shelf_num_leds[current_shelf], this_index++, this_diff);
@@ -113,7 +113,7 @@ void sinelon_bouncing() {
 	}
 
 	EVERY_N_MILLIS(25) {
-		bounce_start_pos = beatsin16(bounce_start_beat, 0, shelf_num_leds[0] - bounce_length - 1);
+		bounce_start = beatsin16(bounce_start_beat, 0, shelf_num_leds[0] - bounce_length - 1);
 	}
 
 	if (use_all_shelves) {

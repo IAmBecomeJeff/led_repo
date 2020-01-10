@@ -18,7 +18,7 @@ void rainbow_march() {
 		this_rot = random8(1, 5);
 		this_diff = random8(1, 9);
 		this_delay = 10;
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("rainbow_march");
 	}
 	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
@@ -71,7 +71,7 @@ void rainbow_march2() {
 		this_rot = random8(1, 5);
 		this_diff = random8(1, 9);
 		this_delay = 10;
-		use_all_shelves = 1;//random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("rainbow_march");
 	}
 	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
@@ -94,7 +94,7 @@ void rainbow_split2() {
 		this_rot = random8(1, 5);
 		this_diff = random8(1, 9);
 		this_delay = 15;
-		use_all_shelves = 1;// random8(2);
+		use_all_shelves = random8(2);
 		Serial.println("rainbow_split");
 	}
 	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;

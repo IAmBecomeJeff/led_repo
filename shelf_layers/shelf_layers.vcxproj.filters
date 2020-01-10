@@ -21,9 +21,6 @@
     <ClInclude Include="__vm\.shelf_layers.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bouncing_balls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="colorwave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +49,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="variables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireworks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
