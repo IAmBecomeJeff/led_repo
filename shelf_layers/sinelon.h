@@ -2,6 +2,7 @@
 #define SINELON_H
 
 bool sinelon_color_change = 0;
+uint8_t prev_pos = 0;
 
 void sinelon(){
 	if (mode_change) {
@@ -18,20 +19,70 @@ void sinelon(){
 	if (!use_all_shelves) {
 		int pos = beatsin16(this_beat, 0, NUM_LEDS - 1);
 		if (sinelon_color_change) {
-			leds[pos] += ColorFromPalette(current_palette, this_index++);
+			if (pos > prev_pos) {
+				for (uint8_t j = prev_pos; j < pos + 1; j++) {
+					leds[j] += ColorFromPalette(current_palette, this_index++);
+				}
+			}
+			else if (prev_pos > pos) {
+				for (uint8_t j = pos; j < prev_pos + 1; j++) {
+					leds[j] = ColorFromPalette(current_palette, this_index++);
+				}
+			}
+			else {
+				leds[pos] += ColorFromPalette(current_palette, this_index++);
+			}
 		}
 		else {
-			leds[pos] += ColorFromPalette(current_palette, this_index);
+			if (pos > prev_pos) {
+				for (uint8_t j = prev_pos; j < pos + 1; j++) {
+					leds[j] += ColorFromPalette(current_palette, this_index);
+				}
+			}
+			else if (prev_pos > pos) {
+				for (uint8_t j = pos; j < prev_pos + 1; j++) {
+					leds[j] = ColorFromPalette(current_palette, this_index);
+				}
+			}
+			else {
+				leds[pos] += ColorFromPalette(current_palette, this_index);
+			}
 		}
+		prev_pos = pos;
 	}
 	else {
 		int pos = beatsin16(this_beat, 0, shelf_num_leds[0] - 1);
 		if (sinelon_color_change) {
-			leds[shelf[0][pos]] += ColorFromPalette(current_palette, this_index++);
+			if (pos > prev_pos) {
+				for (uint8_t j = prev_pos; j < pos + 1; j++) {
+					leds[shelf[0][j]] += ColorFromPalette(current_palette, this_index++);
+				}
+			}
+			else if (prev_pos > pos) {
+				for (uint8_t j = pos; j < prev_pos + 1; j++) {
+					leds[shelf[0][j]] += ColorFromPalette(current_palette, this_index++);
+				}
+			}
+			else {
+				leds[shelf[0][pos]] += ColorFromPalette(current_palette, this_index++);
+			}
 		}
 		else {
-			leds[shelf[0][pos]] += ColorFromPalette(current_palette, this_index);
+			if (pos > prev_pos) {
+				for (uint8_t j = prev_pos; j < pos + 1; j++) {
+					leds[shelf[0][j]] += ColorFromPalette(current_palette, this_index);
+				}
+			}
+			else if (prev_pos > pos) {
+				for (uint8_t j = pos; j < prev_pos + 1; j++) {
+					leds[shelf[0][j]] += ColorFromPalette(current_palette, this_index);
+				}
+			}
+			else {
+				leds[shelf[0][pos]] += ColorFromPalette(current_palette, this_index);
+			}
 		}
+		prev_pos = pos;
 		shelf_copy();
 	}
 }
