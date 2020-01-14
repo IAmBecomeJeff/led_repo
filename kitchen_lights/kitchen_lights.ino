@@ -18,9 +18,10 @@
 //#include "three_sin.h"
 //#include "twinkle.h"
 //#include "two_sin.h"
+#include "pacific_waves.h"
 
 typedef void (*SimpleModeList[])();
-SimpleModeList modes = {rainbow_split, fire_mirror_pal, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march};
+SimpleModeList modes = {pacifica_loop, rainbow_split, fire_mirror_pal, confetti, colorwave, sinelon, fire_mirror, juggle_pal, juggle_pal_onedir, pride, fire, rainbow_march};
 
 uint8_t current_mode_number = 0;
 
