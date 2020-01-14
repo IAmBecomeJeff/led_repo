@@ -187,7 +187,7 @@ long  tLast[NUM_BALLS];                     // The clock time of the last ground
 float COR[NUM_BALLS];                       // Coefficient of Restitution (bounce damping)
 uint8_t ball_hue = 0;
 
-
+/*
 LIB8STATIC uint16_t beatsin16_halfdown( accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
                                uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
@@ -209,7 +209,7 @@ LIB8STATIC uint16_t beatsin16_halfup( accum88 beats_per_minute, uint16_t lowest 
     uint16_t result = lowest + scaledbeat;
     return result;
 }
-
+*/
 
 // Fireworks Variables---------------
 

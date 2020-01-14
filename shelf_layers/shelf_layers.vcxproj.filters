@@ -54,5 +54,8 @@
     <ClInclude Include="fireworks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pacific_waves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
