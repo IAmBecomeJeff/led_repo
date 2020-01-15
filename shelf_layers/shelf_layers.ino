@@ -83,7 +83,7 @@ void loop(){
 	  this_timer.setPeriod(this_delay);
 	  modes[current_mode_number]();
   }
-  leds[0] = CRGB::Black;
+  //leds[0] = CRGB::Black;
   // Show LEDs
   FastLED.show();
 }

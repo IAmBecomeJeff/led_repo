@@ -9,7 +9,7 @@ uint8_t firework_position;
 uint8_t firework_hue;
 uint8_t firework_bri;
 stage current_stage;
-uint16_t max_wait = 2000;
+uint16_t max_wait = 1000;
 uint16_t min_wait = 500;
 uint32_t next_explosion_time;
 bool exploded;

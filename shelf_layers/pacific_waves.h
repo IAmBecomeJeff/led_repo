@@ -63,7 +63,7 @@ void pacifica_loop()
     if (mode_change) {
         mode_change = 0;
         use_palette = 0;
-        this_delay = 20;
+        this_delay = 10;
         Serial.println("pacifica_loop");
     }
     // Increment the four "color index start" counters, one for each wave layer.
