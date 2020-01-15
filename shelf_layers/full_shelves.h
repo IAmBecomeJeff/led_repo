@@ -132,34 +132,39 @@ void all_shelves() {
 	}
 }
 
-
+enum brighten_state { UP, HOLD, DOWN, FINISHED };
+brighten_state current_state;
 uint8_t PixelState[NUM_LEDS];
 uint8_t chance_of_brighten;
 uint8_t delta_bright;
 uint8_t PixelBright[NUM_LEDS];
 uint8_t PixelColorIndex[NUM_LEDS];
-uint8_t full_count;
+uint16_t up_count;
+uint16_t down_count;
 uint16_t hold_time;
 uint16_t hold_counter;
+bool up_or_down;
 
 void brighten_randomly() {
 	if (mode_change) {
 		mode_change = 0;
-		this_delay = 10;
+		this_delay = random8(10,20);
 		use_palette = 1;
 		for (uint8_t i = 0; i < NUM_LEDS; i++) {
 			PixelState[i] = 0;
 			PixelBright[i] = 0;
-			PixelColorIndex[i] = random8();
+			PixelColorIndex[i] = i * 255 / NUM_LEDS;// random8();
 		}
 		chance_of_brighten = 1;// random8(2,20);
-		delta_bright = random8(1, 3);
-		full_count = 0;
+		delta_bright = random8(1, 5);
+		up_count = 0;
+		down_count = NUM_LEDS;
 		hold_counter = 0;
 		hold_time = random16(10, 1000);
+		current_state = UP;
 	}
 	
-	if (full_count < NUM_LEDS) {
+	if (current_state == UP) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			if (PixelState[i] == 0) {						// 0 means dark, so maybe get brighter
 				if (random8() < chance_of_brighten) {
@@ -170,7 +175,9 @@ void brighten_randomly() {
 				if (PixelBright[i] >= 255 - delta_bright - 1) {
 					PixelBright[i] = 255;
 					PixelState[i] = 2;
-					full_count++;
+					if (up_count++ >= NUM_LEDS) {
+						current_state = HOLD;
+					}
 				}
 				else {
 					PixelBright[i] += delta_bright;
@@ -182,17 +189,51 @@ void brighten_randomly() {
 			}
 		}
 	}
-	else {
+	else if (current_state == HOLD){
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			leds[i] = ColorFromPalette(current_palette, PixelColorIndex[i], PixelBright[i]);
+		}
+		if (hold_counter++ == hold_time) {
+			current_state = DOWN;
+		}
+	}
+
+	else if (current_state == DOWN) {
+		for (uint16_t i = 0 i < NUM_LEDS; i++) {
+			if (PixelState[i] == 2) {						// 2 means at full brightness, so maybe dim
+				if (random8() < chance_of_brighten) {
+					PixelState[i] = 3;
+				}
+			}
+			else if (PixelState[i] == 3) {					// 3 means we're dimming
+				if (PixelBright[i] <= delta_bright + 1) {
+					PixelBright[i] = 0;
+					PixelState[i] = 4;
+					if (down_count-- == 0) {
+						current_state = FINISHED;
+						hold_counter = 0;
+					}
+				}
+				else {
+					PixelBright[i] -= delta_bright;
+					leds[i] = ColorFromPalette(current_palette, PixelColorIndex[i], PixelBright[i]);
+				}
+			}
+			else if (PixelState[i] == 4) {					// 4 is fully dark
+				leds[i] = CRGB::Black;
+			}
+		}
+	}
+
+	else if (current_state == FINISHED) {
+		for (uint16_t i = 0; i < NUM_LEDS; i++) {
+			leds[i] = CRGB::Black;
 		}
 		if (hold_counter++ == hold_time) {
 			mode_change = 1;
 		}
 	}
-	leds[0] = CRGB::Black;
-
-
+	
 }
 
 #endif
