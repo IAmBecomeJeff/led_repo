@@ -16,7 +16,7 @@ void rainbow_march() {
 		use_palette = 0;
 		this_dir = random8(2);
 		this_rot = random8(1, 5);
-		this_diff = random8(1, 9);
+		this_diff = random8(1, 5);
 		this_delay = 10;
 	}
 	if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;  // I could use signed math, but 'this_dir' works with other routines.
@@ -29,7 +29,7 @@ void rainbow_split(){
     use_palette = 0;
     this_dir = random8(2);
     this_rot = random8(1,5);
-    this_diff = random8(1,9);
+    this_diff = random8(1,5);
     this_delay = 15;
   }
   if (this_dir == 0) this_index += this_rot; else this_index -= this_rot;
