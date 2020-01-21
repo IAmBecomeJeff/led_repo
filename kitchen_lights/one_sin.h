@@ -4,6 +4,7 @@
 
 void one_sin() {
 	if (mode_change) {
+    Serial.println("ONE_SIN");
 		mode_change = 0;
 		this_delay = 10;
 		this_inc = random8(1, 10);

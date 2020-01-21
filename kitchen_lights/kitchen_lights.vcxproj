@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
+    <ProjectGuid>{6154AC13-4F70-44EA-B324-2E7C5F6FD7B4}</ProjectGuid>
     <RootNamespace>
     </RootNamespace>
     <ProjectName>kitchen_lights</ProjectName>
@@ -128,6 +128,9 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="one_sin.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="pacific_waves.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="pride.h">

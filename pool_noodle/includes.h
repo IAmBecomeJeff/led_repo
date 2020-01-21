@@ -1,10 +1,13 @@
 #include <FastLED.h>
 
 // Setup includes
-#include "LEDClass.h"
 #include "variables.h"
+#include "LEDStruct.h"
 #include "palettes.h"
 #include "support_functions.h"
 
 // Effects
 #include "juggle.h"
+
+// Mode switching
+#include "switch_mode.h"

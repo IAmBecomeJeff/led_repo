@@ -52,8 +52,11 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\kit
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\fire.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\fireworks.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\juggle.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\one_sin.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\pride.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\rainbow_march.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\ripple.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\sinelon.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\two_sin.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\pacific_waves.h \
  c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\preview\common7\ide\extensions\cpwzuv43.p51\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h

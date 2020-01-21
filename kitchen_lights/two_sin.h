@@ -6,6 +6,7 @@ bool hue_change;
 
 void two_sin() {
 	if (mode_change) {
+    Serial.println("TWO_SIN");
 		mode_change = 0;
 		this_delay = 10;
 		use_palette = 0;
@@ -14,7 +15,7 @@ void two_sin() {
 		this_rot = random8(10);
 		that_rot = random8(3);
 		this_cutoff = random8();
-		that_cutoff = random8(128, 240);
+		that_cutoff = random8(128, 200);
 		all_freq = random8(1, 9);
 		this_hue = random8();
 		that_hue = random8();
