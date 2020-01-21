@@ -8,17 +8,17 @@ struct LEDStruct {
 	struct CRGB led_data[NUM_LEDS];
 
 	// Primary variables
-	uint8_t	brightness			= 255;
-	uint8_t delay_time			= 10;
+	uint8_t	brightness				= 255;
+	uint8_t delay_time				= 10;
 	CRGBPalette16 current_palette;
 	CRGBPalette16 target_palette;
-	TBlendType current_blending = LINEARBLEND;
-	bool	use_palette			= 1;
-	bool	use_full_range		= 0;
-	bool	this_dir			= 1;
-	uint8_t current_mode_number;			// Not yet in use
+	TBlendType current_blending		= LINEARBLEND;
+	bool	use_palette				= 1;
+	bool	use_full_range			= 0;
+	bool	this_dir				= 1;
+	uint8_t current_mode_number;			// Not in use
 	Mode	mode_name;
-	bool	mode_initialized	= 0;
+	bool	mode_initialized		= 0;
 	ArrayType array_type;					// CURRENT, NEXT, any others, for debug purposes
 
 	// Juggle Variables
@@ -29,7 +29,6 @@ struct LEDStruct {
 	uint8_t juggle_diff;
 	bool	juggle_index_reset;
 };
-
 
 // Create LED Structures
 LEDStruct curr_leds;
@@ -72,8 +71,8 @@ void LEDDebug(LEDStruct& leds) {
 	Serial.println(leds.mode_initialized);
 
 	// Print mode-specific variables
-	switch (leds.mode_name) {
-	case JUGGLE:
+	switch(leds.mode_name) {
+		case JUGGLE:
 		Serial.println("===JUGGLE VARIABLES===");
 		Serial.print("index:         ");
 		Serial.println(leds.juggle_index);

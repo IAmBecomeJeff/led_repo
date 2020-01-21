@@ -19,7 +19,7 @@ void setup() {
 	random16_set_seed(4832);
 	random16_add_entropy(analogRead(2));
 
-	FastLED.clear(); FastLED.show(); FastLED.delay(5);
+	FastLED.clear(); FastLED.show(); FastLED.delay(20);
 
 	if (DEBUG) {
 		fill_solid(master_leds, NUM_LEDS, CRGB::Red);	LEDS.delay(500);
@@ -41,32 +41,19 @@ void loop() {
 	}
 	
 	// Update delay times
-	curr_delay = curt_leds.delay_time;
-	next_delay = next_leds.delay_time;
+	curr_delay = curr_leds.delay_time;
 
 	// Apply effect to current LEDS
 	EVERY_N_MILLIS_I(curr_timer, curr_delay) {
 		curr_timer.setPeriod(curr_delay);
 		switch_mode(curr_leds);
 	}
-
-	// Apply effect to next LEDs if in transition
-	EVERY_N_MILLIS_I(next_timer, next_delay){
-		if(in_transition){
-			next_timer.setPeriod(next_delay);
-			switch_mode(next_leds);
-		}
-	}
 	
-	if(in_transition){
-		switch(transition_type){
-			case BLENDING:	
-				for(uint16_t i = 0; i < NUM_LEDS; i++){	master_leds[i] = blend(curr_leds.led_data[i], next_leds.led_data[i], blending_ratio); }
-				break;
-		}
-	}else{		for(uint16_t i = 0; i < NUM_LEDS; i++){ master_leds[i] = curr_leds.led_data[i] ;}	}
 
+	for(uint16_t i = 0; i < NUM_LEDS; i++){ master_leds[i] = curr_leds.led_data[i] ;}
+	
 	if (DEBUG) { EVERY_N_SECONDS(5) { LEDDebug(curr_leds); }; }
+
 
 	FastLED.show();
 }

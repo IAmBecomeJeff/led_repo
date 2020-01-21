@@ -15,9 +15,9 @@ struct CRGB master_leds[NUM_LEDS];
 #define DEBUG 1
 
 // LED Variables
-#define MAX_BRIGHT 255		// used in initial LEDS.set_brightness
+#define MAX_BRIGHT 255
 
-// Array Variables
+// Array Varialbes
 enum ArrayType { CURRENT, NEXT };
 
 // Mode Variables
