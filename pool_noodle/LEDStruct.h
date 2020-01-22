@@ -39,7 +39,7 @@ LEDStruct next_leds;
 // To duplicate one side of the strip with the other
 void strip_sync(LEDStruct& leds) {
 	for (uint16_t i = 0; i < ONE_SIDE; i++) {
-		leds.led_data[ONE_SIDE - 1 - i] = leds.led_data[i];
+		leds.led_data[NUM_LEDS - i - 1] = leds.led_data[i];
 	}
 }
 

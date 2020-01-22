@@ -47,9 +47,10 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pool_n
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/fastspi_bitbang.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/chipsets.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\variables.h \
- C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\LEDStruct.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\palettes.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\LEDStruct.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\support_functions.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\juggle.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\switch_mode.h \
- c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\preview\common7\ide\extensions\cpwzuv43.p51\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\initialize.h \
+ c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\preview\common7\ide\extensions\p1hbfuhp.cmm\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h

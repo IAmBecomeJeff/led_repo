@@ -7,12 +7,12 @@ void juggle_init(LEDStruct& leds, uint8_t ji = 0, uint8_t jn = random8(1, 7), ui
 	leds.mode_name = JUGGLE;
 	leds.use_palette = 1;
 
-	leds.juggle_index = ji;
-	leds.juggle_numdots = jn;
-	leds.juggle_beat = jb;
-	leds.juggle_fade = jf;
-	leds.juggle_diff = jd;
-	leds.juggle_index_reset = jir;
+	leds.juggle_index		 = ji;
+	leds.juggle_numdots 	 = jn;
+	leds.juggle_beat		 = jb;
+	leds.juggle_fade		 = jf;
+	leds.juggle_diff		 = jd;
+	leds.juggle_index_reset  = jir;
 	if (DEBUG) { Serial.println("JUGGLE INIT COMPLETE"); }
 	if (DEBUG) { LEDDebug(leds); }
 }
@@ -32,8 +32,8 @@ void juggle(LEDStruct& leds) {
 
 	// Cycle juggle routine
 	for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
-		if (leds.use_full_range) { leds.led_data[beatsin16(leds.juggle_beat + i + leds.juggle_numdots, 0, NUM_LEDS)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
-		else { leds.led_data[beatsin16(leds.juggle_beat + i + leds.juggle_numdots, 0, ONE_SIDE)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
+		if (leds.use_full_range) { leds.led_data[beatsin16(leds.juggle_beat + i + leds.juggle_numdots, 0, NUM_LEDS - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
+		else					 { leds.led_data[beatsin16(leds.juggle_beat + i + leds.juggle_numdots, 0, ONE_SIDE - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
 		leds.juggle_index += leds.juggle_diff;
 	}
 }

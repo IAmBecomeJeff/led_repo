@@ -42,5 +42,8 @@
     <ClInclude Include="switch_mode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="initialize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

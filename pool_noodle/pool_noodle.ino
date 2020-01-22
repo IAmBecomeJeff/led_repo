@@ -9,26 +9,25 @@ void setup() {
 
 	delay(1000);
 
-	LEDS.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
-	LEDS.setBrightness(MAX_BRIGHT);
-	LEDS.setCorrection(TypicalLEDStrip);
+	FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
+	FastLED.setBrightness(MAX_BRIGHT);
+	FastLED.setCorrection(TypicalLEDStrip);
 	set_max_power_in_volts_and_milliamps(5, 3000);
-
-	if (DEBUG) { Serial.println("LEDs ADDED"); }
 
 	random16_set_seed(4832);
 	random16_add_entropy(analogRead(2));
 
-	FastLED.clear(); FastLED.show(); FastLED.delay(5);
+	FastLED.clear(); FastLED.show(); FastLED.delay(50);
 
 	if (DEBUG) {
-		fill_solid(master_leds, NUM_LEDS, CRGB::Red);	LEDS.delay(500);
-		fill_solid(master_leds, NUM_LEDS, CRGB::Blue);  LEDS.delay(500);
-		fill_solid(master_leds, NUM_LEDS, CRGB::Green); LEDS.delay(500);
-		LEDS.clear();									LEDS.delay(500);
+		fill_solid(master_leds, NUM_LEDS, CRGB::Red);	FastLED.delay(250);
+		fill_solid(master_leds, NUM_LEDS, CRGB::Blue);  FastLED.delay(250);
+		fill_solid(master_leds, NUM_LEDS, CRGB::Green); FastLED.delay(250);
+		FastLED.clear();								FastLED.delay(250);
 	}
 
-	initialize();
+	// Set up initial parameters for cur_leds and next_leds
+	initialize(); 
 
 	if (DEBUG) { Serial.println("SETUP COMPLETE"); }
 }
@@ -41,7 +40,7 @@ void loop() {
 	}
 	
 	// Update delay times
-	curr_delay = curt_leds.delay_time;
+	curr_delay = curr_leds.delay_time;
 	next_delay = next_leds.delay_time;
 
 	// Apply effect to current LEDS
@@ -58,6 +57,7 @@ void loop() {
 		}
 	}
 	
+	// Add leds from curr_leds (and maybe next_leds) to master_leds
 	if(in_transition){
 		switch(transition_type){
 			case BLENDING:	
@@ -69,4 +69,5 @@ void loop() {
 	if (DEBUG) { EVERY_N_SECONDS(5) { LEDDebug(curr_leds); }; }
 
 	FastLED.show();
+
 }
