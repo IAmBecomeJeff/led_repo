@@ -13,6 +13,7 @@ void juggle_init(LEDStruct& leds, uint8_t ji = 0, uint8_t jn = random8(1, 7), ui
 	leds.juggle_fade		 = jf;
 	leds.juggle_diff		 = jd;
 	leds.juggle_index_reset  = jir;
+
 	if (DEBUG) { Serial.println("JUGGLE INIT COMPLETE"); }
 	if (DEBUG) { LEDDebug(leds); }
 }
@@ -20,7 +21,6 @@ void juggle_init(LEDStruct& leds, uint8_t ji = 0, uint8_t jn = random8(1, 7), ui
 
 
 void juggle(LEDStruct& leds) {
-	//if (DEBUG) { Serial.println("JUGGLING"); }
 	// If not yet iniatilized, call init function with random variables.
 	if (!leds.mode_initialized) { juggle_init(leds); }
 

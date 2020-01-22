@@ -4,6 +4,10 @@
 // Includes
 #include "includes.h"
 
+
+
+// ================ SETUP ================
+
 void setup() {
 	if (DEBUG) { Serial.begin(57600); Serial.setTimeout(1500); Serial.println("DEBUG ON"); }
 
@@ -32,24 +36,42 @@ void setup() {
 	if (DEBUG) { Serial.println("SETUP COMPLETE"); }
 }
 
+
+
+
+
+// ================ LOOP ================
+
 void loop() {
+	// Add entropy to randomness
 	random16_add_entropy(random());
 
+	// Change patterns
+	EVERY_N_SECONDS(20){
+		change_pattern();
+	}
+
+	// Change palette
+	EVERY_N_SECONDS(30) {
+		change_palette();
+	}
+
+	// Blend palette of the curr_leds pattern.  Don't worry about the next_leds.
 	EVERY_N_MILLISECONDS(50) {
 		nblendPaletteTowardPalette(curr_leds.current_palette, curr_leds.target_palette, 24);
-	}
-	
+	}	
+
 	// Update delay times
 	curr_delay = curr_leds.delay_time;
 	next_delay = next_leds.delay_time;
 
-	// Apply effect to current LEDS
+	// Apply effect to curr_leds
 	EVERY_N_MILLIS_I(curr_timer, curr_delay) {
 		curr_timer.setPeriod(curr_delay);
 		switch_mode(curr_leds);
 	}
 
-	// Apply effect to next LEDs if in transition
+	// Apply effect to next_leds
 	EVERY_N_MILLIS_I(next_timer, next_delay){
 		if(in_transition){
 			next_timer.setPeriod(next_delay);
@@ -59,14 +81,20 @@ void loop() {
 	
 	// Add leds from curr_leds (and maybe next_leds) to master_leds
 	if(in_transition){
-		switch(transition_type){
-			case BLENDING:	
-				for(uint16_t i = 0; i < NUM_LEDS; i++){	master_leds[i] = blend(curr_leds.led_data[i], next_leds.led_data[i], blending_ratio); }
-				break;
-		}
-	}else{		for(uint16_t i = 0; i < NUM_LEDS; i++){ master_leds[i] = curr_leds.led_data[i] ;}	}
+		switch_transition(transition_type);
+	}
+	else {
+		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = curr_leds.led_data[i]; }
+	}
 
-	if (DEBUG) { EVERY_N_SECONDS(5) { LEDDebug(curr_leds); }; }
+	if (DEBUG) {
+		EVERY_N_SECONDS(5) {
+			LEDDebug(curr_leds);
+			if (in_transition) {
+				LEDDebug(next_leds);
+			}
+		}
+	}
 
 	FastLED.show();
 

@@ -22,8 +22,8 @@ enum ArrayType { CURRENT, NEXT };
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-enum Mode { JUGGLE };
-Mode Modelist[] = { JUGGLE };
+enum Mode { JUGGLE, RAINBOW_MARCH, RAINBOW_MARCH_SPLIT };
+Mode ModeList[] = { JUGGLE, RAINBOW_MARCH, RAINBOW_MARCH_SPLIT };
 
 // Delay Variables
 uint8_t curr_delay;
@@ -31,9 +31,11 @@ uint8_t next_delay;
 
 // Palette Variables
 uint8_t palette_index;
+uint8_t palette_count = sizeof(palettes) / sizeof(TProgmemRGBGradientPalettePtr);
 
 // Transition Variables
 enum TransitionType { BLENDING };
 bool in_transition = 0;
 TransitionType transition_type;
-uint8_t blending_ratio;
+uint8_t transition_ratio;
+uint8_t transition_speed; // seconds

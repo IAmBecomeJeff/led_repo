@@ -6,6 +6,14 @@ void switch_mode(LEDStruct& leds) {
 		case JUGGLE:
 			juggle(leds);
 			break;
+
+		case RAINBOW_MARCH:
+			rainbow_march(leds);
+			break;
+
+		case RAINBOW_MARCH_SPLIT:
+			rainbow_march_split(leds);
+			break;
 	}
 }
 

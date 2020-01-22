@@ -2617,19 +2617,4 @@ const TProgmemRGBGradientPalettePtr palettes[] = {
 
 
 
-
-// Count of how many cpt-city gradients are defined:
-const uint8_t palette_count =
-sizeof(palettes) / sizeof(TProgmemRGBGradientPalettePtr);
-
-// Find index of current (target) palette
-void updatePaletteIndex(CRGBPalette16 pal) {
-	for (int i = 0; i < palette_count; i++) {
-		if (pal == palettes[i]) {
-			palette_index = i;
-			break;
-		}
-	}
-}
-
 #endif

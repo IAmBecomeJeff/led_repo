@@ -12,13 +12,14 @@ struct LEDStruct {
 	uint8_t delay_time			= 10;
 	CRGBPalette16 current_palette;
 	CRGBPalette16 target_palette;
+	uint8_t palette_index;
 	TBlendType current_blending = LINEARBLEND;
-	bool	use_palette			= 1;
-	bool	use_full_range		= 0;
+	bool	use_palette			= 1;		// Determines if palette functions should be used
+	bool	use_full_range		= 0;		// Whether we want to go up and down the full strip (1), or be mirrored
 	bool	this_dir			= 1;
-	uint8_t current_mode_number;			// Not yet in use
-	Mode	mode_name;
-	bool	mode_initialized	= 0;
+	uint8_t mode_number;					// Used to determine next mode
+	Mode	mode_name;						// Name of mode, listed in variables.h
+	bool	mode_initialized	= 0;		// Off in regular use, on if new variables need to be set
 	ArrayType array_type;					// CURRENT, NEXT, any others, for debug purposes
 
 	// Juggle Variables
@@ -28,6 +29,12 @@ struct LEDStruct {
 	uint8_t juggle_fade;
 	uint8_t juggle_diff;
 	bool	juggle_index_reset;
+
+	// Rainbow March Variables
+	uint8_t rainbow_rot;
+	uint8_t rainbow_diff;
+	uint8_t rainbow_index;
+
 };
 
 
@@ -66,28 +73,48 @@ void LEDDebug(LEDStruct& leds) {
 	Serial.println(leds.use_full_range);
 	Serial.print("this_dir:             ");
 	Serial.println(leds.this_dir);
-	Serial.print("current_mode_number:  ");
-	Serial.println(leds.current_mode_number);
+	Serial.print("mode_number:  ");
+	Serial.println(leds.mode_number);
 	Serial.print("mode_initialized:     ");
 	Serial.println(leds.mode_initialized);
 
 	// Print mode-specific variables
 	switch (leds.mode_name) {
-	case JUGGLE:
-		Serial.println("===JUGGLE VARIABLES===");
-		Serial.print("index:         ");
-		Serial.println(leds.juggle_index);
-		Serial.print("numdots:       ");
-		Serial.println(leds.juggle_numdots);
-		Serial.print("beat:          ");
-		Serial.println(leds.juggle_beat);
-		Serial.print("fade:          ");
-		Serial.println(leds.juggle_fade);
-		Serial.print("diff:          ");
-		Serial.println(leds.juggle_diff);
-		Serial.print("index_reset:   ");
-		Serial.println(leds.juggle_index_reset);
-		break;
+		case JUGGLE:
+			Serial.println("===JUGGLE VARIABLES===");
+			Serial.print("index:         ");
+			Serial.println(leds.juggle_index);
+			Serial.print("numdots:       ");
+			Serial.println(leds.juggle_numdots);
+			Serial.print("beat:          ");
+			Serial.println(leds.juggle_beat);
+			Serial.print("fade:          ");
+			Serial.println(leds.juggle_fade);
+			Serial.print("diff:          ");
+			Serial.println(leds.juggle_diff);
+			Serial.print("index_reset:   ");
+			Serial.println(leds.juggle_index_reset);
+			break;
+
+		case RAINBOW_MARCH:
+			Serial.println("===RAINBOW MARCH===");
+			Serial.print("index:     ");
+			Serial.println(leds.rainbow_index);
+			Serial.print("diff:      ");
+			Serial.println(leds.rainbow_diff);
+			Serial.print("rot:       ");
+			Serial.println(leds.rainbow_rot);
+			break;
+
+		case RAINBOW_MARCH_SPLIT:
+			Serial.println("===RAINBOW MARCH SPLIT===");
+			Serial.print("index:     ");
+			Serial.println(leds.rainbow_index);
+			Serial.print("diff:      ");
+			Serial.println(leds.rainbow_diff);
+			Serial.print("rot:       ");
+			Serial.println(leds.rainbow_rot);
+			break;
 	}
 	Serial.println("======================");
 }
