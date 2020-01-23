@@ -1,18 +1,21 @@
 #ifndef FIRE_H
 #define FIRE_H
 
-void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint8_t fs = random8(50, 110), uint8_t fc = random8(60, 120)) {
+void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint8_t hl = random8(10, 31), uint8_t fs = random8(50, 110), uint8_t fc = random8(60, 120), uint8_t td = random8(1, 16)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= FIRE;
-	leds.use_palette		= 0;
+	if (leds.mode_name == TORCH) { leds.use_palette = 1; }
+	else { leds.use_palette = 0; }
 
 	leds.fire_sparking		= fs;
 	leds.fire_cooling		= fc;
 	leds.fire_sync			= fy;
 	leds.fire_mirror		= fm;
-	
-	if (leds.fire_mirror) { leds.heat_length = ONE_SIDE / 2; leds.fire_offset = leds.heat_length; }
-	else				  { leds.heat_length = ONE_SIDE;	 leds.fire_offset = 0; }
+	leds.torch_diff			= td;
+		
+	if (leds.fire_mirror)			  { leds.heat_length = ONE_SIDE / 2; leds.fire_offset = leds.heat_length; }
+	else if (leds.mode_name == TORCH) { leds.heat_length = hl; }
+	else							  { leds.heat_length = ONE_SIDE;	 leds.fire_offset = 0; }
 
 	if (!leds.fire_sync) {
 		leds.fire_sparking2 = fs - 10 + random8(21);
@@ -22,6 +25,7 @@ void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint
 
 
 void fire(LEDStruct& leds) {
+	if (!leds.mode_initialized) { fire_init(leds); }
 	// heat[] array defined in LEDStruct
 
 	// Step 1.  Cool down every cell a little
@@ -109,6 +113,77 @@ void fire(LEDStruct& leds) {
 		}
 	}
 }
+
+
+
+
+
+void torch(LEDStruct& leds) {
+	if (!leds.mode_initialized) { fire_init(leds); }
+	// Step 1
+	for (int i = 0; i < leds.heat_length; i++) {
+		leds.heat[i] = qsub8(leds.heat[i], random8(0, ((leds.fire_cooling * 10) / leds.heat_length) + 2));
+	}
+	if (!leds.fire_sync) {
+		for (int i = 0; i < leds.heat_length; i++) {
+			leds.heat2[i] = qsub8(leds.heat2[i], random8(0, ((leds.fire_cooling2 * 10) / leds.heat_length) + 2));
+		}
+	}
+
+	// Step 2
+	for (int k = leds.heat_length - 3; k >= 2; k--) {
+		leds.heat[k] = (leds.heat[k - 1] + leds.heat[k - 2] + leds.heat[k - 2]) / 3;
+	}
+	if (!leds.fire_sync) {
+		for (int k = leds.heat_length - 3; k >= 2; k--) {
+			leds.heat2[k] = (leds.heat2[k - 1] + leds.heat2[k - 2] + leds.heat2[k - 2]) / 3;
+		}
+	}
+
+	// Step 3
+	if (random8() < leds.fire_sparking) {
+		uint8_t y = random8(7);
+		leds.heat[y] = qadd8(leds.heat[y], random8(160, 255));
+	}
+	if (!leds.fire_sync) {
+		if (random8() < leds.fire_sparking2) {
+			int y = random8(7);
+			leds.heat2[y] = qadd8(leds.heat2[y], random8(160, 255));
+		}
+	}
+
+	// Step 4
+	for (int j = 0; j < leds.heat_length; j++) {
+		leds.led_data[ONE_SIDE - leds.heat_length + j] = HeatColor(leds.heat[j]);
+	}
+
+	if (leds.fire_sync) { strip_sync(leds); }
+	else {
+		for (int j = 0; j < leds.heat_length; j++) {
+			leds.led_data[ONE_SIDE - 1 + leds.heat_length - j] = HeatColor(leds.heat2[j]);
+		}
+	}
+
+	// Add pole to torch
+	for (int i = 0; i < ONE_SIDE - leds.heat_length; i++) {
+		leds.led_data[i] = ColorFromPalette(leds.current_palette, leds.torch_index);
+		leds.led_data[NUM_LEDS - 1 - i] = ColorFromPalette(leds.current_palette, leds.torch_index);
+		if (leds.this_dir) { leds.torch_index += leds.torch_diff; }
+		else { leds.torch_index -= leds.torch_diff; }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 // fire with a palette

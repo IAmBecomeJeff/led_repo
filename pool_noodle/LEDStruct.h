@@ -43,7 +43,7 @@ struct LEDStruct {
 	uint8_t rainbow_index;
 	bool	rainbow_split;
 
-	// Fire Variables
+	// Fire and Torch Variables
 	uint8_t fire_sparking;
 	uint8_t fire_sparking2;
 	uint8_t fire_cooling;
@@ -54,6 +54,17 @@ struct LEDStruct {
 	uint8_t fire_offset;		// for use with mirrored fire
 	bool	fire_sync;
 	bool	fire_mirror;
+	uint8_t torch_index;
+	uint8_t torch_diff;
+
+	// Colorwave Variables
+	uint16_t sPseudotime;
+	uint16_t sLastMillis;
+	uint16_t sHue16;
+	uint8_t brightdepth, msmultiplier, hue8, bri8, cwave_index;
+	uint16_t brightnessthetainc16, hue16, hueinc16, ms, deltams, brightnesstheta16, h16_128, b16, bri16, pixelnumber;
+	uint16_t strip_range;
+
 };
 
 
@@ -134,7 +145,8 @@ void LEDDebug(LEDStruct& leds) {
 			break;
 
 		case FIRE:
-			Serial.print("=====FIRE");
+			if (leds.mode_name == TORCH) { Serial.print("=====TORCH"); }
+			else { Serial.print("=====FIRE"); }
 			if (leds.fire_mirror) { Serial.print(" MIRROR"); }
 			if (leds.fire_sync)	  { Serial.print(" SYNC"); }
 			Serial.println("=====");
@@ -148,6 +160,15 @@ void LEDDebug(LEDStruct& leds) {
 				Serial.print("cooling2:    ");
 				Serial.println(leds.fire_cooling2);
 			}
+			if (leds.mode_name == TORCH) {
+				Serial.print("torch_diff:  ");
+				Serial.println(leds.torch_diff);
+			}
+			break;
+		
+		case COLORWAVE:
+			Serial.println("=====COLORWAVE=====");
+			break;
 
 		default:
 			Serial.println("");

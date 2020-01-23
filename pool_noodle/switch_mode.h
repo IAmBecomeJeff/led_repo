@@ -51,27 +51,42 @@ void switch_mode(LEDStruct& leds) {
 		
 		// Fire Functions
 		case FIRE:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror off
-			fire(leds);
-			break;
-
-		case FIRE_UNSYNC:
 			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror off
 			fire(leds);
 			break;
 
-		case FIRE_MIRROR:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 1); }		// sync on  | mirror on
+		case FIRE_SYNC:
+			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror off
 			fire(leds);
 			break;
 
-		case FIRE_MIRROR_UNSYNC:
+		case FIRE_MIRROR:
 			if (!leds.mode_initialized) { fire_init(leds, 0, 1); }		// sync off | mirror on
+			fire(leds);
+			break;
+
+		case FIRE_MIRROR_SYNC:
+			if (!leds.mode_initialized) { fire_init(leds, 1, 1); }		// sync on  | mirror on
 			fire(leds);
 			break;
 
 		case FIRE_RANDOM:
 			fire(leds);
+			break;
+
+		case TORCH:
+			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror must be off
+			torch(leds);
+			break;
+
+		case TORCH_SYNC:
+			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror must be off
+			torch(leds);
+			break;
+
+		// Colorwave Functions
+		case COLORWAVE:
+			colorwave(leds);
 			break;
 	}
 }
