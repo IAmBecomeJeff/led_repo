@@ -48,5 +48,8 @@
     <ClInclude Include="rainbow_march.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="fire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

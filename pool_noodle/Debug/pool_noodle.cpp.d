@@ -24,8 +24,7 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pool_n
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/color.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/fastpin.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/fastspi_types.h \
- c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\dmx.h \
- c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\FastLED.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/dmx.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/platforms.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/platforms/arm/k20/fastled_arm_k20.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED/platforms/arm/k20/fastpin_arm_k20.h \
@@ -53,5 +52,6 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pool_n
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\support_functions.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\juggle.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\rainbow_march.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\fire.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\switch_mode.h \
- c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\community\common7\ide\extensions\y4ur5orx.hne\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h
+ c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\preview\common7\ide\extensions\p1hbfuhp.cmm\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h

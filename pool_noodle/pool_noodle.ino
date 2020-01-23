@@ -53,7 +53,8 @@ void loop() {
 
 	// Change palette
 	EVERY_N_SECONDS(30) {
-		change_palette();
+		if (in_transition) { change_palette(next_leds); }
+		else               { change_palette(curr_leds); }
 	}
 
 	// Blend palette of the curr_leds pattern.  Don't worry about the next_leds.

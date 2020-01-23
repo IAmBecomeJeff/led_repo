@@ -14,24 +14,36 @@ struct CRGB master_leds[NUM_LEDS];
 // Debug
 #define DEBUG 1
 
+
 // LED Variables
 #define MAX_BRIGHT 255		// used in initial LEDS.set_brightness
 
+
 // Array Variables
-enum ArrayType { CURRENT, NEXT };
+enum ArrayType { CURRENT, NEXT, OVERLAY };
+uint8_t curr_delay;
+uint8_t next_delay;
+
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-enum Mode { JUGGLE, RAINBOW_MARCH, RAINBOW_MARCH_SPLIT };
-Mode ModeList[] = { JUGGLE, RAINBOW_MARCH, RAINBOW_MARCH_SPLIT };
+bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
 
-// Delay Variables
-uint8_t curr_delay;
-uint8_t next_delay;
+enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
+					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
+					FIRE, FIRE_UNSYNC, FIRE_MIRROR, FIRE_MIRROR_UNSYNC, FIRE_RANDOM
+				  };
+
+Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
+					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
+					FIRE, FIRE_UNSYNC, FIRE_MIRROR, FIRE_MIRROR_UNSYNC, FIRE_RANDOM
+				  };
+
 
 // Palette Variables
 uint8_t palette_index;
 uint8_t palette_count = sizeof(palettes) / sizeof(TProgmemRGBGradientPalettePtr);
+
 
 // Transition Variables
 enum TransitionType { BLENDING };

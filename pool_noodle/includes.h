@@ -9,6 +9,7 @@
 // Effects
 #include "juggle.h"
 #include "rainbow_march.h"
+#include "fire.h"
 
 // Mode switching
 #include "switch_mode.h"
