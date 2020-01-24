@@ -3,6 +3,7 @@
 // Setup includes
 #include "palettes.h"
 #include "variables.h"
+void print_palette(uint8_t pn); // Forward declaration
 #include "LEDStruct.h"
 #include "support_functions.h"
 

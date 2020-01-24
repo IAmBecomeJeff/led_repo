@@ -9,7 +9,7 @@ struct LEDStruct {
 
 	// Primary variables
 	uint8_t	brightness			= 255;
-	uint8_t delay_time			= 10;
+	uint8_t delay_time			= 15;
 	bool	use_full_range		= 1;		// Whether we want to go up and down the full strip (1), or be mirrored
 	bool	this_dir = 1;
 	ArrayType array_type;					// CURRENT, NEXT, any others, for debug purposes
@@ -86,7 +86,7 @@ void strip_sync(LEDStruct& leds) {
 // Debugging function
 void LEDDebug(LEDStruct& leds) {
 	Serial.println("");
-	Serial.println("=========================");
+	Serial.println("==================================================");
 
 	// Print which Array it is
 	Serial.print("LED Array:        ");
@@ -101,6 +101,7 @@ void LEDDebug(LEDStruct& leds) {
 	Serial.println(leds.delay_time);
 	Serial.print("use_palette:      ");
 	Serial.println(leds.use_palette);
+	if (leds.use_palette) { print_palette(leds.palette_index); }
 	Serial.print("use_full_range:   ");
 	Serial.println(leds.use_full_range);
 	Serial.print("this_dir:         ");

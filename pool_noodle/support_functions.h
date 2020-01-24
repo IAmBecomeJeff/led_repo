@@ -15,8 +15,8 @@ void initialize() {
 	// Initialize curr_leds
 	fill_solid(curr_leds.led_data, NUM_LEDS, CRGB::Black);
 	curr_leds.array_type		= CURRENT;
-	curr_leds.current_palette	= Colorfull_gp;
-	curr_leds.target_palette	= Magenta_Evening_gp;
+	curr_leds.current_palette	= rainbowsherbet_gp;
+	curr_leds.target_palette	= Tropical_Colors_gp;
 	updatePaletteIndex(curr_leds);
 	curr_leds.mode_name			= start_mode;
 
@@ -48,8 +48,6 @@ void change_pattern() {
 }
 
 // Change palette
-void print_palette(uint8_t pn); // Forward declaration
-
 void change_palette(LEDStruct& leds) {
 	if (leds.use_palette) {
 		if (DEBUG) { Serial.println("^^^^^^^^Changing Palette^^^^^^^^"); }

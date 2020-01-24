@@ -61,8 +61,7 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\FastLE
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\color.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\fastpin.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\fastspi_types.h \
- c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\dmx.h \
- c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\FastLED.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\dmx.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/fastled_arm_k20.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/fastpin_arm_k20.h \

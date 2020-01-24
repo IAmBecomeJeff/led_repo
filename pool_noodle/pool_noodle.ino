@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = FIRE;
+Mode start_mode = JUGGLE_PHASED;
 
 // ================ SETUP ================
 
@@ -60,6 +60,7 @@ void loop() {
 	// Blend palette of the curr_leds pattern.  Don't worry about the next_leds.
 	EVERY_N_MILLISECONDS(50) {
 		nblendPaletteTowardPalette(curr_leds.current_palette, curr_leds.target_palette, 24);
+		if(in_transition){ nblendPaletteTowardPalette(next_leds.current_palette, next_leds.target_palette, 24); }
 	}	
 
 	// Update delay times

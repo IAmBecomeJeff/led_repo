@@ -51,5 +51,8 @@
     <ClInclude Include="fire.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="colorwave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

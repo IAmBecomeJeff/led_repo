@@ -1,10 +1,10 @@
 #ifndef FIRE_H
 #define FIRE_H
 
-void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint8_t hl = random8(10, 31), uint8_t fs = random8(50, 110), uint8_t fc = random8(60, 120), uint8_t td = random8(1, 16)) {
+void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint8_t hl = random8(20, 31), uint8_t fs = random8(50, 110), uint8_t fc = random8(60, 120), uint8_t td = random8(1, 5)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= FIRE;
-	if (leds.mode_name == TORCH) { leds.use_palette = 1; }
+	if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.use_palette = 1; }
 	else { leds.use_palette = 0; }
 
 	leds.fire_sparking		= fs;
@@ -14,7 +14,7 @@ void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint
 	leds.torch_diff			= td;
 		
 	if (leds.fire_mirror)			  { leds.heat_length = ONE_SIDE / 2; leds.fire_offset = leds.heat_length; }
-	else if (leds.mode_name == TORCH) { leds.heat_length = hl; }
+	else if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.heat_length = hl; }
 	else							  { leds.heat_length = ONE_SIDE;	 leds.fire_offset = 0; }
 
 	if (!leds.fire_sync) {
@@ -166,11 +166,11 @@ void torch(LEDStruct& leds) {
 
 	// Add pole to torch
 	for (int i = 0; i < ONE_SIDE - leds.heat_length; i++) {
-		leds.led_data[i] = ColorFromPalette(leds.current_palette, leds.torch_index);
-		leds.led_data[NUM_LEDS - 1 - i] = ColorFromPalette(leds.current_palette, leds.torch_index);
-		if (leds.this_dir) { leds.torch_index += leds.torch_diff; }
-		else { leds.torch_index -= leds.torch_diff; }
+		leds.led_data[i] = ColorFromPalette(leds.current_palette, leds.torch_index + i * 255/leds.heat_length);
+		leds.led_data[NUM_LEDS - 1 - i] = ColorFromPalette(leds.current_palette, leds.torch_index + i * 255/leds.heat_length);
 	}
+	if (leds.this_dir) { leds.torch_index += leds.torch_diff; }
+	else			   { leds.torch_index -= leds.torch_diff; }
 }
 
 

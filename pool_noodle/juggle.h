@@ -21,7 +21,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	*/
 }
 
-
+// TODO make a juggle where the colorfrompalette is scaled to the position
 
 void juggle(LEDStruct& leds) {
 	// If not yet iniatilized, call init function with random variables.
