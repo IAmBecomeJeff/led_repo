@@ -54,12 +54,12 @@ void juggle(LEDStruct& leds) {
 		if (leds.juggle_phased) {
 			for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 				if (leds.this_dir) {
-					if (leds.use_full_range) { leds.led_data[beatsin16_halfdown(leds.juggle_beat, 0, NUM_LEDS - 1, 0, 8192*i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
-					else					 { leds.led_data[beatsin16_halfdown(leds.juggle_beat, 0, ONE_SIDE - 1, 0, 8192*i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
+					if (leds.use_full_range) { leds.led_data[beatsin16_halfdown(leds.juggle_beat, 0, NUM_LEDS - 1, 500 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
+					else					 { leds.led_data[beatsin16_halfdown(leds.juggle_beat, 0, ONE_SIDE - 1, 500 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
 				}
 				else {
-					if (leds.use_full_range) { leds.led_data[beatsin16_halfup(leds.juggle_beat, 0, NUM_LEDS - 1, 0, 8192 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
-					else					 { leds.led_data[beatsin16_halfup(leds.juggle_beat, 0, ONE_SIDE - 1, 0, 8192 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
+					if (leds.use_full_range) { leds.led_data[beatsin16_halfup(leds.juggle_beat, 0, NUM_LEDS - 1, 500 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); }
+					else					 { leds.led_data[beatsin16_halfup(leds.juggle_beat, 0, ONE_SIDE - 1, 500 * i)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending); strip_sync(leds); }
 				}
 				leds.juggle_index += leds.juggle_diff;
 			}
