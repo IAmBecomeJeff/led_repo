@@ -11,14 +11,14 @@ struct LEDStruct {
 	uint8_t	brightness			= 255;
 	uint8_t delay_time			= 15;
 	bool	use_full_range		= 1;		// Whether we want to go up and down the full strip (1), or be mirrored
-	bool	this_dir = 1;
+	bool	this_dir			= 1;
 	ArrayType array_type;					// CURRENT, NEXT, any others, for debug purposes
 
 	// Palette variables
 	CRGBPalette16 current_palette;
 	CRGBPalette16 target_palette;
-	uint8_t palette_index;
 	TBlendType current_blending = LINEARBLEND;		// Consider NOBLEND
+	uint8_t palette_index;
 	bool	use_palette			= 1;		// Determines if palette functions should be used
 
 	// Mode variables
@@ -61,7 +61,7 @@ struct LEDStruct {
 	uint16_t sPseudotime;
 	uint16_t sLastMillis;
 	uint16_t sHue16;
-	uint8_t brightdepth, msmultiplier, hue8, bri8, cwave_index;
+	uint8_t  brightdepth, msmultiplier, hue8, bri8, cwave_index;
 	uint16_t brightnessthetainc16, hue16, hueinc16, ms, deltams, brightnesstheta16, h16_128, b16, bri16, pixelnumber;
 	uint16_t strip_range;
 

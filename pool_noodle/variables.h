@@ -42,6 +42,7 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 				  };
 
 extern Mode start_mode;
+uint16_t number_of_changes;
 
 
 // Palette Variables

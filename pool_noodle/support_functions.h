@@ -38,6 +38,9 @@ void change_pattern() {
 	transition_type  = BLENDING;
 	transition_speed = random8(3,7);
 	transition_ratio = 0;
+	number_of_mode_changes++;
+	Serial.print("Mode change number: ");
+	Serial.println(number_of_changes);
 
 	// Next LED Variables
 	next_leds.mode_initialized = 0;
