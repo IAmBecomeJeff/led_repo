@@ -1,10 +1,24 @@
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
+// Unsigned subtraction magic
+#define qsubd(x, b) ((x>b)?255:0)		// A digital unsigned subtraction macro. if result <0, then => 0. Otherwise, take on fixed value.
+#define qsuba(x, b) ((x>b)?x-b:0)					// Unsigned subtraction macro. if result <0, then => 0.
+
 // Find index of current (target) palette
 void updatePaletteIndex(LEDStruct& leds) {
 	for (int i = 0; i < palette_count; i++) {
 		if (leds.target_palette == palettes[i]) {
 			leds.palette_index = i;
+			break;
+		}
+	}
+}
+
+
+void find_mode_number(LEDStruct& leds) {
+	for (uint8_t i = 0; i < ARRAY_SIZE(ModeList); i++){
+		if (leds.mode_name == ModeList[i]) {
+			leds.mode_number = i;
 			break;
 		}
 	}
@@ -19,12 +33,14 @@ void initialize() {
 	curr_leds.target_palette	= Tropical_Colors_gp;
 	updatePaletteIndex(curr_leds);
 	curr_leds.mode_name			= start_mode;
+	find_mode_number(curr_leds);
 
 	// Initialize next_leds
 	fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
 	next_leds.array_type		= NEXT;
 	next_leds.current_palette	= bhw3_21_gp;
 	next_leds.target_palette	= bhw3_30_gp;
+	next_leds.mode_number		= curr_leds.mode_number;			// Helps with sequential steps
 	updatePaletteIndex(next_leds);
 }
 
@@ -39,8 +55,6 @@ void change_pattern() {
 	transition_speed = random8(3,7);
 	transition_ratio = 0;
 	number_of_mode_changes++;
-	Serial.print("Mode change number: ");
-	Serial.println(number_of_changes);
 
 	// Next LED Variables
 	next_leds.mode_initialized = 0;

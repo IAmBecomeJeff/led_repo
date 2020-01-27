@@ -5,7 +5,8 @@
 
 struct LEDStruct {
 	// LED data array
-	struct CRGB led_data[NUM_LEDS];
+	//struct CRGB led_data[NUM_LEDS];
+	CRGBArray<NUM_LEDS> led_data;
 
 	// Primary variables
 	uint8_t	brightness			= 255;
@@ -57,14 +58,43 @@ struct LEDStruct {
 	uint8_t torch_index;
 	uint8_t torch_diff;
 
-	// Colorwave Variables
+	// Colorwave and Pride Variables
 	uint16_t sPseudotime;
 	uint16_t sLastMillis;
 	uint16_t sHue16;
-	uint8_t  brightdepth, msmultiplier, hue8, bri8, cwave_index;
+	uint8_t  brightdepth, msmultiplier, hue8, sat8, bri8, cwave_index;
 	uint16_t brightnessthetainc16, hue16, hueinc16, ms, deltams, brightnesstheta16, h16_128, b16, bri16, pixelnumber;
 	uint16_t strip_range;
 
+	// Confetti Variables
+	uint8_t confetti_fade;
+
+	// Sin Variables
+	uint8_t sin_inc;
+	uint8_t sin_speed;
+	uint8_t sin_cutoff;
+	uint8_t sin_rot;
+	uint8_t sin_all_freq;
+	uint8_t bg_clr;
+	uint8_t bg_bri;
+	uint8_t sin_index;
+	uint8_t sin_start;
+	uint8_t sin_phase;
+
+	// Fireworks Varaibles
+	uint8_t firework_position;
+	uint8_t firework_hue;
+	uint8_t firework_bri;
+	stage current_stage;
+	uint32_t next_explosion_time;
+	bool exploded;
+	uint8_t number_of_sparks;
+	float spark_pos[MAX_NUMBER_OF_SPARKS];
+	float spark_vel[MAX_NUMBER_OF_SPARKS];
+	bool spark_dir[MAX_NUMBER_OF_SPARKS];
+	float spark_fade[MAX_NUMBER_OF_SPARKS];
+	float spark_bri[MAX_NUMBER_OF_SPARKS];
+	uint8_t brightest_spark;
 };
 
 
@@ -75,12 +105,16 @@ LEDStruct next_leds;
 
 
 // To duplicate one side of the strip with the other
+/*
 void strip_sync(LEDStruct& leds) {
 	for (uint16_t i = 0; i < ONE_SIDE; i++) {
 		leds.led_data[NUM_LEDS - i - 1] = leds.led_data[i];
 	}
-}
+}*/
 
+void strip_sync(LEDStruct& leds) {
+	leds.led_data(ONE_SIDE, NUM_LEDS - 1) = -leds.led_data(ONE_SIDE - 1, 0);
+}
 
 
 // Debugging function
@@ -169,6 +203,54 @@ void LEDDebug(LEDStruct& leds) {
 		
 		case COLORWAVE:
 			Serial.println("=====COLORWAVE=====");
+			break;
+
+		case PRIDE:
+			Serial.println("=====PRIDE=====");
+			break;
+
+		case CONFETTI:
+			Serial.println("=====CONFETTI=====");
+			Serial.print("confetti_fade: ");
+			Serial.println(leds.confetti_fade);
+			break;
+
+		case FIREWORKS:
+			Serial.println("=====FIREWORKS=====");
+			Serial.print("firework_position:   ");
+			Serial.println(leds.firework_position);
+			Serial.print("Current Stage:  ");
+			switch (leds.current_stage) {
+			case WAITING: Serial.println("WAITING");
+			case FADEUP: Serial.println("FADEUP");
+			case EXPLOSION: Serial.println("EXPLOSION");
+			}
+			Serial.print("Number of sparks:  ");
+			Serial.println(leds.number_of_sparks);
+			Serial.print("Brightest spark:   ");
+			Serial.println(leds.brightest_spark);
+			Serial.print("Next explosion time: ");
+			Serial.println(leds.next_explosion_time);
+			break;
+
+		case ONE_SIN:
+			Serial.println("=====ONE_SIN=====");
+			Serial.print("sin_inc:       ");
+			Serial.println(leds.sin_inc);
+			Serial.print("sin_speed:     ");
+			Serial.println(leds.sin_speed);
+			Serial.print("sin_cutoff:    ");
+			Serial.println(leds.sin_cutoff);
+			Serial.print("sin_rot:       ");
+			Serial.println(leds.sin_rot);
+			Serial.print("sin_phase:     ");
+			Serial.println(leds.sin_phase);
+			Serial.print("all_freq:      ");
+			Serial.println(leds.sin_all_freq);
+			Serial.print("bg_clr:        ");
+			Serial.println(leds.bg_clr);
+			Serial.print("bg_bri:        ");
+			Serial.println(leds.bg_bri);
 			break;
 
 		default:

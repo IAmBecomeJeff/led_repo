@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = JUGGLE_PHASED;
+Mode start_mode = COLORWAVE;
 
 // ================ SETUP ================
 
@@ -95,6 +95,13 @@ void loop() {
 			if (in_transition) {
 				LEDDebug(next_leds);
 			}
+			Serial.print("Mode change number: ");
+			Serial.println(number_of_mode_changes);
+			Serial.print("Number of minutes on: ");
+			Serial.println(number_of_min_on);
+		}
+		EVERY_N_MINUTES(1) {
+			number_of_min_on++;
 		}
 	}
 

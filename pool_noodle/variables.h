@@ -27,22 +27,29 @@ uint8_t next_delay;
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
+bool	random_mode			= 0;		// Determines if we change randomly or in the order of ModeList
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
-					COLORWAVE
+					COLORWAVE, PRIDE,
+					CONFETTI,
+					ONE_SIN,
+					FIREWORKS
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
-					COLORWAVE
+					COLORWAVE, PRIDE,
+					CONFETTI,
+					ONE_SIN,					
+					FIREWORKS
 				  };
 
 extern Mode start_mode;
-uint16_t number_of_changes;
+uint16_t number_of_mode_changes;
+uint16_t number_of_min_on;
 
 
 // Palette Variables
@@ -56,3 +63,13 @@ bool in_transition = 0;
 TransitionType transition_type;
 uint8_t transition_ratio;
 uint8_t transition_speed; // seconds
+
+
+// Fireworks Variables
+#define MAX_NUMBER_OF_SPARKS 60
+#define MIN_NUMBER_OF_SPARKS 20
+enum stage { FADEUP, EXPLOSION, WAITING };
+uint16_t max_wait = 1000;
+uint16_t min_wait = 500;
+float gravity = 0.97;
+uint8_t firework_bg_fade = 128;

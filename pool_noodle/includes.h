@@ -12,6 +12,10 @@ void print_palette(uint8_t pn); // Forward declaration
 #include "rainbow_march.h"
 #include "fire.h"
 #include "colorwave.h"
+#include "confetti.h"
+#include "one_sin.h"
+#include "pride.h"
+#include "fireworks.h"
 
 // Mode switching
 #include "switch_mode.h"

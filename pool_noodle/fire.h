@@ -70,7 +70,7 @@ void fire(LEDStruct& leds) {
 	}
 	else {
 		for (int j = 0; j < leds.heat_length; j++) {
-			leds.led_data[leds.heat_length - leds.fire_offset - 1 - j] = HeatColor(leds.heat[j]);
+			leds.led_data[leds.heat_length - 1 - j] = HeatColor(leds.heat[j]);
 		}
 	}
 
@@ -82,7 +82,7 @@ void fire(LEDStruct& leds) {
 		}
 		else {
 			for (int j = 0; j < leds.heat_length; j++) {
-				leds.led_data[leds.heat_length / 2 + j] = HeatColor(leds.heat[j]);
+				leds.led_data[leds.heat_length + j] = HeatColor(leds.heat[j]);
 			}
 		}
 	}

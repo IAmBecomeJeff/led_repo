@@ -84,9 +84,28 @@ void switch_mode(LEDStruct& leds) {
 			torch(leds);
 			break;
 
-		// Colorwave Functions
+		// Colorwave and Pride Functions
 		case COLORWAVE:
 			colorwave(leds);
+			break;
+
+		case PRIDE:
+			pride(leds);
+			break;
+
+		// Confetti Functions
+		case CONFETTI:
+			confetti(leds);
+			break;
+
+		// Sin Functions
+		case ONE_SIN:
+			one_sin(leds);
+			break;
+
+		// Fireworks Functions
+		case FIREWORKS:
+			fireworks(leds);
 			break;
 	}
 }
