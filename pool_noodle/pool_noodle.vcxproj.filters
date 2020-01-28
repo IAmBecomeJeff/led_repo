@@ -66,5 +66,8 @@
     <ClInclude Include="pride.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shooting_pole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

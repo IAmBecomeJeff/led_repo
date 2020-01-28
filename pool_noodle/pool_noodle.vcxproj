@@ -139,6 +139,9 @@
     <ClInclude Include="rainbow_march.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="shooting_pole.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="support_functions.h">
       <FileType>CppCode</FileType>
     </ClInclude>

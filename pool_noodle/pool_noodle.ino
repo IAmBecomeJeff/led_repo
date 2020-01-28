@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = FIREWORKS;
+Mode start_mode = BOUNCE;
 
 // ================ SETUP ================
 
