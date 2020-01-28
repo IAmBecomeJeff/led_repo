@@ -17,6 +17,9 @@ void print_palette(uint8_t pn); // Forward declaration
 #include "pride.h"
 #include "fireworks.h"
 #include "shooting_pole.h"
+#include "two_sin.h"
+#include "noise.h"
+//#include "pacific_waves.h"
 
 // Mode switching
 #include "switch_mode.h"

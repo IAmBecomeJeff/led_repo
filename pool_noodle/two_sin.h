@@ -1,0 +1,48 @@
+#ifndef TWO_SIN_H
+#define TWO_SIN_H
+
+void two_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t sh = random8(), uint8_t th = random8(), 
+	uint8_t ss = random8(5), uint8_t ts = random8(1, 5), uint8_t sr = random8(3), uint8_t tr = random8(3), 
+	uint8_t sc = random8(128, 240), uint8_t tc = random8(128, 200), uint8_t saf = random8(1, 9)) {
+
+	leds.mode_initialized = 1;
+	leds.mode_type = TWO_SIN;
+	leds.use_palette = 0;
+	leds.use_full_range = ufr;
+	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+	else					 { leds.strip_range = ONE_SIDE; }
+
+	leds.sin_hue	= sh;
+	leds.two_hue	= th;
+	leds.sin_speed	= ss;
+	leds.two_speed	= ts;
+	leds.sin_rot	= sr;
+	leds.two_rot	= tr;
+	leds.sin_cutoff = sc;
+	leds.two_cutoff = tc;
+	leds.sin_all_freq = saf;
+	leds.sin_phase  = 0;
+	leds.two_phase  = 0;
+}
+
+
+void two_sin(LEDStruct& leds) {
+	if (!leds.mode_initialized) { two_sin_init(leds); }
+	
+	if (!leds.this_dir) { leds.sin_phase += leds.sin_speed; leds.two_phase += leds.two_speed; }
+	else				{ leds.sin_phase -= leds.sin_speed; leds.two_phase -= leds.two_speed; }
+
+	leds.sin_hue += leds.sin_rot;                                                // Hue rotation is fun for this_wave.
+	leds.two_hue += leds.two_rot;                                                // It's also fun for that_wave.
+
+	for (int k = 0; k < leds.strip_range - 1; k++) {
+		leds.sin_bri = qsuba(cubicwave8((k * leds.sin_all_freq) + leds.sin_phase), leds.sin_cutoff);     // qsub sets a minimum value called this_cutoff. If < this_cutoff, then bright = 0. Otherwise, bright = 128 (as defined in qsub)..
+		leds.two_bri = qsuba(cubicwave8((k * leds.sin_all_freq) + 128 + leds.two_phase), leds.two_cutoff); // This wave is 180 degrees out of phase (with the value of 128).
+
+		leds.led_data[k] = CHSV(leds.sin_hue, 255, leds.sin_bri);                              // Assigning hues and brightness to the led array.
+		leds.led_data[k] += CHSV(leds.two_hue, 255, leds.two_bri);
+
+	}
+}
+
+#endif

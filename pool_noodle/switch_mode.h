@@ -32,6 +32,10 @@ void switch_mode(LEDStruct& leds) {
 			juggle(leds);
 			break;
 
+		case BOUNCE:
+			bounce(leds);
+			break;
+
 
 		// Rainbow March Functions
 		case RAINBOW_MARCH:
@@ -103,6 +107,10 @@ void switch_mode(LEDStruct& leds) {
 			one_sin(leds);
 			break;
 
+		case TWO_SIN:
+			two_sin(leds);
+			break;
+
 		// Fireworks Functions
 		case FIREWORKS:
 			fireworks(leds);
@@ -111,6 +119,11 @@ void switch_mode(LEDStruct& leds) {
 		// Shooting Pole
 		case SHOOTING_POLE:
 			shooting_pole(leds);
+			break;
+
+		// Noise Functions
+		case NOISE:
+			noise(leds);
 			break;
 	}
 }

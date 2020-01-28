@@ -37,6 +37,12 @@ struct LEDStruct {
 	bool	juggle_index_reset;
 	bool	juggle_one_dir;
 	bool	juggle_phased;
+	uint8_t bounce_start;
+	uint8_t bounce_start_beat;
+	uint8_t bounce_pos;
+	uint8_t bounce_length;
+	CRGB	bounce[20];
+	bool	bounce_rainbow;
 
 	// Rainbow March Variables
 	uint8_t rainbow_rot;
@@ -75,13 +81,22 @@ struct LEDStruct {
 	uint8_t sin_cutoff;
 	uint8_t sin_rot;
 	uint8_t sin_all_freq;
-	uint8_t bg_clr;
-	uint8_t bg_bri;
 	uint8_t sin_index;
 	uint8_t sin_start;
 	uint8_t sin_phase;
+	uint8_t sin_hue;
+	uint8_t sin_bri;
+	uint8_t two_speed;
+	uint8_t two_rot;
+	uint8_t two_cutoff;
+	uint8_t two_phase;
+	uint8_t two_hue;
+	uint8_t two_bri;
 
-	// Fireworks Varaibles
+	uint8_t bg_clr;
+	uint8_t bg_bri;
+
+	// Fireworks Variables
 	uint8_t firework_position;
 	uint8_t firework_hue;
 	uint8_t firework_bri;
@@ -99,6 +114,11 @@ struct LEDStruct {
 	// Shooting Pole
 	uint8_t pole_index;
 	uint8_t pole_diff;
+
+	// Noise Variables
+	uint16_t noise_scale;
+	uint16_t noise_dist;
+	uint8_t noise_index;
 };
 
 
@@ -109,17 +129,12 @@ LEDStruct next_leds;
 
 
 // To duplicate one side of the strip with the other
-
 void strip_sync(LEDStruct& leds) {
 	for (uint16_t i = 0; i < ONE_SIDE; i++) {
 		leds.led_data[NUM_LEDS - i - 1] = leds.led_data[i];
 	}
 }
-/*
-void strip_sync(LEDStruct& leds) {
-	leds.led_data(ONE_SIDE, NUM_LEDS - 1) = -leds.led_data(ONE_SIDE - 1, 0);
-}
-*/
+
 
 // Debugging function
 void LEDDebug(LEDStruct& leds) {
@@ -184,7 +199,7 @@ void LEDDebug(LEDStruct& leds) {
 			break;
 
 		case FIRE:
-			if (leds.mode_name == TORCH) { Serial.print("=====TORCH"); }
+			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { Serial.print("=====TORCH"); }
 			else { Serial.print("=====FIRE"); }
 			if (leds.fire_mirror) { Serial.print(" MIRROR"); }
 			if (leds.fire_sync)	  { Serial.print(" SYNC"); }
@@ -199,7 +214,7 @@ void LEDDebug(LEDStruct& leds) {
 				Serial.print("cooling2:    ");
 				Serial.println(leds.fire_cooling2);
 			}
-			if (leds.mode_name == TORCH) {
+			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) {
 				Serial.print("torch_diff:  ");
 				Serial.println(leds.torch_diff);
 			}
@@ -257,6 +272,32 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println(leds.bg_bri);
 			break;
 
+		case TWO_SIN:
+			Serial.println("=====TWO_SIN=====");
+			Serial.print("sin_hue:       ");
+			Serial.println(leds.sin_inc);
+			Serial.print("sin_speed:     ");
+			Serial.println(leds.sin_speed);
+			Serial.print("sin_cutoff:    ");
+			Serial.println(leds.sin_cutoff);
+			Serial.print("sin_rot:       ");
+			Serial.println(leds.sin_rot);
+			Serial.print("sin_phase:     ");
+			Serial.println(leds.sin_phase);
+			Serial.print("two_hue:       ");
+			Serial.println(leds.two_hue);
+			Serial.print("two_speed:     ");
+			Serial.println(leds.two_speed);
+			Serial.print("two_cutoff:    ");
+			Serial.println(leds.two_cutoff);
+			Serial.print("two_rot:       ");
+			Serial.println(leds.two_rot);
+			Serial.print("two_phase:     ");
+			Serial.println(leds.two_phase);
+			Serial.print("all_freq:      ");
+			Serial.println(leds.sin_all_freq);
+			break;
+
 		case SHOOTING_POLE:
 			Serial.println("=====SHOOTING POLE=====");
 			Serial.print("strip_range:     ");
@@ -270,6 +311,31 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("juggle_fade:     ");
 			Serial.println(leds.juggle_fade);
 			break;
+
+		case NOISE:
+			Serial.println("=====NOISE=====");
+			Serial.print("noise_scale:   ");
+			Serial.println(leds.noise_scale);
+			Serial.print("noise_dist:    ");
+			Serial.println(leds.noise_dist);
+			break;
+
+		case BOUNCE:
+			Serial.println("=====BOUNCE=====");
+			Serial.print("juggle_fade:       ");
+			Serial.println(leds.juggle_fade);
+			Serial.print("bounce_length:     ");
+			Serial.println(leds.bounce_length);
+			Serial.print("juggle_beat:       ");
+			Serial.println(leds.juggle_beat);
+			Serial.print("rainbow_diff:      ");
+			Serial.println(leds.rainbow_diff);
+			Serial.print("bounce_start_beat: ");
+			Serial.println(leds.bounce_start_beat);
+			Serial.print("bounce_rainbow:    ");
+			Serial.print(leds.bounce_rainbow);
+			break;
+
 
 		default:
 			Serial.println("");
