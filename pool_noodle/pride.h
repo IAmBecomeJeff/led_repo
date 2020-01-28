@@ -1,10 +1,13 @@
 #ifndef PRIDE_H
 #define PRIDE_H
 
-void pride_init(LEDStruct& leds) {
+void pride_init(LEDStruct& leds, bool ufr = random8(2)) {
 	leds.mode_initialized = 1;
 	leds.mode_type = PRIDE;
 	leds.use_palette = 0;
+	leds.use_full_range = ufr;
+	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+	else { leds.strip_range = ONE_SIDE; }
 }
 
 // This function draws rainbows with an ever-changing,
@@ -27,7 +30,7 @@ void pride(LEDStruct& leds) {
 	leds.sHue16 += leds.deltams * beatsin88(400, 5, 9);
 	leds.brightnesstheta16 = leds.sPseudotime;
 
-	for (uint16_t i = 0; i < NUM_LEDS; i++) {
+	for (uint16_t i = 0; i < leds.strip_range; i++) {
 		leds.hue16 += leds.hueinc16;
 		leds.hue8 = leds.hue16 / 256;
 
@@ -41,7 +44,7 @@ void pride(LEDStruct& leds) {
 		CRGB newcolor = CHSV(leds.hue8, leds.sat8, leds.bri8);
 
 		leds.pixelnumber = i;
-		leds.pixelnumber = (NUM_LEDS - 1) - leds.pixelnumber;
+		leds.pixelnumber = (leds.strip_range - 1) - leds.pixelnumber;
 		nblend( leds.led_data[leds.pixelnumber], newcolor, 64);
 	}
 }

@@ -54,5 +54,17 @@
     <ClInclude Include="colorwave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="confetti.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireworks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="one_sin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pride.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

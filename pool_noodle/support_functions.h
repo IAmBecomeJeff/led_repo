@@ -4,6 +4,8 @@
 #define qsubd(x, b) ((x>b)?255:0)		// A digital unsigned subtraction macro. if result <0, then => 0. Otherwise, take on fixed value.
 #define qsuba(x, b) ((x>b)?x-b:0)					// Unsigned subtraction macro. if result <0, then => 0.
 
+void switch_mode(LEDStruct& leds); // Forward declaration
+
 // Find index of current (target) palette
 void updatePaletteIndex(LEDStruct& leds) {
 	for (int i = 0; i < palette_count; i++) {
@@ -58,10 +60,11 @@ void change_pattern() {
 
 	// Next LED Variables
 	next_leds.mode_initialized = 0;
+	next_leds.this_dir = random8(2);
 	if (random_mode) { next_leds.mode_number = random8(ARRAY_SIZE(ModeList)); }
 	else			 { next_leds.mode_number = (next_leds.mode_number + 1) % ARRAY_SIZE(ModeList);	}
 	next_leds.mode_name = ModeList[next_leds.mode_number];
-	
+	switch_mode(next_leds);
 }
 
 // Change palette
@@ -82,7 +85,9 @@ void blending() {
 	EVERY_N_MILLIS(transition_speed * 4) { transition_ratio++;	}
 	if (transition_ratio == 255) {
 		in_transition = 0;
+		fill_solid(curr_leds.led_data, NUM_LEDS, CRGB::Black);
 		curr_leds = next_leds;
+		fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
 		curr_leds.array_type = CURRENT;
 	}
 }

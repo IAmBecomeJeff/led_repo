@@ -107,6 +107,11 @@ void switch_mode(LEDStruct& leds) {
 		case FIREWORKS:
 			fireworks(leds);
 			break;
+
+		// Shooting Pole
+		case SHOOTING_POLE:
+			shooting_pole(leds);
+			break;
 	}
 }
 

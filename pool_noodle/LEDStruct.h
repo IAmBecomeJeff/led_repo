@@ -5,8 +5,8 @@
 
 struct LEDStruct {
 	// LED data array
-	//struct CRGB led_data[NUM_LEDS];
-	CRGBArray<NUM_LEDS> led_data;
+	struct CRGB led_data[NUM_LEDS];
+	//CRGBArray<NUM_LEDS> led_data;
 
 	// Primary variables
 	uint8_t	brightness			= 255;
@@ -95,6 +95,10 @@ struct LEDStruct {
 	float spark_fade[MAX_NUMBER_OF_SPARKS];
 	float spark_bri[MAX_NUMBER_OF_SPARKS];
 	uint8_t brightest_spark;
+
+	// Shooting Pole
+	uint8_t pole_index;
+	uint8_t pole_diff;
 };
 
 
@@ -105,17 +109,17 @@ LEDStruct next_leds;
 
 
 // To duplicate one side of the strip with the other
-/*
+
 void strip_sync(LEDStruct& leds) {
 	for (uint16_t i = 0; i < ONE_SIDE; i++) {
 		leds.led_data[NUM_LEDS - i - 1] = leds.led_data[i];
 	}
-}*/
-
+}
+/*
 void strip_sync(LEDStruct& leds) {
 	leds.led_data(ONE_SIDE, NUM_LEDS - 1) = -leds.led_data(ONE_SIDE - 1, 0);
 }
-
+*/
 
 // Debugging function
 void LEDDebug(LEDStruct& leds) {
@@ -251,6 +255,20 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println(leds.bg_clr);
 			Serial.print("bg_bri:        ");
 			Serial.println(leds.bg_bri);
+			break;
+
+		case SHOOTING_POLE:
+			Serial.println("=====SHOOTING POLE=====");
+			Serial.print("strip_range:     ");
+			Serial.println(leds.strip_range);
+			Serial.print("pole_diff:       ");
+			Serial.println(leds.pole_diff);
+			Serial.print("juggle_beat:     ");
+			Serial.println(leds.juggle_beat);
+			Serial.print("juggle_diff:     ");
+			Serial.println(leds.juggle_diff);
+			Serial.print("juggle_fade:     ");
+			Serial.println(leds.juggle_fade);
 			break;
 
 		default:

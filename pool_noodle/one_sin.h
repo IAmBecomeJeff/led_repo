@@ -1,10 +1,13 @@
 #ifndef ONE_SIN_H
 #define ONE_SIN_H
 
-void one_sin_init(LEDStruct& leds, uint8_t si = random8(1,6), uint8_t ss = random8(1,5), uint8_t sc = random8(128,240), uint8_t sr = random8(1,5), uint8_t sp = random8(0,5), uint8_t saf = random8(1,9), uint8_t bc = random8(), uint8_t bb = random8(10)) {
+void one_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t si = random8(1,6), uint8_t ss = random8(1,5), uint8_t sc = random8(128,240), uint8_t sr = random8(1,5), uint8_t sp = random8(0,5), uint8_t saf = random8(1,9), uint8_t bc = random8(), uint8_t bb = random8(10)) {
 	leds.mode_initialized = 1;
 	leds.mode_type = ONE_SIN;
 	leds.use_palette = 1;
+	leds.use_full_range = ufr;
+	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+	else { leds.strip_range = ONE_SIDE; }
 
 	leds.sin_inc		= si;
 	leds.sin_speed		= ss;
@@ -31,7 +34,7 @@ void one_sin(LEDStruct& leds) {
 	else {
 		leds.sin_phase -= leds.sin_speed;
 	}
-	for (int k = 0; k < NUM_LEDS; k++) {
+	for (int k = 0; k < leds.strip_range; k++) {
 		int sin_bright = qsubd(cubicwave8((k * leds.sin_all_freq) + leds.sin_phase), leds.sin_cutoff);
 		leds.led_data[k] = CHSV(leds.bg_clr, 255, leds.bg_bri);
 		leds.led_data[k] += ColorFromPalette(leds.current_palette, leds.sin_index + k * leds.sin_inc, sin_bright, leds. current_blending);

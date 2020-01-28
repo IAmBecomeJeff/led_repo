@@ -27,7 +27,7 @@ uint8_t next_delay;
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-bool	random_mode			= 0;		// Determines if we change randomly or in the order of ModeList
+bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
@@ -35,7 +35,8 @@ enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, J
 					COLORWAVE, PRIDE,
 					CONFETTI,
 					ONE_SIN,
-					FIREWORKS
+					FIREWORKS,
+					SHOOTING_POLE
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
@@ -44,7 +45,8 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					COLORWAVE, PRIDE,
 					CONFETTI,
 					ONE_SIN,					
-					FIREWORKS
+					FIREWORKS,
+					SHOOTING_POLE
 				  };
 
 extern Mode start_mode;

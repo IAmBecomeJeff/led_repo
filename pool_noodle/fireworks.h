@@ -29,7 +29,7 @@ void fadeup(LEDStruct& leds) {
 			leds.spark_pos[i] = (float)leds.firework_position;
 			leds.spark_vel[i] = (float)(random16(10, 125)) / 100;
 			leds.spark_dir[i] = random8(0, 2);
-			leds.spark_fade[i] = random8(5, 15);
+			leds.spark_fade[i] = random8(10, 15);
 			leds.spark_bri[i] = 255;
 		}
 		leds.led_data[leds.firework_position] = CRGB::White;
@@ -58,7 +58,7 @@ void explosion(LEDStruct& leds) {
 		if ((uint8_t)leds.spark_bri[x] > leds.brightest_spark) { leds.brightest_spark = (uint8_t)leds.spark_bri[x]; }
 	}
 	strip_sync(leds);
-	if (leds.brightest_spark <= 5) {
+	if (leds.brightest_spark == 0 ) {
 		fill_solid(leds.led_data, NUM_LEDS, CRGB::Black);
 		leds.current_stage = WAITING;
 		leds.next_explosion_time = millis() + random16(min_wait + max_wait);
@@ -86,22 +86,6 @@ void fireworks(LEDStruct& leds) {
 			break;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif

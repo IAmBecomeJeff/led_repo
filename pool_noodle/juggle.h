@@ -2,7 +2,6 @@
 #define JUGGLE_H
 
 void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), bool td = random8(2), uint8_t jn = random8(1, 7), uint8_t jb = random8(8, 20), uint8_t jf = random8(140, 240), uint8_t jd = random8(1, 9), bool jir = random8(2), bool ufr = random8(2)) {
-	//if (DEBUG) { Serial.println("JUGGLE INIT BEGIN"); }
 	leds.mode_initialized	= 1;
 	leds.mode_type			= JUGGLE;
 	leds.use_palette		= 1;
@@ -15,10 +14,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_fade		 = jf;
 	leds.juggle_diff		 = jd;
 	leds.juggle_index_reset  = jir;
-	/*
-	if (DEBUG) { Serial.println("JUGGLE INIT COMPLETE"); }
-	if (DEBUG) { LEDDebug(leds); }
-	*/
+
 }
 
 // TODO make a juggle where the colorfrompalette is scaled to the position
@@ -79,6 +75,8 @@ void juggle(LEDStruct& leds) {
 		}
 	}
 }
+
+
 
 
 #endif
