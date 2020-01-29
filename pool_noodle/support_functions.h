@@ -49,20 +49,28 @@ void initialize() {
 
 
 // Change pattern  - consider how to handle this.  Random, specific path, etc.
-void change_pattern() {
+void change_pattern(uint8_t mn = 255) {
 	if (DEBUG) { Serial.println("********Changing Pattern********"); }
 	// Transition variables
 	in_transition    = 1;
-	transition_type  = BLENDING;
+	transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
 	transition_speed = random8(3,7);
-	transition_ratio = 0;
+	switch (transition_type) {
+		case BLENDING:		transition_ratio = 0;		break;
+		case WIPEDOWN:		wipe_pos = ONE_SIDE - 1;	break;
+		case WIPEUP:		wipe_pos = 0;				break;
+		case COLORFADE:	color_up = 1; transition_ratio = 0; colorfade_hue = CHSV(random8(),255,255); hsv2rgb_rainbow(colorfade_hue, colorfade_rgb);  break;
+	}
 	number_of_mode_changes++;
 
 	// Next LED Variables
 	next_leds.mode_initialized = 0;
 	next_leds.this_dir = random8(2);
-	if (random_mode) { next_leds.mode_number = random8(ARRAY_SIZE(ModeList)); }
-	else			 { next_leds.mode_number = (next_leds.mode_number + 1) % ARRAY_SIZE(ModeList);	}
+	if (mn == 255) {					// large number to avoid interfering with read_keyboard mode sends
+		if (random_mode) { next_leds.mode_number = random8(ARRAY_SIZE(ModeList)); }
+		else			 { next_leds.mode_number = (next_leds.mode_number + 1) % ARRAY_SIZE(ModeList); }
+	}
+	else { next_leds.mode_number = mn; }
 	next_leds.mode_name = ModeList[next_leds.mode_number];
 	switch_mode(next_leds);
 }
@@ -80,30 +88,103 @@ void change_palette(LEDStruct& leds) {
 
 
 // Transition functions
+
+void finish_transition() {
+	in_transition = 0;
+	fill_solid(curr_leds.led_data, NUM_LEDS, CRGB::Black);
+	curr_leds = next_leds;
+	fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
+	curr_leds.array_type = CURRENT;
+}
+
 void blending() {
 	for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(curr_leds.led_data[i], next_leds.led_data[i], transition_ratio); }
 	EVERY_N_MILLIS(transition_speed * 4) { transition_ratio++;	}
 	if (transition_ratio == 255) {
-		in_transition = 0;
-		fill_solid(curr_leds.led_data, NUM_LEDS, CRGB::Black);
-		curr_leds = next_leds;
-		fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
-		curr_leds.array_type = CURRENT;
+		finish_transition();
 	}
 }
 
+
+void wipedown() {
+	for (uint16_t i = 0; i < wipe_pos; i++) {
+		master_leds[i]				  = curr_leds.led_data[i];
+		master_leds[NUM_LEDS - 1 - i] = curr_leds.led_data[i];
+	}
+	for (uint16_t j = wipe_pos; j < ONE_SIDE; j++) {
+		master_leds[j]				  = next_leds.led_data[j];
+		master_leds[NUM_LEDS - 1 - j] = next_leds.led_data[j];
+	}
+	master_leds[wipe_pos - 1] = blend(master_leds[wipe_pos - 1], CRGB::Teal, 128);
+	master_leds[NUM_LEDS - 1 - (wipe_pos - 1)] = blend(master_leds[NUM_LEDS -1 - (wipe_pos - 1)], CRGB::Teal, 128);
+
+	master_leds[wipe_pos]				 = CRGB::White;
+	master_leds[NUM_LEDS - 1 - wipe_pos] = CRGB::White;
+
+	if (wipe_pos > ONE_SIDE - 1) {
+		master_leds[wipe_pos + 1] = blend(master_leds[wipe_pos + 1], CRGB::Teal, 128);
+		master_leds[NUM_LEDS - 1 - (wipe_pos + 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos + 1)], CRGB::Teal, 128);
+	}
+
+	EVERY_N_MILLIS(transition_speed * 13) { wipe_pos--; }		// 1000 / 75
+	if (wipe_pos == 0) {
+		finish_transition();
+	}
+}
+
+void wipeup() {
+	for (uint16_t i = 0; i < wipe_pos; i++) {
+		master_leds[i]				  = next_leds.led_data[i];
+		master_leds[NUM_LEDS - 1 - i] = next_leds.led_data[i];
+	}
+	for (uint16_t j = wipe_pos; j < ONE_SIDE; j++) {
+		master_leds[j]				  = curr_leds.led_data[j];
+		master_leds[NUM_LEDS - 1 - j] = curr_leds.led_data[j];
+	}
+
+	if (wipe_pos > 0) {
+		master_leds[wipe_pos - 1] = blend(master_leds[wipe_pos - 1], CRGB::Teal, 128);
+		master_leds[NUM_LEDS - 1 - (wipe_pos - 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos - 1)], CRGB::Teal, 128);
+	}
+
+	master_leds[wipe_pos] = CRGB::White;
+	master_leds[NUM_LEDS - 1 - wipe_pos] = CRGB::White;
+
+	master_leds[wipe_pos + 1] = blend(master_leds[wipe_pos + 1], CRGB::Teal, 128);
+	master_leds[NUM_LEDS - 1 - (wipe_pos + 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos + 1)], CRGB::Teal, 128);
+
+	EVERY_N_MILLIS(transition_speed * 13) { wipe_pos++; }
+	if (wipe_pos == ONE_SIDE - 1) {
+		finish_transition();
+	}
+}
+
+void colorfade() {
+	if (color_up) {
+		for (uint16_t i = 0; i < NUM_LEDS; i++) {
+			master_leds[i] = blend(curr_leds.led_data[i], colorfade_rgb, transition_ratio);
+		}
+		if (transition_ratio++ == 255) { color_up = 0; }
+	}
+	else {
+		for (uint16_t i = 0; i < NUM_LEDS; i++) {
+			master_leds[i] = blend(next_leds.led_data[i], colorfade_rgb, transition_ratio);
+		}
+		if (transition_ratio-- == 0) { finish_transition(); }
+	}
+}
 
 void switch_transition(TransitionType tt) {
 	switch (tt) {
-		case BLENDING:
-			blending();
-			break;
-
-		default: 
-			blending();
-			break;
+		case BLENDING:	blending();		break;
+		case WIPEDOWN:	wipedown();		break;
+		case WIPEUP:	wipeup();		break;
+		case COLORFADE: colorfade();	break;
+		default:		blending();		break;
 	}
 }
+
+
 
 
 

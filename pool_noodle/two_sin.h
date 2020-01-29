@@ -26,8 +26,35 @@ void two_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t sh = random8()
 }
 
 
+void two_sin_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+		case 0:															//a
+			leds.use_full_range = (bool)update_arg;
+			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+			else					 { leds.strip_range = ONE_SIDE; }
+			break;
+		case 1:		leds.sin_hue		= (uint8_t)update_arg;	break;	//b		
+		case 2:		leds.two_hue		= (uint8_t)update_arg;	break;	//c
+		case 3:		leds.sin_speed		= (uint8_t)update_arg;	break;	//d
+		case 4:		leds.two_speed		= (uint8_t)update_arg;	break;	//e
+		case 5:		leds.sin_rot		= (uint8_t)update_arg;	break;	//f
+		case 6:		leds.two_rot		= (uint8_t)update_arg;	break;	//g
+		case 7:		leds.sin_cutoff		= (uint8_t)update_arg;	break;	//h
+		case 8:		leds.two_cutoff		= (uint8_t)update_arg;	break;	//i
+		case 9:		leds.sin_all_freq	= (uint8_t)update_arg;	break;	//j
+		case 10:	leds.sin_phase		= (uint8_t)update_arg;	break;	//k
+		case 11:	leds.two_phase		= (uint8_t)update_arg;	break;	//l
+		default:	break;
+	}
+	LEDDebug(leds);
+}
+
+
+
 void two_sin(LEDStruct& leds) {
 	if (!leds.mode_initialized) { two_sin_init(leds); }
+	if (keyboard_update) { two_sin_update(leds); }
 	
 	if (!leds.this_dir) { leds.sin_phase += leds.sin_speed; leds.two_phase += leds.two_speed; }
 	else				{ leds.sin_phase -= leds.sin_speed; leds.two_phase -= leds.two_speed; }

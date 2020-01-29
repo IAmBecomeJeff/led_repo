@@ -11,9 +11,22 @@ void colorwave_init(LEDStruct& leds, bool ufr = random8(2)) {
 	else					 { leds.strip_range = ONE_SIDE; }
 }
 
+void colorwave_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+		case 0:															//a
+			leds.use_full_range = (bool)update_arg;
+			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+			else { leds.strip_range = ONE_SIDE; }
+			break;
+		default:	break;
+	}
+	LEDDebug(leds);
+}
 
 void colorwave(LEDStruct& leds) {
 	if (!leds.mode_initialized) { colorwave_init(leds); }
+	if (keyboard_update) { colorwave_update(leds); }
 
 	//uint8_t sat8 = beatsin88(87, 220, 250);
 	leds.brightdepth = beatsin88(341, 96, 224);

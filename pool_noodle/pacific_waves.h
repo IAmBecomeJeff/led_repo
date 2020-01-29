@@ -13,12 +13,12 @@ CRGBPalette16 pacifica_palette_3 =
   0x000E39, 0x001040, 0x001450, 0x001860, 0x001C70, 0x002080, 0x1040BF, 0x2060FF };
 
 // Add one layer of waves into the led array
-void pacifica_one_layer(CRGBPalette16& p, uint16_t cistart, uint16_t wavescale, uint8_t bri, uint16_t ioff)
+void pacifica_one_layer(LEDStruct& leds, CRGBPalette16& p, uint16_t cistart, uint16_t wavescale, uint8_t bri, uint16_t ioff)
 {
     uint16_t ci = cistart;
     uint16_t waveangle = ioff;
     uint16_t wavescale_half = (wavescale / 2) + 20;
-    for (uint16_t i = 0; i < NUM_LEDS; i++) {
+    for (uint16_t i = 0; i < leds.strip_range; i++) {
         waveangle += 250;
         uint16_t s16 = sin16(waveangle) + 32768;
         uint16_t cs = scale16(s16, wavescale_half) + wavescale_half;
@@ -26,46 +26,65 @@ void pacifica_one_layer(CRGBPalette16& p, uint16_t cistart, uint16_t wavescale, 
         uint16_t sindex16 = sin16(ci) + 32768;
         uint8_t sindex8 = scale16(sindex16, 240);
         CRGB c = ColorFromPalette(p, sindex8, bri, LINEARBLEND);
-        leds[i] += c;
+        leds.led_data[i] += c;
     }
 }
 
 // Add extra 'white' to areas where the four layers of light have lined up brightly
-void pacifica_add_whitecaps()
+void pacifica_add_whitecaps(LEDStruct& leds)
 {
     uint8_t basethreshold = beatsin8(9, 55, 65);
     uint8_t wave = beat8(7);
 
-    for (uint16_t i = 0; i < NUM_LEDS; i++) {
+    for (uint16_t i = 0; i < leds.strip_range; i++) {
         uint8_t threshold = scale8(sin8(wave), 20) + basethreshold;
         wave += 7;
-        uint8_t l = leds[i].getAverageLight();
+        uint8_t l = leds.led_data[i].getAverageLight();
         if (l > threshold) {
             uint8_t overage = l - threshold;
             uint8_t overage2 = qadd8(overage, overage);
-            leds[i] += CRGB(overage, overage2, qadd8(overage2, overage2));
+            leds.led_data[i] += CRGB(overage, overage2, qadd8(overage2, overage2));
         }
     }
 }
 
 // Deepen the blues and greens
-void pacifica_deepen_colors()
+void pacifica_deepen_colors(LEDStruct& leds)
 {
-    for (uint16_t i = 0; i < NUM_LEDS; i++) {
-        leds[i].blue = scale8(leds[i].blue, 145);
-        leds[i].green = scale8(leds[i].green, 200);
-        leds[i] |= CRGB(2, 5, 7);
+    for (uint16_t i = 0; i < leds.strip_range; i++) {
+        leds.led_data[i].blue = scale8(leds.led_data[i].blue, 145);
+        leds.led_data[i].green = scale8(leds.led_data[i].green, 200);
+        leds.led_data[i] |= CRGB(2, 5, 7);
     }
 }
 
-void pacifica_loop()
-{
-    if (mode_change) {
-        mode_change = 0;
-        use_palette = 0;
-        this_delay = 20;
-        Serial.println("pacifica_loop");
+void pacifica_init(LEDStruct& leds, bool ufr = random8(2)) {
+    leds.mode_initialized = 1;
+    leds.use_palette = 0;
+    leds.mode_type = PACIFICA;
+    leds.use_full_range = ufr;
+    if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+    else                     { leds.strip_range = ONE_SIDE; }
+}
+
+void pacifica_update(LEDStruct& leds) {
+    keyboard_update = 0;
+    switch (update_var) {
+    case 0:															//a
+        leds.use_full_range = (bool)update_arg;
+        if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+        else { leds.strip_range = ONE_SIDE; }
+        break;
+    default:	break;
     }
+    LEDDebug(leds);
+}
+
+
+void pacifica(LEDStruct& leds)
+{
+    if (!leds.mode_initialized) { pacifica_init(leds); }
+    if (keyboard_update) { pacifica_update(leds); }
     // Increment the four "color index start" counters, one for each wave layer.
     // Each is incremented at a different speed, and the speeds vary over time.
     static uint16_t sCIStart1, sCIStart2, sCIStart3, sCIStart4;
@@ -84,19 +103,21 @@ void pacifica_loop()
     sCIStart4 -= (deltams2 * beatsin88(257, 4, 6));
 
     // Clear out the LED array to a dim background blue-green
-    fill_solid(leds, NUM_LEDS, CRGB(2, 6, 10));
+    fill_solid(leds.led_data, leds.strip_range, CRGB(2, 6, 10));
 
     // Render each of four layers, with different scales and speeds, that vary over time
-    pacifica_one_layer(pacifica_palette_1, sCIStart1, beatsin16(3, 11 * 256, 14 * 256), beatsin8(10, 70, 130), 0 - beat16(301));
-    pacifica_one_layer(pacifica_palette_2, sCIStart2, beatsin16(4, 6 * 256, 9 * 256), beatsin8(17, 40, 80), beat16(401));
-    pacifica_one_layer(pacifica_palette_3, sCIStart3, 6 * 256, beatsin8(9, 10, 38), 0 - beat16(503));
-    pacifica_one_layer(pacifica_palette_3, sCIStart4, 5 * 256, beatsin8(8, 10, 28), beat16(601));
+    pacifica_one_layer(leds, pacifica_palette_1, sCIStart1, beatsin16(3, 11 * 256, 14 * 256), beatsin8(10, 70, 130), 0 - beat16(301));
+    pacifica_one_layer(leds, pacifica_palette_2, sCIStart2, beatsin16(4, 6 * 256, 9 * 256), beatsin8(17, 40, 80), beat16(401));
+    pacifica_one_layer(leds, pacifica_palette_3, sCIStart3, 6 * 256, beatsin8(9, 10, 38), 0 - beat16(503));
+    pacifica_one_layer(leds, pacifica_palette_3, sCIStart4, 5 * 256, beatsin8(8, 10, 28), beat16(601));
 
     // Add brighter 'whitecaps' where the waves lines up more
-    pacifica_add_whitecaps();
+    pacifica_add_whitecaps(leds);
 
     // Deepen the blues and greens a bit
-    pacifica_deepen_colors();
+    pacifica_deepen_colors(leds);
+
+    if (!leds.use_full_range) { strip_sync(leds); }
 }
 
 

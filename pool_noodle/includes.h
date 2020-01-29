@@ -3,9 +3,9 @@
 // Setup includes
 #include "palettes.h"
 #include "variables.h"
-void print_palette(uint8_t pn); // Forward declaration
 #include "LEDStruct.h"
 #include "support_functions.h"
+#include "read_keyboard.h"
 
 // Effects
 #include "juggle.h"
@@ -19,7 +19,10 @@ void print_palette(uint8_t pn); // Forward declaration
 #include "shooting_pole.h"
 #include "two_sin.h"
 #include "noise.h"
-//#include "pacific_waves.h"
+#include "pacific_waves.h"
+#include "bounce.h"
+#include "bouncing_balls.h"
+
 
 // Mode switching
 #include "switch_mode.h"

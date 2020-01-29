@@ -9,12 +9,12 @@ Mode start_mode = BOUNCE;
 // ================ SETUP ================
 
 void setup() {
-	if (DEBUG) { Serial.begin(57600); Serial.setTimeout(1500); Serial.println("DEBUG ON"); }
+	if (DEBUG) { Serial.begin(57600); Serial.setTimeout(500); Serial.println("DEBUG ON"); }
 
 	delay(1000);
 
 	FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
-	FastLED.setBrightness(MAX_BRIGHT);
+	FastLED.setBrightness(max_bright);
 	FastLED.setCorrection(TypicalLEDStrip);
 	set_max_power_in_volts_and_milliamps(5, 3000);
 
@@ -45,19 +45,25 @@ void setup() {
 void loop() {
 	// Add entropy to randomness
 	random16_add_entropy(random());
+	
+	// Check for keyboard updates
+	read_keyboard();
 
 	// Change patterns
-	EVERY_N_SECONDS(20){
-		change_pattern();
+	EVERY_N_SECONDS_I(modeTimer,20){
+		modeTimer.setPeriod(mode_change_time);
+		if (mode_change) { change_pattern(); }
 	}
 
 	// Change palette
 	EVERY_N_SECONDS(30) {
-		if (in_transition) { change_palette(next_leds); }
-		else               { change_palette(curr_leds); }
+		if (random_palette) {
+			if (in_transition) { change_palette(next_leds); }
+			else { change_palette(curr_leds); }
+		}
 	}
 
-	// Blend palette of the curr_leds pattern.  Don't worry about the next_leds.
+	// Blend palettes
 	EVERY_N_MILLISECONDS(50) {
 		nblendPaletteTowardPalette(curr_leds.current_palette, curr_leds.target_palette, 24);
 		if(in_transition){ nblendPaletteTowardPalette(next_leds.current_palette, next_leds.target_palette, 24); }
@@ -75,14 +81,16 @@ void loop() {
 
 	// Apply effect to next_leds
 	EVERY_N_MILLIS_I(next_timer, next_delay){
-		if(in_transition){
-			next_timer.setPeriod(next_delay);
-			switch_mode(next_leds);
+		if (!keyboard_update) {
+			if (in_transition) {
+				next_timer.setPeriod(next_delay);
+				switch_mode(next_leds);
+			}
 		}
 	}
 	
 	// Add leds from curr_leds (and maybe next_leds) to master_leds
-	if(in_transition){
+	if (in_transition && !keyboard_update) {
 		switch_transition(transition_type);
 	}
 	else {

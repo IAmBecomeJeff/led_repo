@@ -21,10 +21,31 @@ void one_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t si = random8(1
 
 }
 
-
+void one_sin_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+		case 0:															//a
+			leds.use_full_range = (bool)update_arg;
+			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+			else { leds.strip_range = ONE_SIDE; }
+			break;
+		case 1:		leds.sin_inc		= (uint8_t)update_arg;	break;	//b		
+		case 2:		leds.sin_speed		= (uint8_t)update_arg;	break;	//c
+		case 3:		leds.sin_cutoff		= (uint8_t)update_arg;	break;	//d
+		case 4:		leds.sin_rot		= (uint8_t)update_arg;	break;	//e
+		case 5:		leds.sin_phase		= (uint8_t)update_arg;	break;	//f
+		case 6:		leds.sin_all_freq	= (uint8_t)update_arg;	break;	//g
+		case 7:		leds.bg_clr			= (uint8_t)update_arg;	break;	//h
+		case 8:		leds.bg_bri			= (uint8_t)update_arg;	break;	//i
+		case 9:		leds.sin_start		= (uint8_t)update_arg;	break;	//j
+		default:	break;
+	}
+	LEDDebug(leds);
+}
 
 void one_sin(LEDStruct& leds) {
 	if (!leds.mode_initialized) { one_sin_init(leds); }
+	if (keyboard_update) { one_sin_update(leds); }
 
 	leds.sin_start += leds.sin_inc;
 	leds.sin_index = leds.sin_start;

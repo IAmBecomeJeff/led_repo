@@ -7,7 +7,7 @@
 void switch_mode(LEDStruct& leds) {
 	switch (leds.mode_name) {
 
-		// Juggle Functions
+		// Juggle Functions -----------------------------------------------------------------------
 		case JUGGLE:
 			if (!leds.mode_initialized) { juggle_init(leds, 0, 0); }	// one_dir off | phased off
 			juggle(leds);
@@ -32,12 +32,8 @@ void switch_mode(LEDStruct& leds) {
 			juggle(leds);
 			break;
 
-		case BOUNCE:
-			bounce(leds);
-			break;
 
-
-		// Rainbow March Functions
+		// Rainbow March Functions -----------------------------------------------------------------------
 		case RAINBOW_MARCH:
 			if (!leds.mode_initialized) { rainbow_init(leds, 0); }		// split off
 			rainbow_march(leds);
@@ -53,7 +49,7 @@ void switch_mode(LEDStruct& leds) {
 			break;
 
 		
-		// Fire Functions
+		// Fire Functions -----------------------------------------------------------------------
 		case FIRE:
 			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror off
 			fire(leds);
@@ -88,7 +84,8 @@ void switch_mode(LEDStruct& leds) {
 			torch(leds);
 			break;
 
-		// Colorwave and Pride Functions
+
+		// Colorwave, Pride, Pacifica Functions -----------------------------------------------------------------------
 		case COLORWAVE:
 			colorwave(leds);
 			break;
@@ -97,12 +94,18 @@ void switch_mode(LEDStruct& leds) {
 			pride(leds);
 			break;
 
-		// Confetti Functions
+		case PACIFICA:
+			pacifica(leds);
+			break;
+
+
+		// Confetti Functions -----------------------------------------------------------------------
 		case CONFETTI:
 			confetti(leds);
 			break;
 
-		// Sin Functions
+
+		// Sin Functions -----------------------------------------------------------------------
 		case ONE_SIN:
 			one_sin(leds);
 			break;
@@ -111,20 +114,34 @@ void switch_mode(LEDStruct& leds) {
 			two_sin(leds);
 			break;
 
-		// Fireworks Functions
+
+		// Fireworks Functions -----------------------------------------------------------------------
 		case FIREWORKS:
 			fireworks(leds);
 			break;
 
-		// Shooting Pole
+
+		// Shooting Pole -----------------------------------------------------------------------
 		case SHOOTING_POLE:
 			shooting_pole(leds);
 			break;
 
-		// Noise Functions
+
+		// Noise Functions -----------------------------------------------------------------------
 		case NOISE:
 			noise(leds);
 			break;
+
+
+		// Bouncing Functions -----------------------------------------------------------------------
+		case BOUNCING_BALLS:
+			bouncing_balls(leds);
+			break;
+
+		case BOUNCE:
+			bounce(leds);
+			break;
+
 	}
 }
 

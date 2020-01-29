@@ -50,6 +50,7 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pool_n
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\variables.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\LEDStruct.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\support_functions.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\read_keyboard.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\juggle.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\rainbow_march.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\fire.h \
@@ -61,5 +62,8 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pool_n
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\shooting_pole.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\two_sin.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\noise.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\pacific_waves.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\bounce.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\bouncing_balls.h \
  C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\pool_noodle\teensy31\Debug\switch_mode.h \
- c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\preview\common7\ide\extensions\p1hbfuhp.cmm\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h
+ c:\program\ files\ (x86)\microsoft\ visual\ studio\2019\community\common7\ide\extensions\y4ur5orx.hne\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h

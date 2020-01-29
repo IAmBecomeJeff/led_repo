@@ -24,8 +24,23 @@ void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint
 }
 
 
+void fire_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+		case 0:		leds.fire_sparking	= (uint8_t)update_arg;	break;	//a
+		case 1:		leds.fire_cooling	= (uint8_t)update_arg;	break;	//b		
+		case 2:		leds.fire_sync		= (bool)update_arg;		break;	//c
+		case 3:		leds.torch_diff		= (uint8_t)update_arg;	break;	//d
+		case 4:		leds.fire_sparking2 = (uint8_t)update_arg;	break;	//e
+		case 5:		leds.fire_cooling2	= (uint8_t)update_arg;	break;	//f
+		default:	break;
+	}
+	LEDDebug(leds);
+}
+
 void fire(LEDStruct& leds) {
 	if (!leds.mode_initialized) { fire_init(leds); }
+	if (keyboard_update) { fire_update(leds); }
 	// heat[] array defined in LEDStruct
 
 	// Step 1.  Cool down every cell a little
@@ -120,6 +135,7 @@ void fire(LEDStruct& leds) {
 
 void torch(LEDStruct& leds) {
 	if (!leds.mode_initialized) { fire_init(leds); }
+	if (keyboard_update) { fire_update(leds); }
 	// Step 1
 	for (int i = 0; i < leds.heat_length; i++) {
 		leds.heat[i] = qsub8(leds.heat[i], random8(0, ((leds.fire_cooling * 10) / leds.heat_length) + 2));

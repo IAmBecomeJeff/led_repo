@@ -6,7 +6,6 @@
 struct LEDStruct {
 	// LED data array
 	struct CRGB led_data[NUM_LEDS];
-	//CRGBArray<NUM_LEDS> led_data;
 
 	// Primary variables
 	uint8_t	brightness			= 255;
@@ -119,6 +118,18 @@ struct LEDStruct {
 	uint16_t noise_scale;
 	uint16_t noise_dist;
 	uint8_t noise_index;
+
+	// Bouncing Balls Variables
+	uint8_t bouncing_index;
+	uint8_t bouncing_fade;
+	uint8_t number_of_balls;
+	float   bouncing_heights[MAX_NUMBER_OF_BALLS];
+	float   bouncing_vImpact[MAX_NUMBER_OF_BALLS];
+	float   bouncing_tCycle[MAX_NUMBER_OF_BALLS];
+	int     bouncing_pos[MAX_NUMBER_OF_BALLS];
+	long    bouncing_tLast[MAX_NUMBER_OF_BALLS];
+	float   bouncing_COR[MAX_NUMBER_OF_BALLS];
+
 };
 
 
@@ -135,6 +146,8 @@ void strip_sync(LEDStruct& leds) {
 	}
 }
 
+void print_palette(uint8_t pn); // Forward declaration
+
 
 // Debugging function
 void LEDDebug(LEDStruct& leds) {
@@ -149,7 +162,7 @@ void LEDDebug(LEDStruct& leds) {
 
 	// Print Standard Variables
 	Serial.print("Brightness:       ");
-	Serial.println(leds.brightness);
+	Serial.println(max_bright);
 	Serial.print("delay_time:       ");
 	Serial.println(leds.delay_time);
 	Serial.print("use_palette:      ");
@@ -226,6 +239,10 @@ void LEDDebug(LEDStruct& leds) {
 
 		case PRIDE:
 			Serial.println("=====PRIDE=====");
+			break;
+
+		case PACIFICA:
+			Serial.println("=====PACIFCIA=====");
 			break;
 
 		case CONFETTI:
@@ -333,9 +350,16 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("bounce_start_beat: ");
 			Serial.println(leds.bounce_start_beat);
 			Serial.print("bounce_rainbow:    ");
-			Serial.print(leds.bounce_rainbow);
+			Serial.println(leds.bounce_rainbow);
 			break;
 
+		case BOUNCING_BALLS:
+			Serial.println("=====BOUNCING BALLS=====");
+			Serial.print("fade:\t\t");
+			Serial.println(leds.bouncing_fade);
+			Serial.print("number of balls: ");
+			Serial.println(leds.number_of_balls);
+			break;
 
 		default:
 			Serial.println("");

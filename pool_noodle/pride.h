@@ -10,10 +10,24 @@ void pride_init(LEDStruct& leds, bool ufr = random8(2)) {
 	else { leds.strip_range = ONE_SIDE; }
 }
 
+void pride_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+	case 0:															//a
+		leds.use_full_range = (bool)update_arg;
+		if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+		else { leds.strip_range = ONE_SIDE; }
+		break;
+	default:	break;
+	}
+	LEDDebug(leds);
+}
+
 // This function draws rainbows with an ever-changing,
 // widely-varying set of parameters.
 void pride(LEDStruct& leds) {
 	if (!leds.mode_initialized) { pride_init(leds); }
+	if (keyboard_update) { pride_update(leds); }
 
 	leds.sat8 = beatsin88(87, 220, 250);
 	leds.brightdepth = beatsin88(341, 96, 224);
