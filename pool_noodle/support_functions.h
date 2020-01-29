@@ -46,21 +46,12 @@ void initialize() {
 	updatePaletteIndex(next_leds);
 }
 
+void begin_transition(); // Forward declaration
 
-
-// Change pattern  - consider how to handle this.  Random, specific path, etc.
-void change_pattern(uint8_t mn = 255) {
+// Change mode - consider how to handle this.  Random, specific path, etc.
+void change_mode(uint8_t mn = 255) {
 	if (DEBUG) { Serial.println("********Changing Pattern********"); }
-	// Transition variables
-	in_transition    = 1;
-	transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
-	transition_speed = random8(3,7);
-	switch (transition_type) {
-		case BLENDING:		transition_ratio = 0;		break;
-		case WIPEDOWN:		wipe_pos = ONE_SIDE - 1;	break;
-		case WIPEUP:		wipe_pos = 0;				break;
-		case COLORFADE:	color_up = 1; transition_ratio = 0; colorfade_hue = CHSV(random8(),255,255); hsv2rgb_rainbow(colorfade_hue, colorfade_rgb);  break;
-	}
+	begin_transition();
 	number_of_mode_changes++;
 
 	// Next LED Variables
@@ -88,6 +79,17 @@ void change_palette(LEDStruct& leds) {
 
 
 // Transition functions
+void begin_transition() {
+	in_transition = 1;
+	transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
+	transition_speed = random8(3, 7);
+	switch (transition_type) {
+	case BLENDING:		transition_ratio = 0;		break;
+	case WIPEDOWN:		wipe_pos = ONE_SIDE - 1;	break;
+	case WIPEUP:		wipe_pos = 0;				break;
+	case COLORFADE:	color_up = 1; transition_ratio = 0; colorfade_hue = CHSV(random8(), 255, 255); hsv2rgb_rainbow(colorfade_hue, colorfade_rgb);  break;
+	}
+}
 
 void finish_transition() {
 	in_transition = 0;
@@ -164,13 +166,13 @@ void colorfade() {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			master_leds[i] = blend(curr_leds.led_data[i], colorfade_rgb, transition_ratio);
 		}
-		if (transition_ratio++ == 255) { color_up = 0; }
+		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 255) { color_up = 0; }	}
 	}
 	else {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) {
 			master_leds[i] = blend(next_leds.led_data[i], colorfade_rgb, transition_ratio);
 		}
-		if (transition_ratio-- == 0) { finish_transition(); }
+		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio-- == 0) { finish_transition(); } }
 	}
 }
 

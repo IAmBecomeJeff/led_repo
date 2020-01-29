@@ -29,7 +29,7 @@ void read_keyboard() {
 			case 69: next_leds.delay_time = update_arg; keyboard_update = 0; break;
 
 			// M - mode
-			case 77: change_pattern((uint8_t)update_arg); keyboard_update = 0; break;
+			case 77: change_mode((uint8_t)update_arg); keyboard_update = 0; break;
 
 			// N - direction
 			case 78: curr_leds.this_dir = (bool)update_arg; keyboard_update = 0; break;

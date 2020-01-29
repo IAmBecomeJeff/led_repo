@@ -52,7 +52,7 @@ void loop() {
 	// Change patterns
 	EVERY_N_SECONDS_I(modeTimer,20){
 		modeTimer.setPeriod(mode_change_time);
-		if (mode_change) { change_pattern(); }
+		if (mode_change) { change_mode(); }
 	}
 
 	// Change palette

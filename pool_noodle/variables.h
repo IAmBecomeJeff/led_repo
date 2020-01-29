@@ -16,7 +16,7 @@ struct CRGB master_leds[NUM_LEDS];
 
 
 // LED Variables
-uint8_t max_bright;		// used in initial LEDS.set_brightness
+uint8_t max_bright = 255;		// used in initial LEDS.set_brightness
 
 
 // Array Variables
