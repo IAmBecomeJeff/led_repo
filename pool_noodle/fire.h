@@ -17,10 +17,8 @@ void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint
 	else if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.heat_length = hl; }
 	else							  { leds.heat_length = ONE_SIDE;	 leds.fire_offset = 0; }
 
-	if (!leds.fire_sync) {
-		leds.fire_sparking2 = fs - 10 + random8(21);
-		leds.fire_cooling2	= fc - 10 + random8(21);
-	}
+	leds.fire_sparking2 = fs - 10 + random8(21);
+	leds.fire_cooling2	= fc - 10 + random8(21);
 }
 
 
@@ -29,10 +27,10 @@ void fire_update(LEDStruct& leds) {
 	switch (update_var) {
 		case 0:		leds.fire_sparking	= (uint8_t)update_arg;	break;	//a
 		case 1:		leds.fire_cooling	= (uint8_t)update_arg;	break;	//b		
-		case 2:		leds.fire_sync		= (bool)update_arg;		break;	//c
-		case 3:		leds.torch_diff		= (uint8_t)update_arg;	break;	//d
-		case 4:		leds.fire_sparking2 = (uint8_t)update_arg;	break;	//e
-		case 5:		leds.fire_cooling2	= (uint8_t)update_arg;	break;	//f
+		case 2:		leds.fire_sparking2 = (uint8_t)update_arg;	break;	//c
+		case 3:		leds.fire_cooling2 = (uint8_t)update_arg;	break;	//d
+		case 4:		leds.fire_sync		= (bool)update_arg;		break;	//e
+		case 5:		leds.torch_diff		= (uint8_t)update_arg;	break;	//f
 		default:	break;
 	}
 	LEDDebug(leds);

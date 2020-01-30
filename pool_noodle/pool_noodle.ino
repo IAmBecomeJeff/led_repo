@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = BOUNCE;
+Mode start_mode = BOUNCING_BALLS;
 
 // ================ SETUP ================
 
@@ -98,18 +98,14 @@ void loop() {
 	}
 
 	if (DEBUG) {
+		EVERY_N_MINUTES(1) { number_of_min_on++; }
 		EVERY_N_SECONDS(5) {
 			LEDDebug(curr_leds);
 			if (in_transition) {
 				LEDDebug(next_leds);
 			}
-			Serial.print("Mode change number: ");
-			Serial.println(number_of_mode_changes);
-			Serial.print("Number of minutes on: ");
-			Serial.println(number_of_min_on);
-		}
-		EVERY_N_MINUTES(1) {
-			number_of_min_on++;
+			number_of_sec_on = (number_of_sec_on + 5) % 60;
+			global_debug();
 		}
 	}
 

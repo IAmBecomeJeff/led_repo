@@ -27,7 +27,7 @@ uint8_t next_delay;
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
+bool	random_mode			= 0;		// Determines if we change randomly or in the order of ModeList
 bool	mode_change			= 1;
 uint16_t mode_change_time = 20;			// seconds
 
@@ -58,6 +58,7 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 extern Mode start_mode;
 uint16_t number_of_mode_changes;
 uint16_t number_of_min_on;
+uint8_t number_of_sec_on;
 
 
 // Palette Variables

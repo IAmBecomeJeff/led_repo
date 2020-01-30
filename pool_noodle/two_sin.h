@@ -42,9 +42,9 @@ void two_sin_update(LEDStruct& leds) {
 		case 6:		leds.two_rot		= (uint8_t)update_arg;	break;	//g
 		case 7:		leds.sin_cutoff		= (uint8_t)update_arg;	break;	//h
 		case 8:		leds.two_cutoff		= (uint8_t)update_arg;	break;	//i
-		case 9:		leds.sin_all_freq	= (uint8_t)update_arg;	break;	//j
-		case 10:	leds.sin_phase		= (uint8_t)update_arg;	break;	//k
-		case 11:	leds.two_phase		= (uint8_t)update_arg;	break;	//l
+		case 9:		leds.sin_phase		= (uint8_t)update_arg;	break;	//j
+		case 10:	leds.two_phase		= (uint8_t)update_arg;	break;	//k
+		case 11:	leds.sin_all_freq	= (uint8_t)update_arg;	break;	//l
 		default:	break;
 	}
 	LEDDebug(leds);

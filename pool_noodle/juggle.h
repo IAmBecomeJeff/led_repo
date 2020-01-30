@@ -16,11 +16,30 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_index_reset  = jir;
 }
 
+void juggle_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+			case 0:		leds.use_full_range		= (bool)update_arg;		break;	//a
+			case 1:		leds.juggle_one_dir		= (bool)update_arg;		break;	//b		
+			case 2:		leds.juggle_phased		=  (bool)update_arg;	break;	//c
+			case 3:		leds.juggle_numdots		= (uint8_t)update_arg;	break;	//d
+			case 4:		leds.juggle_beat		= (uint8_t)update_arg;	break;	//e
+			case 5:		leds.juggle_fade		= (uint8_t)update_arg;	break;	//f
+			case 6:		leds.juggle_diff		= (uint8_t)update_arg;	break;	//g
+			case 7:		leds.juggle_index_reset = (bool)update_arg;		break;	//h
+			default:	break;
+	}
+	LEDDebug(leds);
+}
+
+
+
 // TODO make a juggle where the colorfrompalette is scaled to the position
 
 void juggle(LEDStruct& leds) {
 	// If not yet iniatilized, call init function with random variables.
 	if (!leds.mode_initialized) { juggle_init(leds); }
+	if (keyboard_update) { juggle_update(leds); }
 
 	// Keep the same color for each dot, or cycle through the palette
 	if (leds.juggle_index_reset) { leds.juggle_index = 0; }

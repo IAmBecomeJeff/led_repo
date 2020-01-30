@@ -26,6 +26,7 @@ void bouncing_balls_update(LEDStruct& leds) {
 	switch (update_var) {
 	case 0:		leds.bouncing_fade	 = (uint8_t)update_arg;	break;	//a
 	case 1:		leds.number_of_balls = (uint8_t)update_arg;	constrain(leds.number_of_balls, 1, MAX_NUMBER_OF_BALLS); break;	//b		
+	case 2:		leds.use_palette	 = (bool)update_arg; break; //c
 	default:	break;
 	}
 	LEDDebug(leds);

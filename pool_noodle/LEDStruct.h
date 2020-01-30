@@ -152,223 +152,316 @@ void print_palette(uint8_t pn); // Forward declaration
 // Debugging function
 void LEDDebug(LEDStruct& leds) {
 	Serial.println("");
-	Serial.println("==================================================");
+	Serial.println("==================================");
 
 	// Print which Array it is
-	Serial.print("LED Array:        ");
-	if		(leds.array_type == CURRENT) { Serial.println("CURRENT"); }
-	else if (leds.array_type == NEXT)	 { Serial.println("NEXT"); }
-	else if (leds.array_type == OVERLAY) { Serial.println("OVERLAY"); }
+	if		(leds.array_type == CURRENT) { Serial.println("==============CURRENT============="); }
+	else if (leds.array_type == NEXT)	 { Serial.println("~~~~~~~~~~~~~~~NEXT~~~~~~~~~~~~~~~"); }
+	else if (leds.array_type == OVERLAY) { Serial.println("=============OVERLAY=============="); }
 
 	// Print Standard Variables
-	Serial.print("Brightness:       ");
-	Serial.println(max_bright);
-	Serial.print("delay_time:       ");
-	Serial.println(leds.delay_time);
-	Serial.print("use_palette:      ");
-	Serial.println(leds.use_palette);
+	Serial.print("|| (B) Brightness:\t");
+	Serial.print(max_bright);
+	Serial.println("\t||");
+	Serial.print("|| (D) delay_time:\t");
+	Serial.print(leds.delay_time);
+	Serial.println("\t||");
+	Serial.print("|| (N) this_dir:\t");
+	Serial.print(leds.this_dir);
+	Serial.println("\t||");
+	Serial.print("|| (M) mode_number:\t");
+	Serial.print(leds.mode_number);
+	Serial.println("\t||");
+	Serial.print("|| mode_initialized:\t"); // 3 tabs
+	Serial.print(leds.mode_initialized);
+	Serial.println("\t||");
+	Serial.print("|| use_palette:\t\t");
+	Serial.print(leds.use_palette);
+	Serial.println("\t||");
 	if (leds.use_palette) { print_palette(leds.palette_index); }
-	Serial.print("use_full_range:   ");
-	Serial.println(leds.use_full_range);
-	Serial.print("this_dir:         ");
-	Serial.println(leds.this_dir);
-	Serial.print("mode_number:      ");
-	Serial.println(leds.mode_number);
-	Serial.print("mode_initialized: ");
-	Serial.println(leds.mode_initialized);
-	Serial.println("=========================");
+	Serial.println("=================================="); //4 tabs then ||
 
 	// Print mode-specific variables
 	switch (leds.mode_type) {
 		case JUGGLE:
-			Serial.println("===JUGGLE VARIABLES===");
-			Serial.print("index:         ");
-			Serial.println(leds.juggle_index);
-			Serial.print("numdots:       ");
-			Serial.println(leds.juggle_numdots);
-			Serial.print("beat:          ");
-			Serial.println(leds.juggle_beat);
-			Serial.print("fade:          ");
-			Serial.println(leds.juggle_fade);
-			Serial.print("diff:          ");
-			Serial.println(leds.juggle_diff);
-			Serial.print("index_reset:   ");
-			Serial.println(leds.juggle_index_reset);
-			Serial.print("one_dir:       ");
-			Serial.println(leds.juggle_one_dir);
-			Serial.print("phased:        ");
-			Serial.println(leds.juggle_phased);
+			Serial.println("==============JUGGLE=============="); // 34 characters
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) one_dir:\t\t");
+			Serial.print(leds.juggle_one_dir);
+			Serial.println("\t||");
+			Serial.print("|| (c) phased:\t\t");
+			Serial.print(leds.juggle_phased);
+			Serial.println("\t||");
+			Serial.print("|| (d) numdots:\t\t");
+			Serial.print(leds.juggle_numdots);
+			Serial.println("\t||");
+			Serial.print("|| (e) beat:\t\t");
+			Serial.print(leds.juggle_beat);
+			Serial.println("\t||");
+			Serial.print("|| (f) fade:\t\t");
+			Serial.print(leds.juggle_fade);
+			Serial.println("\t||");
+			Serial.print("|| (g) diff:\t\t");
+			Serial.print(leds.juggle_diff);
+			Serial.println("\t||");
+			Serial.print("|| (h) index_reset:\t");
+			Serial.print(leds.juggle_index_reset);
+			Serial.println("\t||");
 			break;
 
 		case RAINBOW_MARCH:
-			if (!leds.rainbow_split) { Serial.println("===RAINBOW MARCH==="); }
-			else					 { Serial.println("===RAINBOW MARCH SPLIT==="); }
-			Serial.print("index:     ");
-			Serial.println(leds.rainbow_index);
-			Serial.print("diff:      ");
-			Serial.println(leds.rainbow_diff);
-			Serial.print("rot:       ");
-			Serial.println(leds.rainbow_rot);
+			if (!leds.rainbow_split) { Serial.println("==========RAINBOW MARCH==========="); }
+			else					 { Serial.println("=======RAINBOW MARCH SPLIT========"); }
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) split:\t\t");
+			Serial.print(leds.rainbow_split);
+			Serial.println("\t||");
+			Serial.print("|| (c) diff:\t\t");
+			Serial.print(leds.rainbow_diff);
+			Serial.println("\t||");
+			Serial.print("|| (d) rot:\t\t");
+			Serial.print(leds.rainbow_rot);
+			Serial.println("\t||");
 			break;
 
 		case FIRE:
-			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { Serial.print("=====TORCH"); }
-			else { Serial.print("=====FIRE"); }
-			if (leds.fire_mirror) { Serial.print(" MIRROR"); }
-			if (leds.fire_sync)	  { Serial.print(" SYNC"); }
-			Serial.println("=====");
-			Serial.print("sparking:    ");
-			Serial.println(leds.fire_sparking);
-			Serial.print("cooling:     ");
-			Serial.println(leds.fire_cooling);
-			if (!leds.fire_sync) {
-				Serial.print("sparking2:   ");
-				Serial.println(leds.fire_sparking2);
-				Serial.print("cooling2:    ");
-				Serial.println(leds.fire_cooling2);
+			switch (leds.mode_name) {
+				case TORCH:				Serial.println("==============TORCH==============="); break;
+				case TORCH_SYNC:		Serial.println("============TORCH SYNC============"); break;
+				case FIRE:				Serial.println("==============FIRE================"); break;
+				case FIRE_SYNC:			Serial.println("============FIRE SYNC============="); break;
+				case FIRE_MIRROR:		Serial.println("===========FIRE MIRROR============"); break;
+				case FIRE_MIRROR_SYNC:	Serial.println("========FIRE MIRROR SYNC=========="); break;
+				case FIRE_RANDOM:		Serial.println("===========FIRE RANDOM============"); break;
+				default: break;
+
 			}
+			Serial.print("|| (a) sparking:\t");
+			Serial.print(leds.fire_sparking);
+			Serial.println("\t||");
+			Serial.print("|| (b) cooling:\t\t");
+			Serial.print(leds.fire_cooling);
+			Serial.println("\t||");
+			if (!leds.fire_sync) {
+				Serial.print("|| (c) sparking2:\t");
+				Serial.print(leds.fire_sparking2);
+				Serial.println("\t||");
+				Serial.print("|| (d) cooling2:\t");
+				Serial.print(leds.fire_cooling2);
+				Serial.println("\t||");
+			}
+			Serial.print("|| (e) sync:\t\t");
+			Serial.print(leds.fire_sync);
+			Serial.println("\t||");
 			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) {
-				Serial.print("torch_diff:  ");
-				Serial.println(leds.torch_diff);
+				Serial.print("|| (f) torch_diff:\t\t");
+				Serial.print(leds.torch_diff);
+				Serial.println("\t||");
 			}
 			break;
 		
 		case COLORWAVE:
-			Serial.println("=====COLORWAVE=====");
+			Serial.println("============COLORWAVE=============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
 			break;
 
 		case PRIDE:
-			Serial.println("=====PRIDE=====");
+			Serial.println("==============PRIDE===============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
 			break;
 
 		case PACIFICA:
-			Serial.println("=====PACIFCIA=====");
+			Serial.println("=============PACIFCIA=============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
 			break;
 
 		case CONFETTI:
-			Serial.println("=====CONFETTI=====");
-			Serial.print("confetti_fade: ");
-			Serial.println(leds.confetti_fade);
+			Serial.println("=============CONFETTI=============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) confetti_fade:\t");
+			Serial.print(leds.confetti_fade);
+			Serial.println("\t||");
 			break;
 
 		case FIREWORKS:
-			Serial.println("=====FIREWORKS=====");
-			Serial.print("firework_position:   ");
-			Serial.println(leds.firework_position);
-			Serial.print("Current Stage:  ");
+			Serial.println("============FIREWORKS=============");
+			Serial.print("|| Current Stage:\t");
 			switch (leds.current_stage) {
-			case WAITING: Serial.println("WAITING");
-			case FADEUP: Serial.println("FADEUP");
-			case EXPLOSION: Serial.println("EXPLOSION");
+				case WAITING:	Serial.print("WAITING"); Serial.println("\t||"); break;
+				case FADEUP:	Serial.print("FADEUP");  Serial.println("\t||"); break;
+				case EXPLOSION: Serial.println("EXPLOSION|"); break;
 			}
-			Serial.print("Number of sparks:  ");
-			Serial.println(leds.number_of_sparks);
-			Serial.print("Brightest spark:   ");
-			Serial.println(leds.brightest_spark);
-			Serial.print("Next explosion time: ");
-			Serial.println(leds.next_explosion_time);
+			Serial.print("|| firework_position:\t");
+			Serial.print(leds.firework_position);
+			Serial.println("\t||");
+			Serial.print("|| Number of sparks:\t");
+			Serial.print(leds.number_of_sparks);
+			Serial.println("\t||");
+			Serial.print("|| Brightest spark:\t");
+			Serial.print(leds.brightest_spark);
+			Serial.println("\t||");
+			Serial.print("|| Next explosion time:\t");
+			Serial.print(leds.next_explosion_time);
+			Serial.println("\t||");
 			break;
 
 		case ONE_SIN:
-			Serial.println("=====ONE_SIN=====");
-			Serial.print("sin_inc:       ");
-			Serial.println(leds.sin_inc);
-			Serial.print("sin_speed:     ");
-			Serial.println(leds.sin_speed);
-			Serial.print("sin_cutoff:    ");
-			Serial.println(leds.sin_cutoff);
-			Serial.print("sin_rot:       ");
-			Serial.println(leds.sin_rot);
-			Serial.print("sin_phase:     ");
-			Serial.println(leds.sin_phase);
-			Serial.print("all_freq:      ");
-			Serial.println(leds.sin_all_freq);
-			Serial.print("bg_clr:        ");
-			Serial.println(leds.bg_clr);
-			Serial.print("bg_bri:        ");
-			Serial.println(leds.bg_bri);
+			Serial.println("=============ONE SIN==============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) sin_inc:\t\t");
+			Serial.print(leds.sin_inc);
+			Serial.println("\t||");
+			Serial.print("|| (c) sin_speed:\t");
+			Serial.print(leds.sin_speed);
+			Serial.println("\t||");
+			Serial.print("|| (d) sin_cutoff:\t");
+			Serial.print(leds.sin_cutoff);
+			Serial.println("\t||");
+			Serial.print("|| (e) sin_rot:\t\t");
+			Serial.print(leds.sin_rot);
+			Serial.println("\t||");
+			Serial.print("|| (f) sin_phase:\t");
+			Serial.print(leds.sin_phase);
+			Serial.println("\t||");
+			Serial.print("|| (g) all_freq:\t");
+			Serial.print(leds.sin_all_freq);
+			Serial.println("\t||");
+			Serial.print("|| (h) bg_clr:\t\t");
+			Serial.print(leds.bg_clr);
+			Serial.println("\t||");
+			Serial.print("|| (i) bg_bri:\t\t");
+			Serial.print(leds.bg_bri);
+			Serial.println("\t||");
 			break;
 
 		case TWO_SIN:
-			Serial.println("=====TWO_SIN=====");
-			Serial.print("sin_hue:       ");
-			Serial.println(leds.sin_inc);
-			Serial.print("sin_speed:     ");
-			Serial.println(leds.sin_speed);
-			Serial.print("sin_cutoff:    ");
-			Serial.println(leds.sin_cutoff);
-			Serial.print("sin_rot:       ");
-			Serial.println(leds.sin_rot);
-			Serial.print("sin_phase:     ");
-			Serial.println(leds.sin_phase);
-			Serial.print("two_hue:       ");
-			Serial.println(leds.two_hue);
-			Serial.print("two_speed:     ");
-			Serial.println(leds.two_speed);
-			Serial.print("two_cutoff:    ");
-			Serial.println(leds.two_cutoff);
-			Serial.print("two_rot:       ");
-			Serial.println(leds.two_rot);
-			Serial.print("two_phase:     ");
-			Serial.println(leds.two_phase);
-			Serial.print("all_freq:      ");
-			Serial.println(leds.sin_all_freq);
+			Serial.println("=============TWO SIN==============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) sin_hue:\t\t");
+			Serial.print(leds.sin_hue);
+			Serial.println("\t||");
+			Serial.print("|| (c) two_hue:\t\t");
+			Serial.print(leds.two_hue);
+			Serial.println("\t||");
+			Serial.print("|| (d) sin_speed:\t");
+			Serial.print(leds.sin_speed);
+			Serial.println("\t||");
+			Serial.print("|| (e) two_speed:\t");
+			Serial.print(leds.two_speed);
+			Serial.println("\t||");
+			Serial.print("|| (f) sin_rot:\t\t");
+			Serial.print(leds.sin_rot);
+			Serial.println("\t||");
+			Serial.print("|| (g) two_rot:\t\t");
+			Serial.print(leds.two_rot);
+			Serial.println("\t||");
+			Serial.print("|| (h) sin_cutoff:\t");
+			Serial.print(leds.sin_cutoff);
+			Serial.println("\t||");
+			Serial.print("|| (i) two_cutoff:\t");
+			Serial.print(leds.two_cutoff);
+			Serial.println("\t||");
+			Serial.print("|| (j)  sin_phase:\t");
+			Serial.print(leds.sin_phase);
+			Serial.println("\t||");
+			Serial.print("|| (k) two_phase:\t");
+			Serial.print(leds.two_phase);
+			Serial.println("\t||");
+			Serial.print("|| (l) all_freq:\t");
+			Serial.print(leds.sin_all_freq);
+			Serial.println("\t||");
 			break;
 
 		case SHOOTING_POLE:
-			Serial.println("=====SHOOTING POLE=====");
-			Serial.print("strip_range:     ");
-			Serial.println(leds.strip_range);
-			Serial.print("pole_diff:       ");
-			Serial.println(leds.pole_diff);
-			Serial.print("juggle_beat:     ");
-			Serial.println(leds.juggle_beat);
-			Serial.print("juggle_diff:     ");
-			Serial.println(leds.juggle_diff);
-			Serial.print("juggle_fade:     ");
-			Serial.println(leds.juggle_fade);
+			Serial.println("==========SHOOTING POLE===========");
+			Serial.print("|| (a) strip_range:\t");
+			Serial.print(leds.strip_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) pole_diff:\t");
+			Serial.print(leds.pole_diff);
+			Serial.println("\t||");
+			Serial.print("|| (c) juggle_fade:\t");
+			Serial.print(leds.juggle_fade);
+			Serial.println("\t||");
+			Serial.print("|| (d) juggle_beat:\t");
+			Serial.print(leds.juggle_beat);
+			Serial.println("\t||");
+			Serial.print("|| (e) juggle_diff:\t");
+			Serial.print(leds.juggle_diff);
+			Serial.println("\t||");
 			break;
 
 		case NOISE:
-			Serial.println("=====NOISE=====");
-			Serial.print("noise_scale:   ");
-			Serial.println(leds.noise_scale);
-			Serial.print("noise_dist:    ");
-			Serial.println(leds.noise_dist);
+			Serial.println("===============NOISE==============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) noise_scale:\t");
+			Serial.print(leds.noise_scale);
+			Serial.println("\t||");
+			Serial.print("|| (c) noise_dist:\t");
+			Serial.print(leds.noise_dist);
+			Serial.println("\t||");
 			break;
 
 		case BOUNCE:
-			Serial.println("=====BOUNCE=====");
-			Serial.print("juggle_fade:       ");
-			Serial.println(leds.juggle_fade);
-			Serial.print("bounce_length:     ");
-			Serial.println(leds.bounce_length);
-			Serial.print("juggle_beat:       ");
-			Serial.println(leds.juggle_beat);
-			Serial.print("rainbow_diff:      ");
-			Serial.println(leds.rainbow_diff);
-			Serial.print("bounce_start_beat: ");
-			Serial.println(leds.bounce_start_beat);
-			Serial.print("bounce_rainbow:    ");
-			Serial.println(leds.bounce_rainbow);
+			Serial.println("==============BOUNCE==============");
+			Serial.print("|| (a) juggle_fade:\t");
+			Serial.print(leds.juggle_fade);
+			Serial.println("\t||");
+			Serial.print("|| (b) bounce_length:\t");
+			Serial.print(leds.bounce_length);
+			Serial.println("\t||");
+			Serial.print("|| (c) juggle_beat:\t");
+			Serial.print(leds.juggle_beat);
+			Serial.println("\t||");
+			Serial.print("|| (d) rainbow_diff:\t");
+			Serial.print(leds.rainbow_diff);
+			Serial.println("\t||");
+			Serial.print("|| (e) start_beat:\t");
+			Serial.print(leds.bounce_start_beat);
+			Serial.println("\t||");
+			Serial.print("|| (f) bounce_rainbow:\t");
+			Serial.print(leds.bounce_rainbow);
+			Serial.println("\t||");
 			break;
 
 		case BOUNCING_BALLS:
-			Serial.println("=====BOUNCING BALLS=====");
-			Serial.print("fade:\t\t");
-			Serial.println(leds.bouncing_fade);
-			Serial.print("number of balls: ");
-			Serial.println(leds.number_of_balls);
+			Serial.println("==========BOUNCING BALLS==========");
+			Serial.print("|| (a) fade:\t\t");
+			Serial.print(leds.bouncing_fade);
+			Serial.println("\t||");
+			Serial.print("|| (b) number of balls:\t");
+			Serial.print(leds.number_of_balls);
+			Serial.println("\t||");
+			Serial.print("|| (c) use_palette:\t");
+			Serial.print(leds.use_palette);
+			Serial.println("\t||");
 			break;
 
 		default:
 			Serial.println("");
-			Serial.println("===MODE TYPE ERROR===");
+			Serial.println("==========MODE TYPE ERROR=========");
 			Serial.println("");
 			break;
 	}
-	Serial.println("=========================");
-	Serial.println("");
+	Serial.println("==================================\n");
 }
 
 

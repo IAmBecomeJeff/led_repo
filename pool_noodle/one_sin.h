@@ -27,7 +27,7 @@ void one_sin_update(LEDStruct& leds) {
 		case 0:															//a
 			leds.use_full_range = (bool)update_arg;
 			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-			else { leds.strip_range = ONE_SIDE; }
+			else					 { leds.strip_range = ONE_SIDE; }
 			break;
 		case 1:		leds.sin_inc		= (uint8_t)update_arg;	break;	//b		
 		case 2:		leds.sin_speed		= (uint8_t)update_arg;	break;	//c
