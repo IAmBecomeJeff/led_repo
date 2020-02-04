@@ -119,6 +119,7 @@ struct LEDStruct {
 	uint16_t noise_yscale;
 	uint16_t noise_dist;
 	uint8_t noise_index;
+	uint8_t noise_fade;
 
 	// Bouncing Balls Variables
 	uint8_t bouncing_index;
@@ -421,6 +422,9 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (d) noise_dist:\t");
 			Serial.print(leds.noise_dist);
+			Serial.println("\t||");
+			Serial.print("|| (e) noise_fade:\t");
+			Serial.print(leds.noise_fade);
 			Serial.println("\t||");
 			break;
 
