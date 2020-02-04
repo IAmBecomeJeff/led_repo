@@ -1,7 +1,7 @@
 #ifndef BOUNCE_H
 #define BOUNCE_H
 
-void bounce_init(LEDStruct& leds, uint8_t jf = random8(180, 220), bool br = random8(2), uint8_t bl = random8(10, 21), uint8_t bsb = random8(8, 20), uint8_t jb = random8(80, 120), uint8_t rd = random8(1, 7)) {
+void bounce_init(LEDStruct& leds, uint8_t jf = random8(32, 80), bool br = random8(2), uint8_t bl = random8(12, 21), uint8_t bsb = random8(16, 40), uint8_t jb = random8(80, 120), uint8_t rd = random8(1, 16)) {
 	leds.mode_initialized = 1;
 	leds.use_palette = 1;
 	leds.mode_type = BOUNCE;
@@ -21,7 +21,7 @@ void bounce_update(LEDStruct& leds) {
 	keyboard_update = 0;
 	switch (update_var) {
 		case 0:		leds.juggle_fade		= (uint8_t)update_arg;	break;	//a
-		case 1:		leds.bounce_length		= (uint8_t)update_arg;	break;	//b		
+		case 1:		leds.bounce_length		= (uint8_t)update_arg;	leds.bounce_length = constrain(leds.bounce_length,10,BOUNCE_MAX_LENGTH);	//b		
 		case 2:		leds.juggle_beat		= (uint8_t)update_arg;	break;	//c
 		case 3:		leds.rainbow_diff		= (uint8_t)update_arg;	break;	//d
 		case 4:		leds.bounce_start_beat	= (uint8_t)update_arg;	break;	//e

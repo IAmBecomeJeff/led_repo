@@ -1,7 +1,7 @@
 #ifndef CONFETTI_H
 #define CONFETTI_H
 
-void confetti_init(LEDStruct& leds, bool ufr = random8(2), uint8_t cf = random8(10,48)) {
+void confetti_init(LEDStruct& leds, bool ufr = random8(2), uint8_t cf = random8(6,21)) {
 	leds.mode_initialized = 1;
 	leds.mode_type = CONFETTI;
 	leds.use_palette = 1;

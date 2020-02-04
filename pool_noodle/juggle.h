@@ -1,7 +1,8 @@
 #ifndef JUGGLE_H
 #define JUGGLE_H
 
-void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), bool td = random8(2), uint8_t jn = random8(1, 7), uint8_t jb = random8(8, 20), uint8_t jf = random8(140, 240), uint8_t jd = random8(1, 9), bool jir = random8(2), bool ufr = random8(2)) {
+void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), bool td = random8(2), uint8_t jn = random8(1, 6), uint8_t jb = random8(8, 20), 
+					uint8_t jf = random8(32, 80), uint8_t jd = random8(1, 3), bool jir = random8(2), bool ufr = random8(2)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= JUGGLE;
 	leds.use_palette		= 1;

@@ -40,8 +40,8 @@ void initialize() {
 	// Initialize next_leds
 	fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
 	next_leds.array_type		= NEXT;
-	next_leds.current_palette	= bhw3_21_gp;
-	next_leds.target_palette	= bhw3_30_gp;
+	next_leds.current_palette	= slope_gp;
+	next_leds.target_palette	= rainbow_gp;
 	next_leds.mode_number		= curr_leds.mode_number;			// Helps with sequential steps
 	updatePaletteIndex(next_leds);
 }
@@ -99,18 +99,20 @@ void global_debug() {
 	Serial.print("m ");
 	Serial.print(number_of_sec_on);
 	Serial.println("s");
+	Serial.print("System time:\t\t");
+	Serial.println(millis());
 }
 
 // Transition functions
 void begin_transition() {
 	in_transition = 1;
 	transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
-	transition_speed = random8(3, 7);
+	transition_speed = random8(3, 8);
 	switch (transition_type) {
 		case BLENDING:		transition_ratio = 0;		break;
 		case WIPEDOWN:		wipe_pos = ONE_SIDE - 1;	break;
 		case WIPEUP:		wipe_pos = 0;				break;
-		case COLORFADE:	color_up = 1; transition_ratio = 0; colorfade_hue = CHSV(random8(), 255, 255); hsv2rgb_rainbow(colorfade_hue, colorfade_rgb);  break;
+		//case COLORFADE:	color_up = 1; transition_ratio = 0; colorfade_hue = CHSV(random8(), 255, 255); hsv2rgb_rainbow(colorfade_hue, colorfade_rgb);  break;
 	}
 }
 
@@ -151,7 +153,7 @@ void wipedown() {
 		master_leds[NUM_LEDS - 1 - (wipe_pos + 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos + 1)], CRGB::Teal, 128);
 	}
 
-	EVERY_N_MILLIS(transition_speed * 10) { wipe_pos--; }		// 1000 / 75
+	EVERY_N_MILLIS(transition_speed * 4) { wipe_pos--; }		// 1000 / 75
 	if (wipe_pos == 0) {
 		finish_transition();
 	}
@@ -178,29 +180,29 @@ void wipeup() {
 	master_leds[wipe_pos + 1]				   = blend(master_leds[wipe_pos + 1], CRGB::Teal, 128);
 	master_leds[NUM_LEDS - 1 - (wipe_pos + 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos + 1)], CRGB::Teal, 128);
 
-	EVERY_N_MILLIS(transition_speed * 10) { wipe_pos++; }
+	EVERY_N_MILLIS(transition_speed * 4) { wipe_pos++; }
 	if (wipe_pos == ONE_SIDE - 1) {
 		finish_transition();
 	}
 }
-
+/*
 void colorfade() {
 	if (color_up) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(curr_leds.led_data[i], colorfade_rgb, transition_ratio); }
-		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 255) { color_up = 0; }	}
+		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 255) { color_up = 0; transition_ratio = 0; } }
 	}
 	else {
-		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(next_leds.led_data[i], colorfade_rgb, transition_ratio); }
-		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio-- == 0) { finish_transition(); } }
+		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(colorfade_rgb, next_leds.led_data[i], transition_ratio); }
+		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 0) { finish_transition(); } }
 	}
 }
-
+*/
 void switch_transition(TransitionType tt) {
 	switch (tt) {
 		case BLENDING:	blending();		break;
 		case WIPEDOWN:	wipedown();		break;
 		case WIPEUP:	wipeup();		break;
-		case COLORFADE: colorfade();	break;
+		//case COLORFADE: colorfade();	break;
 		default:		blending();		break;
 	}
 }
@@ -310,4 +312,27 @@ void print_palette(uint8_t pn) {
 		case 92:	Serial.println("blade_runner_2049_gp");			break;
 		default:	Serial.println("Not a gradient palette");		break;
 	}
+}
+
+
+LIB8STATIC uint16_t beatsin16_halfdown(accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
+	uint32_t timebase = 0, uint16_t phase_offset = 0)
+{
+	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 16384;     // Range of beat @ 144 is 15,159 - 17,604.  beat @ 0 is 47,923 - 50,367.  49,000 - 16,000 = 33,000.
+	uint16_t beatsin = (sin16(beat + phase_offset) + 32768);
+	uint16_t rangewidth = highest - lowest;
+	uint16_t scaledbeat = scale16(beatsin, rangewidth);
+	uint16_t result = lowest + scaledbeat;
+	return result;
+}
+
+LIB8STATIC uint16_t beatsin16_halfup(accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
+	uint32_t timebase = 0, uint16_t phase_offset = 0)
+{
+	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 49152;     // Range of beat @ 144 is 15,159 - 17,604.  beat @ 0 is 47,923 - 50,367.  49,000 - 16,000 = 33,000.
+	uint16_t beatsin = (sin16(beat + phase_offset) + 32768);
+	uint16_t rangewidth = highest - lowest;
+	uint16_t scaledbeat = scale16(beatsin, rangewidth);
+	uint16_t result = lowest + scaledbeat;
+	return result;
 }

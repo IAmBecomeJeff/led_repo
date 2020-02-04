@@ -2,7 +2,7 @@
 #define BOUNCING_BALLS_H
 
 
-void bouncing_balls_init(LEDStruct& leds, bool up = random8(2), uint8_t bf = random8(100,200), uint8_t nob = random8(1, MAX_NUMBER_OF_BALLS + 1)) {
+void bouncing_balls_init(LEDStruct& leds, bool up = random8(2), uint8_t bf = random8(1,30), uint8_t nob = random8(2, MAX_NUMBER_OF_BALLS + 1)) {
 	leds.mode_initialized = 1;
 	leds.use_palette = up;
 	leds.use_full_range = 0;
@@ -25,7 +25,7 @@ void bouncing_balls_update(LEDStruct& leds) {
 	keyboard_update = 0;
 	switch (update_var) {
 	case 0:		leds.bouncing_fade	 = (uint8_t)update_arg;	break;	//a
-	case 1:		leds.number_of_balls = (uint8_t)update_arg;	constrain(leds.number_of_balls, 1, MAX_NUMBER_OF_BALLS); break;	//b		
+	case 1:		if (update_arg > MAX_NUMBER_OF_BALLS) { update_arg = MAX_NUMBER_OF_BALLS; } leds.number_of_balls = (uint8_t)update_arg;	break;	//b		
 	case 2:		leds.use_palette	 = (bool)update_arg; break; //c
 	default:	break;
 	}
@@ -58,6 +58,7 @@ void bouncing_balls(LEDStruct& leds) {
 			leds.led_data[leds.bouncing_pos[i]] = CHSV((i * 40), 255, 255);
 		}
 	}
+	strip_sync(leds);
 }
 
 

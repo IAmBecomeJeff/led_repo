@@ -40,7 +40,7 @@ struct LEDStruct {
 	uint8_t bounce_start_beat;
 	uint8_t bounce_pos;
 	uint8_t bounce_length;
-	CRGB	bounce[20];
+	CRGB	bounce[BOUNCE_MAX_LENGTH];
 	bool	bounce_rainbow;
 
 	// Rainbow March Variables
@@ -116,6 +116,7 @@ struct LEDStruct {
 
 	// Noise Variables
 	uint16_t noise_scale;
+	uint16_t noise_yscale;
 	uint16_t noise_dist;
 	uint8_t noise_index;
 
@@ -258,7 +259,7 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print(leds.fire_sync);
 			Serial.println("\t||");
 			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) {
-				Serial.print("|| (f) torch_diff:\t\t");
+				Serial.print("|| (f) torch_diff:\t");
 				Serial.print(leds.torch_diff);
 				Serial.println("\t||");
 			}
@@ -377,7 +378,7 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("|| (i) two_cutoff:\t");
 			Serial.print(leds.two_cutoff);
 			Serial.println("\t||");
-			Serial.print("|| (j)  sin_phase:\t");
+			Serial.print("|| (j) sin_phase:\t");
 			Serial.print(leds.sin_phase);
 			Serial.println("\t||");
 			Serial.print("|| (k) two_phase:\t");
@@ -415,7 +416,10 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("|| (b) noise_scale:\t");
 			Serial.print(leds.noise_scale);
 			Serial.println("\t||");
-			Serial.print("|| (c) noise_dist:\t");
+			Serial.print("|| (c) noise_yscale:\t");
+			Serial.print(leds.noise_yscale);
+			Serial.println("\t||");
+			Serial.print("|| (d) noise_dist:\t");
 			Serial.print(leds.noise_dist);
 			Serial.println("\t||");
 			break;

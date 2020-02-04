@@ -61,5 +61,6 @@ void pride(LEDStruct& leds) {
 		leds.pixelnumber = (leds.strip_range - 1) - leds.pixelnumber;
 		nblend( leds.led_data[leds.pixelnumber], newcolor, 64);
 	}
+	if (!leds.use_full_range) { strip_sync(leds); }
 }
 #endif

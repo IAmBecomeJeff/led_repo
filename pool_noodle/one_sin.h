@@ -1,7 +1,8 @@
 #ifndef ONE_SIN_H
 #define ONE_SIN_H
 
-void one_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t si = random8(1,6), uint8_t ss = random8(1,5), uint8_t sc = random8(128,240), uint8_t sr = random8(1,5), uint8_t sp = random8(0,5), uint8_t saf = random8(1,9), uint8_t bc = random8(), uint8_t bb = random8(10)) {
+void one_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t si = random8(1,4), uint8_t ss = random8(1,5), uint8_t sc = random8(180,240), 
+								uint8_t sr = random8(1,5), uint8_t sp = random8(0,5), uint8_t saf = random8(20,40), uint8_t bc = random8(), uint8_t bb = random8(10)) {
 	leds.mode_initialized = 1;
 	leds.mode_type = ONE_SIN;
 	leds.use_palette = 1;
@@ -61,6 +62,8 @@ void one_sin(LEDStruct& leds) {
 		leds.led_data[k] += ColorFromPalette(leds.current_palette, leds.sin_index + k * leds.sin_inc, sin_bright, leds. current_blending);
 		leds.sin_index += leds.sin_rot;
 	}
+
+	if (!leds.use_full_range) { strip_sync(leds); }
 }
 
 

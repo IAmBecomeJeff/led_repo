@@ -27,31 +27,31 @@ uint8_t next_delay;
 
 // Mode Variables
 uint8_t current_mode_number = 0;
-bool	random_mode			= 0;		// Determines if we change randomly or in the order of ModeList
+bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
 bool	mode_change			= 1;
 uint16_t mode_change_time = 20;			// seconds
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
-					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
+					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_1,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
 					COLORWAVE, PRIDE, PACIFICA,
 					CONFETTI,
 					ONE_SIN, TWO_SIN,
 					FIREWORKS,
 					SHOOTING_POLE,
-					NOISE,
+					NOISE, NOISE_MOVER,
 					BOUNCE, BOUNCING_BALLS
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
-					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM,
+					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_1,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
 					COLORWAVE, PRIDE, PACIFICA,
 					CONFETTI,
 					ONE_SIN, TWO_SIN,		
 					FIREWORKS,
 					SHOOTING_POLE,
-					NOISE,
+					NOISE, NOISE_MOVER,
 					BOUNCE, BOUNCING_BALLS
 				  };
 
@@ -68,8 +68,8 @@ bool	random_palette = 1;
 
 
 // Transition Variables
-enum TransitionType { BLENDING, WIPEDOWN, WIPEUP, COLORFADE};
-TransitionType TransitionList[] = { BLENDING, WIPEDOWN, WIPEUP, COLORFADE };
+enum TransitionType { BLENDING, WIPEDOWN, WIPEUP };// , COLORFADE};
+TransitionType TransitionList[] = { BLENDING, WIPEDOWN, WIPEUP };// , COLORFADE };
 bool in_transition = 0;
 TransitionType transition_type;
 uint8_t transition_ratio;
@@ -97,6 +97,8 @@ uint16_t min_wait = 500;
 float gravity = 0.97;
 uint8_t firework_bg_fade = 128;
 
+// Bounce
+#define BOUNCE_MAX_LENGTH 20
 // Bouncing Balls
 #define MAX_NUMBER_OF_BALLS 8
 #define GRAVITY -1

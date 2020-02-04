@@ -20,19 +20,20 @@ void read_keyboard() {
 				max_bright = (uint8_t)update_arg; 
 				LEDS.setBrightness(max_bright); 
 				keyboard_update = 0;
+				update_var = 255;
 				break;
 
 			// D - delay
-			case 68: curr_leds.delay_time = update_arg; keyboard_update = 0; break;
+			case 68: curr_leds.delay_time = update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// E - next_leds delay, beta
-			case 69: next_leds.delay_time = update_arg; keyboard_update = 0; break;
+			case 69: next_leds.delay_time = update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// M - mode
-			case 77: change_mode((uint8_t)update_arg); keyboard_update = 0; break;
+			case 77: change_mode((uint8_t)update_arg); keyboard_update = 0; update_var = 255; break;
 
 			// N - direction
-			case 78: curr_leds.this_dir = (bool)update_arg; keyboard_update = 0; break;
+			case 78: curr_leds.this_dir = (bool)update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// P - palette
 			case 80: 
@@ -42,16 +43,16 @@ void read_keyboard() {
 				break;
 
 			// Q - random palette change	(change palettes randomly every 30 seconds)
-			case 81: random_palette = (bool)update_arg; keyboard_update = 0; break;
+			case 81: random_palette = (bool)update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// R - random mode		(when changing modes, do so randomly)
-			case 82: random_mode = (bool)update_arg; keyboard_update = 0; break;
+			case 82: random_mode = (bool)update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// S - change modes		(change modes every T seconds)
-			case 83: mode_change = (bool)update_arg; keyboard_update = 0; break;
+			case 83: mode_change = (bool)update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// T - mode change timer (how often to change modes, if mode_change is set)
-			case 84: mode_change_time = update_arg; keyboard_update = 0; break;
+			case 84: mode_change_time = update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// a
 			case 97: update_var = 0;	break;

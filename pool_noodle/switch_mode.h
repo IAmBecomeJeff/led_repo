@@ -48,6 +48,10 @@ void switch_mode(LEDStruct& leds) {
 			rainbow_march(leds);
 			break;
 
+		case RAINBOW_1:		// custom 1, rainbows slowly emanating from center
+			if (!leds.mode_initialized) { leds.this_dir = 0; rainbow_init(leds, 1, 4, 2, 0); }
+			rainbow_march(leds);
+
 		
 		// Fire Functions -----------------------------------------------------------------------
 		case FIRE:
@@ -130,6 +134,10 @@ void switch_mode(LEDStruct& leds) {
 		// Noise Functions -----------------------------------------------------------------------
 		case NOISE:
 			noise(leds);
+			break;
+
+		case NOISE_MOVER:
+			noise_mover(leds);
 			break;
 
 

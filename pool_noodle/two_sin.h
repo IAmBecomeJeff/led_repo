@@ -2,8 +2,8 @@
 #define TWO_SIN_H
 
 void two_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t sh = random8(), uint8_t th = random8(), 
-	uint8_t ss = random8(5), uint8_t ts = random8(1, 5), uint8_t sr = random8(3), uint8_t tr = random8(3), 
-	uint8_t sc = random8(128, 240), uint8_t tc = random8(128, 200), uint8_t saf = random8(1, 9)) {
+	uint8_t ss = random8(253,260), uint8_t ts = random8(1, 5), uint8_t sr = random8(3), uint8_t tr = random8(3), 
+	uint8_t sc = random8(32, 80), uint8_t tc = random8(32, 80), uint8_t saf = random8(12, 33)) {
 
 	leds.mode_initialized = 1;
 	leds.mode_type = TWO_SIN;
@@ -12,17 +12,17 @@ void two_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t sh = random8()
 	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
 	else					 { leds.strip_range = ONE_SIDE; }
 
-	leds.sin_hue	= sh;
+	leds.sin_hue	= sh;		// changes by rot
 	leds.two_hue	= th;
-	leds.sin_speed	= ss;
+	leds.sin_speed	= ss;		// changes the phase
 	leds.two_speed	= ts;
-	leds.sin_rot	= sr;
+	leds.sin_rot	= sr;		// changes the hue
 	leds.two_rot	= tr;
-	leds.sin_cutoff = sc;
+	leds.sin_cutoff = sc;		// limits the brightness
 	leds.two_cutoff = tc;
-	leds.sin_all_freq = saf;
-	leds.sin_phase  = 0;
-	leds.two_phase  = 0;
+	leds.sin_phase = 0;			// changes by speed
+	leds.two_phase = 0;
+	leds.sin_all_freq = saf;	// number of repeats
 }
 
 
@@ -51,7 +51,6 @@ void two_sin_update(LEDStruct& leds) {
 }
 
 
-
 void two_sin(LEDStruct& leds) {
 	if (!leds.mode_initialized) { two_sin_init(leds); }
 	if (keyboard_update) { two_sin_update(leds); }
@@ -62,7 +61,7 @@ void two_sin(LEDStruct& leds) {
 	leds.sin_hue += leds.sin_rot;                                                // Hue rotation is fun for this_wave.
 	leds.two_hue += leds.two_rot;                                                // It's also fun for that_wave.
 
-	for (int k = 0; k < leds.strip_range - 1; k++) {
+	for (int k = 0; k < leds.strip_range; k++) {
 		leds.sin_bri = qsuba(cubicwave8((k * leds.sin_all_freq) + leds.sin_phase), leds.sin_cutoff);     // qsub sets a minimum value called this_cutoff. If < this_cutoff, then bright = 0. Otherwise, bright = 128 (as defined in qsub)..
 		leds.two_bri = qsuba(cubicwave8((k * leds.sin_all_freq) + 128 + leds.two_phase), leds.two_cutoff); // This wave is 180 degrees out of phase (with the value of 128).
 
@@ -70,6 +69,7 @@ void two_sin(LEDStruct& leds) {
 		leds.led_data[k] += CHSV(leds.two_hue, 255, leds.two_bri);
 
 	}
+	if (!leds.use_full_range) { strip_sync(leds); }
 }
 
 #endif

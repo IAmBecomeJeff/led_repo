@@ -148,7 +148,7 @@ int   pos[NUM_BALLS];                       // The integer position of the dot o
 long  tLast[NUM_BALLS];                     // The clock time of the last ground strike
 float COR[NUM_BALLS];                       // Coefficient of Restitution (bounce damping)
 uint8_t ball_hue = 0;
-
+*/
 LIB8STATIC uint16_t beatsin16_halfdown( accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
                                uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
@@ -171,7 +171,7 @@ LIB8STATIC uint16_t beatsin16_halfup( accum88 beats_per_minute, uint16_t lowest 
     return result;
 }
 
-*/
+
 // Fireworks Variables---------------
 
 //int gravity = -8;
