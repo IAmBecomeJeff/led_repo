@@ -1,15 +1,25 @@
 #ifndef FIREWORKS_H
 #define FIREWORKS_H
 
-void fireworks_init(LEDStruct& leds) {
-	leds.mode_initialized = 1;
-	leds.mode_type = FIREWORKS;
-	leds.use_palette = 0;
+void fireworks_init(LEDStruct& leds, bool uo = random8(2)) {
+	leds.mode_initialized	= 1;
+	leds.mode_type			= FIREWORKS;
+	leds.use_palette		= 0;
+	leds.delay_time			= 15;
 
-	leds.current_stage = WAITING;
+	leds.current_stage		= WAITING;
+
+	leds.use_overlay		= uo;
+	if (leds.use_overlay) { if (!overlay_in_use) { over_leds.current_stage = WAITING; } }
 }
 
-
+void fireworks_update(LEDStruct& leds) {
+	keyboard_update = 0;
+	switch (update_var) {
+		case 0:	leds.use_overlay = (bool)update_arg;	break; //a
+		default:	break;
+	}
+}
 
 void prepare_for_explosion(LEDStruct& leds) {
 	random16_add_entropy(analogRead(2));
@@ -32,12 +42,12 @@ void fadeup(LEDStruct& leds) {
 			leds.spark_fade[i] = random8(10, 15);
 			leds.spark_bri[i] = 255;
 		}
-		leds.led_data[leds.firework_position] = CRGB::White;
+		leds.led_data[leds.firework_position]				 = CRGB::White;
 		leds.led_data[NUM_LEDS - 1 - leds.firework_position] = CRGB::White;
 	}
 	else {
 		leds.firework_bri += 5;
-		leds.led_data[leds.firework_position] = CHSV(leds.firework_hue, 255, leds.firework_bri);
+		leds.led_data[leds.firework_position]				 = CHSV(leds.firework_hue, 255, leds.firework_bri);
 		leds.led_data[NUM_LEDS - 1 - leds.firework_position] = CHSV(leds.firework_hue, 255, leds.firework_bri);
 		if (leds.firework_bri >= 255) {
 			leds.exploded = true;
@@ -50,8 +60,10 @@ void explosion(LEDStruct& leds) {
 	leds.brightest_spark = 0;
 	for (uint8_t x = 0; x < leds.number_of_sparks; x++) {
 		leds.led_data[(int)leds.spark_pos[x]] += CHSV(leds.firework_hue, 255, (uint8_t)leds.spark_bri[x]);
+
 		if (leds.spark_dir[x]) { leds.spark_pos[x] += leds.spark_vel[x]; }
 		else { leds.spark_pos[x] -= leds.spark_vel[x]; }
+
 		leds.spark_pos[x] = constrain(leds.spark_pos[x], 0.0, (float)(ONE_SIDE - 1));
 		leds.spark_vel[x] *= gravity;
 		leds.spark_bri[x] *= (1 - (leds.spark_fade[x] / 256));
@@ -66,9 +78,7 @@ void explosion(LEDStruct& leds) {
 }
 
 
-void fireworks(LEDStruct& leds) {
-	if (!leds.mode_initialized) { fireworks_init(leds); }
-
+void fireworks_render(LEDStruct& leds) {
 	switch (leds.current_stage) {
 		case WAITING:
 			fill_solid(leds.led_data, NUM_LEDS, CRGB::Black);
@@ -87,5 +97,20 @@ void fireworks(LEDStruct& leds) {
 	}
 }
 
+void fireworks(LEDStruct& leds) {
+	if (!leds.mode_initialized) { fireworks_init(leds); }
+	if (keyboard_update) { fireworks_update(leds); }
 
+	fireworks_render(leds);
+
+	overlay_in_use = 0;
+	if (leds.use_overlay) {
+		overlay_in_use = 1;
+		fireworks_render(over_leds);
+		for (uint16_t i = 0; i < NUM_LEDS; i++) {
+			leds.led_data[i] += over_leds.led_data[i];
+		}
+	}
+
+}
 #endif

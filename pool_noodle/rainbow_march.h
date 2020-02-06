@@ -2,9 +2,10 @@
 #define RAINBOW_MARCH_H
 
 void rainbow_init(LEDStruct& leds, bool rs = random8(2), uint8_t rd = random8(1, 20), uint8_t rr = random8(1, 4), bool ufr = random8(2)) {
-    leds.mode_initialized = 1;
-	leds.mode_type = RAINBOW_MARCH;
-    leds.use_palette = 0;
+    leds.mode_initialized	= 1;
+	leds.mode_type			= RAINBOW_MARCH;
+    leds.use_palette		= 0;
+	leds.delay_time			= 15;
 
 	leds.use_full_range = ufr;
 

@@ -2,11 +2,12 @@
 #define COLORWAVE_H
 
 void colorwave_init(LEDStruct& leds, bool ufr = random8(2)) {
-	leds.mode_initialized = 1;
-	leds.use_palette = 1;
-	leds.mode_type = COLORWAVE;
-
-	leds.use_full_range = ufr;
+	leds.mode_initialized	= 1;
+	leds.use_palette		= 1;
+	leds.mode_type			= COLORWAVE;
+	leds.delay_time			= 15;
+	
+	leds.use_full_range		= ufr;
 	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
 	else					 { leds.strip_range = ONE_SIDE; }
 }

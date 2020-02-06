@@ -13,6 +13,7 @@ struct LEDStruct {
 	bool	use_full_range		= 1;		// Whether we want to go up and down the full strip (1), or be mirrored
 	bool	this_dir			= 1;
 	ArrayType array_type;					// CURRENT, NEXT, any others, for debug purposes
+	bool	use_overlay			= 0;
 
 	// Palette variables
 	CRGBPalette16 current_palette;
@@ -25,7 +26,7 @@ struct LEDStruct {
 	uint8_t mode_number;					// Used to determine next mode, in change_pattern()
 	Mode	mode_name;						// Name of mode, listed in variables.h, used in switch_mode()
 	Mode	mode_type;						// Type of mode, for debugging purposes
-	bool	mode_initialized	= 0;		// Off in regular use, on if new variables need to be set via function_init()
+	bool	mode_initialized	= 0;		// On in regular use, off if new variables need to be set via function_init()
 
 	// Juggle Variables
 	uint8_t juggle_index;
@@ -132,13 +133,22 @@ struct LEDStruct {
 	long    bouncing_tLast[MAX_NUMBER_OF_BALLS];
 	float   bouncing_COR[MAX_NUMBER_OF_BALLS];
 
+	// Lightsaber Variables
+	uint16_t		tip_pos;
+	uint8_t			blade_color;
+	uint16_t		hold_time;
+	uint16_t		ls_begin;
+	uint16_t		ls_end;
+	uint8_t			ls_val;
+	uint8_t			delta_bright;
+	saber_stages	saber_stage;
 };
 
 
 // Create LED Structures
 LEDStruct curr_leds;
 LEDStruct next_leds;
-// LEDStruct over_leds;
+LEDStruct over_leds;
 
 
 // To duplicate one side of the strip with the other
@@ -186,7 +196,8 @@ void LEDDebug(LEDStruct& leds) {
 	// Print mode-specific variables
 	switch (leds.mode_type) {
 		case JUGGLE:
-			Serial.println("==============JUGGLE=============="); // 34 characters
+			if(leds.mode_name == JUGGLE_HALF){ Serial.println("============JUGGLE HALF==========="); }
+			else							 { Serial.println("==============JUGGLE=============="); } // 34 characters
 			Serial.print("|| (a) use_full_range:\t");
 			Serial.print(leds.use_full_range);
 			Serial.println("\t||");
@@ -316,6 +327,9 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| Next explosion time:\t");
 			Serial.print(leds.next_explosion_time);
+			Serial.println("\t||");
+			Serial.print("|| (a) use_overlay:\t");
+			Serial.print(leds.use_overlay);
 			Serial.println("\t||");
 			break;
 
@@ -460,6 +474,22 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (c) use_palette:\t");
 			Serial.print(leds.use_palette);
+			Serial.println("\t||");
+			break;
+
+		case LIGHTSABER:
+			Serial.println("============LIGHTSABER============");
+			Serial.print("|| (a) use_palette:\t");
+			Serial.print(leds.use_palette);
+			Serial.println("\t||");
+			Serial.print("|| (b) blade_color:\t");
+			Serial.print(leds.blade_color);
+			Serial.println("\t||");
+			Serial.print("|| (c) delta_bright:\t");
+			Serial.print(leds.delta_bright);
+			Serial.println("\t||");
+			Serial.print("|| (d) hold_time:\t");
+			Serial.print(leds.hold_time);
 			Serial.println("\t||");
 			break;
 

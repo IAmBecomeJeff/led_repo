@@ -2,18 +2,19 @@
 #define BOUNCE_H
 
 void bounce_init(LEDStruct& leds, uint8_t jf = random8(32, 80), bool br = random8(2), uint8_t bl = random8(12, 21), uint8_t bsb = random8(16, 40), uint8_t jb = random8(80, 120), uint8_t rd = random8(1, 16)) {
-	leds.mode_initialized = 1;
-	leds.use_palette = 1;
-	leds.mode_type = BOUNCE;
-	leds.use_full_range = 0;
+	leds.mode_initialized	= 1;
+	leds.use_palette		= 1;
+	leds.mode_type			= BOUNCE;
+	leds.delay_time			= 15;
+	leds.use_full_range		= 0;
 	fill_solid(leds.bounce, 20, CRGB::Black);
 
-	leds.juggle_fade = jf;
-	leds.bounce_length = bl;
-	leds.juggle_beat = jb;
-	leds.rainbow_diff = rd;
-	leds.bounce_start_beat = bsb;
-	leds.bounce_rainbow = br;
+	leds.juggle_fade		= jf;
+	leds.bounce_length		= bl;
+	leds.juggle_beat		= jb;
+	leds.rainbow_diff		= rd;
+	leds.bounce_start_beat	= bsb;
+	leds.bounce_rainbow		= br;
 }
 
 

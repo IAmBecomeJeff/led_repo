@@ -6,6 +6,8 @@ void noise_init(LEDStruct& leds, bool ufr = random8(2), uint16_t s = random16(10
 	leds.mode_initialized	= 1;
 	leds.mode_type			= NOISE;
 	leds.use_palette		= 1;
+	leds.delay_time			= 5;
+
 	leds.use_full_range		= ufr;
 	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
 	else				  	 { leds.strip_range = ONE_SIDE; }

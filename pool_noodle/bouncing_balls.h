@@ -3,21 +3,22 @@
 
 
 void bouncing_balls_init(LEDStruct& leds, bool up = random8(2), uint8_t bf = random8(1,30), uint8_t nob = random8(2, MAX_NUMBER_OF_BALLS + 1)) {
-	leds.mode_initialized = 1;
-	leds.use_palette = up;
-	leds.use_full_range = 0;
-	leds.mode_type = BOUNCING_BALLS;
+	leds.mode_initialized	= 1;
+	leds.use_palette		= up;
+	leds.use_full_range		= 0;
+	leds.mode_type			= BOUNCING_BALLS;
+	leds.delay_time			= 15;
 
-	leds.bouncing_fade = bf;
-	leds.number_of_balls = nob;
+	leds.bouncing_fade		= bf;
+	leds.number_of_balls	= nob;
 
 	for (int i = 0; i < leds.number_of_balls; i++) {    // Initialize variables
-		leds.bouncing_tLast[i] = millis();
-		leds.bouncing_heights[i] = h0;
-		leds.bouncing_pos[i] = 0;                              // Balls start on the ground
-		leds.bouncing_vImpact[i] = bouncing_vImpact0;                   // And "pop" up at vImpact0
-		leds.bouncing_tCycle[i] = 0;
-		leds.bouncing_COR[i] = 0.90 - float(i) / pow(leds.number_of_balls, 2);
+		leds.bouncing_tLast[i]		= millis();
+		leds.bouncing_heights[i]	= h0;
+		leds.bouncing_pos[i]		= 0;                              // Balls start on the ground
+		leds.bouncing_vImpact[i]	= bouncing_vImpact0;                   // And "pop" up at vImpact0
+		leds.bouncing_tCycle[i]		= 0;
+		leds.bouncing_COR[i]		= 0.90 - float(i) / pow(leds.number_of_balls, 2);
 	}
 }
 

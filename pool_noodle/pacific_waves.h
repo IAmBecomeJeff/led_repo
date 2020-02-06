@@ -59,10 +59,12 @@ void pacifica_deepen_colors(LEDStruct& leds)
 }
 
 void pacifica_init(LEDStruct& leds, bool ufr = random8(2)) {
-    leds.mode_initialized = 1;
-    leds.use_palette = 0;
-    leds.mode_type = PACIFICA;
-    leds.use_full_range = ufr;
+    leds.mode_initialized   = 1;
+    leds.use_palette        = 0;
+    leds.mode_type          = PACIFICA;
+    leds.delay_time         = 15;
+
+    leds.use_full_range     = ufr;
     if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
     else                     { leds.strip_range = ONE_SIDE; }
 }
@@ -73,7 +75,7 @@ void pacifica_update(LEDStruct& leds) {
     case 0:															//a
         leds.use_full_range = (bool)update_arg;
         if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-        else { leds.strip_range = ONE_SIDE; }
+        else                     { leds.strip_range = ONE_SIDE; }
         break;
     default:	break;
     }

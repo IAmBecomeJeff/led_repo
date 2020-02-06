@@ -4,8 +4,10 @@
 void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint8_t hl = random8(20, 31), uint8_t fs = random8(50, 110), uint8_t fc = random8(60, 120), uint8_t td = random8(1, 5)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= FIRE;
+	leds.delay_time			= 15;
+
 	if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.use_palette = 1; }
-	else { leds.use_palette = 0; }
+	else														 { leds.use_palette = 0; }
 
 	leds.fire_sparking		= fs;
 	leds.fire_cooling		= fc;
@@ -14,7 +16,7 @@ void fire_init(LEDStruct& leds, bool fy = random8(2), bool fm = random8(2), uint
 	leds.torch_diff			= td;
 		
 	if (leds.fire_mirror)			  { leds.heat_length = ONE_SIDE / 2; leds.fire_offset = leds.heat_length; }
-	else if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.heat_length = hl; }
+	if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) { leds.heat_length = hl; }
 	else							  { leds.heat_length = ONE_SIDE;	 leds.fire_offset = 0; }
 
 	leds.fire_sparking2 = fs - 10 + random8(21);
@@ -28,7 +30,7 @@ void fire_update(LEDStruct& leds) {
 		case 0:		leds.fire_sparking	= (uint8_t)update_arg;	break;	//a
 		case 1:		leds.fire_cooling	= (uint8_t)update_arg;	break;	//b		
 		case 2:		leds.fire_sparking2 = (uint8_t)update_arg;	break;	//c
-		case 3:		leds.fire_cooling2 = (uint8_t)update_arg;	break;	//d
+		case 3:		leds.fire_cooling2	= (uint8_t)update_arg;	break;	//d
 		case 4:		leds.fire_sync		= (bool)update_arg;		break;	//e
 		case 5:		leds.torch_diff		= (uint8_t)update_arg;	break;	//f
 		default:	break;

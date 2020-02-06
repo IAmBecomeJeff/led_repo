@@ -44,6 +44,12 @@ void initialize() {
 	next_leds.target_palette	= rainbow_gp;
 	next_leds.mode_number		= curr_leds.mode_number;			// Helps with sequential steps
 	updatePaletteIndex(next_leds);
+
+	// Initialize over_leds
+	fill_solid(over_leds.led_data, NUM_LEDS, CRGB::Black);
+	over_leds.array_type		= OVERLAY;
+	over_leds.current_palette	= cequal_gp;
+	over_leds.target_palette	= cequal_gp;
 }
 
 void begin_transition(); // Forward declaration
@@ -122,6 +128,7 @@ void finish_transition() {
 	curr_leds = next_leds;
 	fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
 	curr_leds.array_type = CURRENT;
+	if (!overlay_in_use) { fill_solid(over_leds.led_data, NUM_LEDS, CRGB::Black); }
 }
 
 void blending() {

@@ -3,10 +3,11 @@
 
 
 void shooting_pole_init(LEDStruct& leds, uint8_t sr = ONE_SIDE - random8(18, 31), uint8_t pd = random8(1, 6), uint8_t jf = random8(30, 120), uint8_t jb = random(50, 70), uint8_t jd = random8(1, 33)) {
-	leds.mode_initialized = 1;
-	leds.use_palette = 1;
-	leds.mode_type = SHOOTING_POLE;
-	leds.use_full_range = 0;
+	leds.mode_initialized	= 1;
+	leds.use_palette		= 1;
+	leds.mode_type			= SHOOTING_POLE;
+	leds.use_full_range		= 0;
+	leds.delay_time			= 15;
 
 	leds.strip_range = sr;
 	leds.pole_diff   = pd;

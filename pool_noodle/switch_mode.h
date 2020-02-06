@@ -28,6 +28,11 @@ void switch_mode(LEDStruct& leds) {
 			juggle(leds);
 			break;
 
+		case JUGGLE_HALF:
+			if (!leds.mode_initialized) { juggle_init(leds); }
+			juggle_half(leds);
+			break;
+
 		case JUGGLE_RANDOM:
 			juggle(leds);
 			break;
@@ -150,6 +155,10 @@ void switch_mode(LEDStruct& leds) {
 			bounce(leds);
 			break;
 
+		// Lightsaber Functions ---------------------------------------------------------------------
+		case LIGHTSABER:
+			lightsaber(leds);
+			break;
 	}
 }
 

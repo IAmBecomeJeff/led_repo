@@ -2,14 +2,15 @@
 #define CONFETTI_H
 
 void confetti_init(LEDStruct& leds, bool ufr = random8(2), uint8_t cf = random8(6,21)) {
-	leds.mode_initialized = 1;
-	leds.mode_type = CONFETTI;
-	leds.use_palette = 1;
-	leds.use_full_range = ufr;
-	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-	else { leds.strip_range = ONE_SIDE; }
+	leds.mode_initialized	= 1;
+	leds.mode_type			= CONFETTI;
+	leds.use_palette		= 1;
+	leds.delay_time			= 15;
 
-	leds.confetti_fade = cf;
+	leds.use_full_range		= ufr;
+	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+	else					 { leds.strip_range = ONE_SIDE; }
+	leds.confetti_fade		= cf;
 }
 
 void confetti_update(LEDStruct& leds) {
@@ -18,7 +19,7 @@ void confetti_update(LEDStruct& leds) {
 		case 0:														//a
 			leds.use_full_range = (bool)update_arg;
 			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-			else { leds.strip_range = ONE_SIDE; }
+			else					 { leds.strip_range = ONE_SIDE; }
 			break;
 		case 1:	leds.confetti_fade = (uint8_t)update_arg;	break; //b
 		default: break;

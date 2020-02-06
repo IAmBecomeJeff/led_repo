@@ -17,6 +17,7 @@ struct CRGB master_leds[NUM_LEDS];
 
 // LED Variables
 uint8_t max_bright = 255;		// used in initial LEDS.set_brightness
+bool	overlay_in_use = 0;
 
 
 // Array Variables
@@ -31,7 +32,7 @@ bool	random_mode			= 1;		// Determines if we change randomly or in the order of 
 bool	mode_change			= 1;
 uint16_t mode_change_time = 20;			// seconds
 
-enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
+enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_1,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
 					COLORWAVE, PRIDE, PACIFICA,
@@ -40,10 +41,11 @@ enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, J
 					FIREWORKS,
 					SHOOTING_POLE,
 					NOISE, NOISE_MOVER,
-					BOUNCE, BOUNCING_BALLS
+					BOUNCE, BOUNCING_BALLS,
+					LIGHTSABER
 				  };
 
-Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_RANDOM, 
+Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_1,
 					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, FIRE_RANDOM, TORCH, TORCH_SYNC,
 					COLORWAVE, PRIDE, PACIFICA,
@@ -52,7 +54,8 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					FIREWORKS,
 					SHOOTING_POLE,
 					NOISE, NOISE_MOVER,
-					BOUNCE, BOUNCING_BALLS
+					BOUNCE, BOUNCING_BALLS,
+					LIGHTSABER
 				  };
 
 extern Mode start_mode;
@@ -105,3 +108,6 @@ uint8_t firework_bg_fade = 128;
 #define GRAVITY -1
 #define h0 1
 float   bouncing_vImpact0 = sqrt(-2 * GRAVITY * h0);
+
+// Ligthsaber Variables
+enum saber_stages { UP, WAIT, DOWN };

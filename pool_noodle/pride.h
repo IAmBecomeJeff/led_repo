@@ -2,12 +2,14 @@
 #define PRIDE_H
 
 void pride_init(LEDStruct& leds, bool ufr = random8(2)) {
-	leds.mode_initialized = 1;
-	leds.mode_type = PRIDE;
-	leds.use_palette = 0;
-	leds.use_full_range = ufr;
+	leds.mode_initialized	= 1;
+	leds.mode_type			= PRIDE;
+	leds.use_palette		= 0;
+	leds.delay_time			= 15;
+
+	leds.use_full_range		= ufr;
 	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-	else { leds.strip_range = ONE_SIDE; }
+	else					 { leds.strip_range = ONE_SIDE; }
 }
 
 void pride_update(LEDStruct& leds) {
@@ -16,7 +18,7 @@ void pride_update(LEDStruct& leds) {
 	case 0:															//a
 		leds.use_full_range = (bool)update_arg;
 		if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-		else { leds.strip_range = ONE_SIDE; }
+		else					 { leds.strip_range = ONE_SIDE; }
 		break;
 	default:	break;
 	}

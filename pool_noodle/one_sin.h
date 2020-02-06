@@ -3,9 +3,11 @@
 
 void one_sin_init(LEDStruct& leds, bool ufr = random8(2), uint8_t si = random8(1,4), uint8_t ss = random8(5,13), uint8_t sc = random8(100,200), 
 								uint8_t sr = random8(1,5), uint8_t sp = random8(0,5), uint8_t saf = random8(20,40), uint8_t bc = random8(), uint8_t bb = random8(10)) {
-	leds.mode_initialized = 1;
-	leds.mode_type = ONE_SIN;
-	leds.use_palette = 1;
+	leds.mode_initialized	= 1;
+	leds.mode_type			= ONE_SIN;
+	leds.use_palette		= 1;
+	leds.delay_time			= 15;
+
 	leds.use_full_range = ufr;
 	if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
 	else { leds.strip_range = ONE_SIDE; }
