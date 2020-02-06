@@ -99,6 +99,7 @@ uint8_t firework_bg_fade = 128;
 
 // Bounce
 #define BOUNCE_MAX_LENGTH 20
+
 // Bouncing Balls
 #define MAX_NUMBER_OF_BALLS 8
 #define GRAVITY -1
