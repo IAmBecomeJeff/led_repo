@@ -23,6 +23,7 @@
 #include "bounce.h"
 #include "bouncing_balls.h"
 #include "lightsaber.h"
+#include "twinkle.h"
 
 
 // Mode switching

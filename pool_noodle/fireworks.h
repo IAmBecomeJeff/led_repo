@@ -19,6 +19,7 @@ void fireworks_update(LEDStruct& leds) {
 		case 0:	leds.use_overlay = (bool)update_arg;	break; //a
 		default:	break;
 	}
+	LEDDebug(leds);
 }
 
 void prepare_for_explosion(LEDStruct& leds) {

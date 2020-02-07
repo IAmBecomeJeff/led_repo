@@ -22,7 +22,7 @@ void bounce_update(LEDStruct& leds) {
 	keyboard_update = 0;
 	switch (update_var) {
 		case 0:		leds.juggle_fade		= (uint8_t)update_arg;	break;	//a
-		case 1:		leds.bounce_length		= (uint8_t)update_arg;	leds.bounce_length = constrain(leds.bounce_length,10,BOUNCE_MAX_LENGTH);	//b		
+		case 1:		leds.bounce_length		 = (uint8_t)update_arg;	leds.bounce_length = constrain(leds.bounce_length, 10, BOUNCE_MAX_LENGTH); break;	//b		
 		case 2:		leds.juggle_beat		= (uint8_t)update_arg;	break;	//c
 		case 3:		leds.rainbow_diff		= (uint8_t)update_arg;	break;	//d
 		case 4:		leds.bounce_start_beat	= (uint8_t)update_arg;	break;	//e

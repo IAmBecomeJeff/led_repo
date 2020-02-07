@@ -160,6 +160,11 @@ void switch_mode(LEDStruct& leds) {
 		case LIGHTSABER:
 			lightsaber(leds);
 			break;
+
+		// Twinkle Functions ---------------------------------------------------------------------
+		case TWINKLE:
+			twinkle(leds);
+			break;
 	}
 }
 

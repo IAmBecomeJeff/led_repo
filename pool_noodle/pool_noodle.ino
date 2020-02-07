@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = LIGHTSABER;
+Mode start_mode = TWINKLE;
 
 // ================ SETUP ================
 

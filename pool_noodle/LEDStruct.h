@@ -142,6 +142,15 @@ struct LEDStruct {
 	uint8_t			ls_val;
 	uint8_t			delta_bright;
 	saber_stages	saber_stage;
+
+	// Twinkle Variables
+
+	uint8_t twinkle_speed;
+	uint8_t twinkle_density;
+	bool	cool_like_incandescent;
+	bool	auto_select_bg_color;
+
+
 };
 
 
@@ -500,6 +509,25 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| tip_pos:\t\t");
 			Serial.print(leds.tip_pos);
+			Serial.println("\t||");
+			break;
+
+		case TWINKLE:
+			Serial.println("=============TWINKLE==============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) twinkle_speed:\t");
+			Serial.print(leds.twinkle_speed);
+			Serial.println("\t||");
+			Serial.print("|| (c) twinkle_density:\t");
+			Serial.print(leds.twinkle_density);
+			Serial.println("\t||");
+			Serial.print("|| (d) cool_like_incan:\t");
+			Serial.print(leds.cool_like_incandescent);
+			Serial.println("\t||");
+			Serial.print("|| (e) auto_select_bg:\t");
+			Serial.print(leds.auto_select_bg_color);
 			Serial.println("\t||");
 			break;
 

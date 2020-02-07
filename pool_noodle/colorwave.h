@@ -18,7 +18,7 @@ void colorwave_update(LEDStruct& leds) {
 		case 0:															//a
 			leds.use_full_range = (bool)update_arg;
 			if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
-			else { leds.strip_range = ONE_SIDE; }
+			else					 { leds.strip_range = ONE_SIDE; }
 			break;
 		default:	break;
 	}

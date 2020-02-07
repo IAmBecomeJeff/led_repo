@@ -1,7 +1,7 @@
 #ifndef LIGHTSABER_H
 #define LIGHTSABER_H
 
-void lightsaber_init(LEDStruct& leds, bool up = random8(2), uint8_t bc = random8(), uint8_t db = random8(40,70), uint16_t ht = random16(2000,8001)) {
+void lightsaber_init(LEDStruct& leds, bool up = random8(2), uint8_t bc = random8(), uint8_t db = random8(50,80), uint16_t ht = random16(2000,4001)) {
 	leds.mode_initialized	= 1;
 	leds.use_palette		= up;
 	leds.mode_type			= LIGHTSABER;
@@ -27,6 +27,7 @@ void lightsaber_update(LEDStruct& leds) {
 		case 3:		leds.hold_time		= (uint16_t)update_arg;	break; //d
 		default:	break;
 	}
+	LEDDebug(leds);
 }
 
 
