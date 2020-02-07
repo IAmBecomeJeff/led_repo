@@ -56,6 +56,7 @@ void switch_mode(LEDStruct& leds) {
 		case RAINBOW_1:		// custom 1, rainbows slowly emanating from center
 			if (!leds.mode_initialized) { leds.this_dir = 0; rainbow_init(leds, 1, 4, 2, 0); }
 			rainbow_march(leds);
+			break;
 
 		
 		// Fire Functions -----------------------------------------------------------------------
@@ -84,12 +85,12 @@ void switch_mode(LEDStruct& leds) {
 			break;
 
 		case TORCH:
-			if (!leds.mode_initialized) { fire_init(leds, 0, 0, 20, 70, 90); }		// sync off | mirror must be off
+			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror must be off
 			torch(leds);
 			break;
 
 		case TORCH_SYNC:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 0, 20, 100, 90); }		// sync on  | mirror must be off
+			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror must be off
 			torch(leds);
 			break;
 

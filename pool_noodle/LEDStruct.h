@@ -137,8 +137,8 @@ struct LEDStruct {
 	uint16_t		tip_pos;
 	uint8_t			blade_color;
 	uint16_t		hold_time;
-	uint16_t		ls_begin;
-	uint16_t		ls_end;
+	uint32_t		ls_begin;
+	uint32_t		ls_end;
 	uint8_t			ls_val;
 	uint8_t			delta_bright;
 	saber_stages	saber_stage;
@@ -490,6 +490,16 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (d) hold_time:\t");
 			Serial.print(leds.hold_time);
+			Serial.println("\t||");
+			Serial.print("|| saber_stage:\t\t");
+			switch (leds.saber_stage) {
+				case UP: Serial.print("UP"); break;
+				case DOWN: Serial.print("DOWN"); break;
+				case WAIT: Serial.print("WAIT"); break;
+			}
+			Serial.println("\t||");
+			Serial.print("|| tip_pos:\t\t");
+			Serial.print(leds.tip_pos);
 			Serial.println("\t||");
 			break;
 

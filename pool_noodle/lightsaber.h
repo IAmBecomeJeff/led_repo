@@ -1,7 +1,7 @@
 #ifndef LIGHTSABER_H
 #define LIGHTSABER_H
 
-void lightsaber_init(LEDStruct& leds, bool up = random8(2), uint8_t bc = random8(), uint8_t db = random8(4,32), uint16_t ht = random16(2000,8001)) {
+void lightsaber_init(LEDStruct& leds, bool up = random8(2), uint8_t bc = random8(), uint8_t db = random8(40,70), uint16_t ht = random16(2000,8001)) {
 	leds.mode_initialized	= 1;
 	leds.use_palette		= up;
 	leds.mode_type			= LIGHTSABER;
@@ -55,13 +55,13 @@ void lightsaber(LEDStruct& leds) {
 			break;
 
 		case WAIT:
-			if (millis() > leds.ls_end&& leds.tip_pos == ONE_SIDE) { leds.saber_stage = DOWN; leds.ls_val = 255; }
-			if (millis() > leds.ls_end&& leds.tip_pos == 0) { leds.saber_stage = UP; leds.ls_val = 0; }
+			if (millis() > leds.ls_end && leds.tip_pos == ONE_SIDE-1) { leds.saber_stage = DOWN; leds.ls_val = 255; }
+			if (millis() > leds.ls_end && leds.tip_pos == 0) { leds.saber_stage = UP; leds.ls_val = 0; }
 			break;
 
 		case DOWN:
 			if (leds.ls_val - leds.delta_bright <= leds.delta_bright) {
-				if (leds.use_palette) { leds.led_data[leds.tip_pos] = ColorFromPalette(leds.current_palette, leds.tip_pos * 255 / ONE_SIDE, 255, leds.current_blending); }
+				if (leds.use_palette) { leds.led_data[leds.tip_pos] = ColorFromPalette(leds.current_palette, leds.tip_pos * 255 / ONE_SIDE, 0, leds.current_blending); }
 				else { leds.led_data[leds.tip_pos] = CHSV(leds.blade_color, 255, 0); }
 				leds.ls_val = 255;
 				if (leds.tip_pos > 0) { leds.tip_pos--; }

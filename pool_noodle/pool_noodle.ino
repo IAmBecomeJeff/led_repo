@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = BOUNCING_BALLS;
+Mode start_mode = LIGHTSABER;
 
 // ================ SETUP ================
 

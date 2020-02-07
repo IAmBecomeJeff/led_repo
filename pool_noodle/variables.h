@@ -111,3 +111,6 @@ float   bouncing_vImpact0 = sqrt(-2 * GRAVITY * h0);
 
 // Ligthsaber Variables
 enum saber_stages { UP, WAIT, DOWN };
+
+uint8_t bad_juggle_palettes[] = { 7, 8, 9, 17, 18, 22, 23, 24, 25, 27, 30, 31, 32, 33, 34, 36, 43, 44, 45, 46,
+								50, 51, 53, 54, 60, 61, 62, 63, 64, 65, 66, 67, 77, 78, 79, 81, 82, 84, 89 };

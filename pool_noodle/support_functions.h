@@ -321,6 +321,15 @@ void print_palette(uint8_t pn) {
 	}
 }
 
+void palette_check(LEDStruct& leds) {
+	for (uint8_t i = 0; i < ARRAY_SIZE(bad_juggle_palettes); i++) {
+		if (leds.palette_index == bad_juggle_palettes[i]) {
+			leds.juggle_index_reset = 0;
+			leds.juggle_diff = leds.juggle_diff / 10 + 1;
+			break;
+		}
+	}
+}
 
 LIB8STATIC uint16_t beatsin16_halfdown(accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
 	uint32_t timebase = 0, uint16_t phase_offset = 0)

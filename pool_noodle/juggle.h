@@ -16,6 +16,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_fade		 = jf;
 	leds.juggle_diff		 = jd;
 	leds.juggle_index_reset  = jir;
+	if (leds.juggle_index_reset) { leds.juggle_diff *= 10; }
 }
 
 void juggle_update(LEDStruct& leds) {
@@ -44,7 +45,10 @@ void juggle(LEDStruct& leds) {
 	if (keyboard_update) { juggle_update(leds); }
 
 	// Keep the same color for each dot, or cycle through the palette
-	if (leds.juggle_index_reset) { leds.juggle_index = 0; }
+	if (leds.juggle_index_reset) { 
+		leds.juggle_index = 0; 
+		palette_check(leds);
+	}
 
 	// Fade all LEDs
 	fadeToBlackBy(leds.led_data, NUM_LEDS, leds.juggle_fade);
