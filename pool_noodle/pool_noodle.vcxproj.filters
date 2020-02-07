@@ -84,5 +84,8 @@
     <ClInclude Include="read_keyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lightsaber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
