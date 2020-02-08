@@ -163,6 +163,9 @@
     <ClInclude Include="switch_mode.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="twinkle.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="two_sin.h">
       <FileType>CppCode</FileType>
     </ClInclude>

@@ -192,7 +192,7 @@ void wipeup() {
 		finish_transition();
 	}
 }
-/*
+
 void colorfade() {
 	if (color_up) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(curr_leds.led_data[i], colorfade_rgb, transition_ratio); }
@@ -203,7 +203,7 @@ void colorfade() {
 		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 0) { finish_transition(); } }
 	}
 }
-*/
+
 void switch_transition(TransitionType tt) {
 	switch (tt) {
 		case BLENDING:	blending();		break;

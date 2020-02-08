@@ -87,5 +87,8 @@
     <ClInclude Include="lightsaber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="twinkle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

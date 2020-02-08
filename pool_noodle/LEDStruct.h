@@ -258,7 +258,6 @@ void LEDDebug(LEDStruct& leds) {
 				case FIRE_SYNC:			Serial.println("============FIRE SYNC============="); break;
 				case FIRE_MIRROR:		Serial.println("===========FIRE MIRROR============"); break;
 				case FIRE_MIRROR_SYNC:	Serial.println("========FIRE MIRROR SYNC=========="); break;
-				case FIRE_RANDOM:		Serial.println("===========FIRE RANDOM============"); break;
 				default: break;
 
 			}

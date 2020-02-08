@@ -17,8 +17,8 @@
 #define __HARDWARE_MK20DX256__
 #define _VMDEBUG 1
 #define __MK20DX256__
-#define TEENSYDUINO 146
-#define ARDUINO 10809
+#define TEENSYDUINO 148
+#define ARDUINO 108010
 #define F_CPU 96000000
 #define USB_SERIAL
 #define LAYOUT_US_ENGLISH

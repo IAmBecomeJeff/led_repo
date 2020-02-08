@@ -80,10 +80,6 @@ void switch_mode(LEDStruct& leds) {
 			fire(leds);
 			break;
 
-		case FIRE_RANDOM:
-			fire(leds);
-			break;
-
 		case TORCH:
 			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror must be off
 			torch(leds);

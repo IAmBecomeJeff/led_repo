@@ -72,6 +72,8 @@ void loop() {
 	// Update delay times
 	curr_delay = curr_leds.delay_time;
 	next_delay = next_leds.delay_time;
+	constrain(curr_delay, 5, 20);
+	constrain(next_delay, 5, 20);
 
 	// Apply effect to curr_leds
 	EVERY_N_MILLIS_I(curr_timer, curr_delay) {
