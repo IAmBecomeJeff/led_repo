@@ -149,13 +149,14 @@ void wipedown() {
 		master_leds[j]				  = next_leds.led_data[j];
 		master_leds[NUM_LEDS - 1 - j] = next_leds.led_data[NUM_LEDS -1 - j];
 	}
+
 	master_leds[wipe_pos - 1] = blend(master_leds[wipe_pos - 1], CRGB::Teal, 128);
-	master_leds[NUM_LEDS - 1 - (wipe_pos - 1)] = blend(master_leds[NUM_LEDS -1 - (wipe_pos - 1)], CRGB::Teal, 128);
+	master_leds[NUM_LEDS - 1 - (wipe_pos - 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos - 1)], CRGB::Teal, 128);
 
 	master_leds[wipe_pos]				 = CRGB::White;
 	master_leds[NUM_LEDS - 1 - wipe_pos] = CRGB::White;
 
-	if (wipe_pos > ONE_SIDE - 1) {
+	if (wipe_pos < ONE_SIDE - 1) {
 		master_leds[wipe_pos + 1] = blend(master_leds[wipe_pos + 1], CRGB::Teal, 128);
 		master_leds[NUM_LEDS - 1 - (wipe_pos + 1)] = blend(master_leds[NUM_LEDS - 1 - (wipe_pos + 1)], CRGB::Teal, 128);
 	}

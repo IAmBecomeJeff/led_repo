@@ -58,6 +58,10 @@ void switch_mode(LEDStruct& leds) {
 			rainbow_march(leds);
 			break;
 
+		case RAINBOW_MARCH_BEAT:
+			rainbow_march_beat(leds);
+			break;
+
 		
 		// Fire Functions -----------------------------------------------------------------------
 		case FIRE:

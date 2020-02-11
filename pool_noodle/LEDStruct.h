@@ -234,8 +234,12 @@ void LEDDebug(LEDStruct& leds) {
 			break;
 
 		case RAINBOW_MARCH:
-			if (!leds.rainbow_split) { Serial.println("==========RAINBOW MARCH==========="); }
-			else					 { Serial.println("=======RAINBOW MARCH SPLIT========"); }
+			switch (leds.mode_name) {
+				case RAINBOW_MARCH:			Serial.println("==========RAINBOW MARCH==========="); break;
+				case RAINBOW_MARCH_SPLIT:	Serial.println("=======RAINBOW MARCH SPLIT========"); break;
+				case RAINBOW_MARCH_BEAT:	Serial.println("=======RAINBOW MARCH BEAT========="); break;
+				default: break;
+			}
 			Serial.print("|| (a) use_full_range:\t");
 			Serial.print(leds.use_full_range);
 			Serial.println("\t||");
@@ -248,6 +252,11 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("|| (d) rot:\t\t");
 			Serial.print(leds.rainbow_rot);
 			Serial.println("\t||");
+			if (leds.mode_name == RAINBOW_MARCH_BEAT) {
+				Serial.print("|| (e) juggle_beat:\t\t");
+				Serial.print(leds.juggle_beat);
+				Serial.println("\t||");
+			}
 			break;
 
 		case FIRE:
@@ -259,7 +268,6 @@ void LEDDebug(LEDStruct& leds) {
 				case FIRE_MIRROR:		Serial.println("===========FIRE MIRROR============"); break;
 				case FIRE_MIRROR_SYNC:	Serial.println("========FIRE MIRROR SYNC=========="); break;
 				default: break;
-
 			}
 			Serial.print("|| (a) sparking:\t");
 			Serial.print(leds.fire_sparking);
