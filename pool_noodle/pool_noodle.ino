@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = TWINKLE;
+Mode start_mode = COLORWAVE;
 
 // ================ SETUP ================
 
@@ -70,10 +70,11 @@ void loop() {
 	}	
 
 	// Update delay times
+	delay_check(curr_leds);
+	delay_check(next_leds);
 	curr_delay = curr_leds.delay_time;
 	next_delay = next_leds.delay_time;
-	constrain(curr_delay, 5, 20);
-	constrain(next_delay, 5, 20);
+
 
 	// Apply effect to curr_leds
 	EVERY_N_MILLIS_I(curr_timer, curr_delay) {

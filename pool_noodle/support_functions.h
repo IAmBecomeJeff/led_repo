@@ -52,6 +52,12 @@ void initialize() {
 	over_leds.target_palette	= cequal_gp;
 }
 
+
+void delay_check(LEDStruct& leds) {
+	if (leds.delay_time < 5) { leds.delay_time = 5; }
+	if (leds.delay_time > 20) { leds.delay_time = 20; }
+}
+
 void begin_transition(); // Forward declaration
 
 // Change mode - consider how to handle this.  Random, specific path, etc.

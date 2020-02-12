@@ -48,21 +48,9 @@ void fire(LEDStruct& leds) {
 		leds.heat[i] = qsub8(leds.heat[i], random8(0, ((leds.fire_cooling * 10) / leds.heat_length) + 2));
 	}
 
-	if (!leds.fire_sync) {
-		for (int i = 0; i < leds.heat_length; i++) {
-			leds.heat2[i] = qsub8(leds.heat2[i], random8(0, ((leds.fire_cooling2 * 10) / leds.heat_length) + 2));
-		}
-	}
-
 	// Step 2.  Heat from each cell drifts 'up' and diffuses a little
 	for (int k = leds.heat_length - 3; k >= 2; k--) {
 		leds.heat[k] = (leds.heat[k - 1] + leds.heat[k - 2] + leds.heat[k - 2]) / 3;
-	}
-
-	if (!leds.fire_sync) {
-		for (int k = leds.heat_length - 3; k >= 2; k--) {
-			leds.heat2[k] = (leds.heat2[k - 1] + leds.heat2[k - 2] + leds.heat2[k - 2]) / 3;
-		}
 	}
 
 	// Step 3.  Randomly ignite new 'sparks' of heat near the bottom
@@ -72,11 +60,18 @@ void fire(LEDStruct& leds) {
 	}
 
 	if (!leds.fire_sync) {
+		for (int i = 0; i < leds.heat_length; i++) {
+			leds.heat2[i] = qsub8(leds.heat2[i], random8(0, ((leds.fire_cooling2 * 10) / leds.heat_length) + 2));
+		}
+		for (int k = leds.heat_length - 3; k >= 2; k--) {
+			leds.heat2[k] = (leds.heat2[k - 1] + leds.heat2[k - 2] + leds.heat2[k - 2]) / 3;
+		}
 		if (random8() < leds.fire_sparking2) {
 			int y = random8(7);
 			leds.heat2[y] = qadd8(leds.heat2[y], random8(160, 255));
 		}
 	}
+
 	// Step 4.  Map from heat cells to LED colors
 	if (leds.this_dir) {
 		for (int j = 0; j < leds.heat_length; j++) {

@@ -253,7 +253,7 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print(leds.rainbow_rot);
 			Serial.println("\t||");
 			if (leds.mode_name == RAINBOW_MARCH_BEAT) {
-				Serial.print("|| (e) juggle_beat:\t\t");
+				Serial.print("|| (e) juggle_beat:\t");
 				Serial.print(leds.juggle_beat);
 				Serial.println("\t||");
 			}

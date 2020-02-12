@@ -59,10 +59,10 @@ void rainbow_march_beat(LEDStruct& leds) {
 	if (keyboard_update) { rainbow_update(leds); }
 
 	if (leds.this_dir == 0) {
-		leds.rainbow_index += leds.rainbow_rot + beatsin8(leds.juggle_beat, 0, 10);
+		leds.rainbow_index += leds.rainbow_rot + beatsin8(leds.juggle_beat, 0, 5);
 	}
 	else {
-		leds.rainbow_index -= (leds.rainbow_rot + beatsin8(leds.juggle_beat, 0, 10));
+		leds.rainbow_index -= (leds.rainbow_rot + beatsin8(leds.juggle_beat, 0, 5));
 	}
 
 	if (!leds.rainbow_split) {
