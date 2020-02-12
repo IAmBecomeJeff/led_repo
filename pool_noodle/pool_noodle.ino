@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = COLORWAVE;
+Mode start_mode = PLASMA;
 
 // ================ SETUP ================
 

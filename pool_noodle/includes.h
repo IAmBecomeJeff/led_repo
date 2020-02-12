@@ -24,7 +24,8 @@
 #include "bouncing_balls.h"
 #include "lightsaber.h"
 #include "twinkle.h"
-
+#include "plasma.h"
+#include "outward.h"
 
 // Mode switching
 #include "switch_mode.h"

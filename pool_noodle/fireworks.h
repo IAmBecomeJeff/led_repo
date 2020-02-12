@@ -10,13 +10,15 @@ void fireworks_init(LEDStruct& leds, bool uo = random8(2)) {
 	leds.current_stage		= WAITING;
 
 	leds.use_overlay		= uo;
-	if (leds.use_overlay) { if (!overlay_in_use) { over_leds.current_stage = WAITING; } }
+	if (leds.use_overlay) { next_over_leds.current_stage = WAITING; } 
 }
 
 void fireworks_update(LEDStruct& leds) {
 	keyboard_update = 0;
 	switch (update_var) {
-		case 0:	leds.use_overlay = (bool)update_arg;	break; //a
+		case 0:	leds.use_overlay = (bool)update_arg;	
+			fill_solid(curr_over_leds.led_data, NUM_LEDS, CRGB::Black);
+			break; //a
 		default:	break;
 	}
 	LEDDebug(leds);
@@ -104,14 +106,19 @@ void fireworks(LEDStruct& leds) {
 
 	fireworks_render(leds);
 
-	overlay_in_use = 0;
 	if (leds.use_overlay) {
-		overlay_in_use = 1;
-		fireworks_render(over_leds);
-		for (uint16_t i = 0; i < NUM_LEDS; i++) {
-			leds.led_data[i] += over_leds.led_data[i];
+		if (leds.array_type == CURRENT) { 
+			fireworks_render(curr_over_leds); 
+			for (uint16_t i = 0; i < NUM_LEDS; i++) {
+				leds.led_data[i] += curr_over_leds.led_data[i];
+			}
+		}
+		else if (leds.array_type == NEXT) {	
+			fireworks_render(next_over_leds); 
+			for (uint16_t i = 0; i < NUM_LEDS; i++) {
+				leds.led_data[i] += next_over_leds.led_data[i];
+			}
 		}
 	}
-
 }
 #endif

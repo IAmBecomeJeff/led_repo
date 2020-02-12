@@ -24,10 +24,17 @@ void read_keyboard() {
 				break;
 
 			// D - delay
-			case 68: curr_leds.delay_time = update_arg; keyboard_update = 0; update_var = 255; break;
+			case 68: curr_leds.delay_time = (uint8_t)update_arg; keyboard_update = 0; update_var = 255; break;
 
 			// E - next_leds delay, beta
-			case 69: next_leds.delay_time = update_arg; keyboard_update = 0; update_var = 255; break;
+			case 69: next_leds.delay_time = (uint8_t)update_arg; keyboard_update = 0; update_var = 255; break;
+
+			// F - current_leds blending
+			case 70: 
+				if ((bool)update_arg == 0) { curr_leds.current_blending = NOBLEND;	}
+				else { curr_leds.current_blending = LINEARBLEND; }
+				keyboard_update = 0; 
+				update_var = 255; break;
 
 			// M - mode
 			case 77: change_mode((uint8_t)update_arg); keyboard_update = 0; update_var = 255; break;

@@ -1,7 +1,7 @@
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 // Unsigned subtraction magic
-#define qsubd(x, b) ((x>b)?255:0)		// A digital unsigned subtraction macro. if result <0, then => 0. Otherwise, take on fixed value.
+#define qsubd(x, b) ((x>b)?b:0)		// A digital unsigned subtraction macro. if result <0, then => 0. Otherwise, take on fixed value.
 #define qsuba(x, b) ((x>b)?x-b:0)					// Unsigned subtraction macro. if result <0, then => 0.
 
 void switch_mode(LEDStruct& leds); // Forward declaration
@@ -45,11 +45,17 @@ void initialize() {
 	next_leds.mode_number		= curr_leds.mode_number;			// Helps with sequential steps
 	updatePaletteIndex(next_leds);
 
-	// Initialize over_leds
-	fill_solid(over_leds.led_data, NUM_LEDS, CRGB::Black);
-	over_leds.array_type		= OVERLAY;
-	over_leds.current_palette	= cequal_gp;
-	over_leds.target_palette	= cequal_gp;
+	// Initialize curr_over_leds
+	fill_solid(curr_over_leds.led_data, NUM_LEDS, CRGB::Black);
+	curr_over_leds.array_type		= CURR_OVERLAY;
+	curr_over_leds.current_palette	= cequal_gp;
+	curr_over_leds.target_palette	= cequal_gp;
+
+	// Initialize next_over_leds
+	fill_solid(next_over_leds.led_data, NUM_LEDS, CRGB::Black);
+	next_over_leds.array_type = NEXT_OVERLAY;
+	next_over_leds.current_palette = cequal_gp;
+	next_over_leds.target_palette = cequal_gp;
 }
 
 
@@ -104,6 +110,8 @@ void global_debug() {
 	Serial.println(random_mode);
 	Serial.print("(Q) Change Palettes:\t");
 	Serial.println(random_palette);
+	Serial.print("(T) Mode Timer:\t");
+	Serial.println(mode_change_time);
 	Serial.print("Mode change number:\t");
 	Serial.println(number_of_mode_changes);
 	Serial.print("Running time:\t\t");
@@ -132,9 +140,10 @@ void finish_transition() {
 	in_transition = 0;
 	fill_solid(curr_leds.led_data, NUM_LEDS, CRGB::Black);
 	curr_leds = next_leds;
+	if (curr_leds.use_overlay) { curr_over_leds = next_over_leds; curr_over_leds.array_type = CURR_OVERLAY; }
 	fill_solid(next_leds.led_data, NUM_LEDS, CRGB::Black);
+	fill_solid(next_over_leds.led_data, NUM_LEDS, CRGB::Black);
 	curr_leds.array_type = CURRENT;
-	if (!overlay_in_use) { fill_solid(over_leds.led_data, NUM_LEDS, CRGB::Black); }
 }
 
 void blending() {
@@ -199,7 +208,7 @@ void wipeup() {
 		finish_transition();
 	}
 }
-
+/*
 void colorfade() {
 	if (color_up) {
 		for (uint16_t i = 0; i < NUM_LEDS; i++) { master_leds[i] = blend(curr_leds.led_data[i], colorfade_rgb, transition_ratio); }
@@ -210,7 +219,7 @@ void colorfade() {
 		EVERY_N_MILLIS(transition_speed * 4) { if (transition_ratio++ == 0) { finish_transition(); } }
 	}
 }
-
+*/
 void switch_transition(TransitionType tt) {
 	switch (tt) {
 		case BLENDING:	blending();		break;
@@ -221,7 +230,18 @@ void switch_transition(TransitionType tt) {
 	}
 }
 
-
+void waveit(LEDStruct& leds) {                                                          // Shifting pixels from the center to the left and right.
+	if (!leds.use_full_range) {
+		for (int i = ONE_SIDE - 1; i > ONE_SIDE / 2; i--) {                             // Move to the right.
+			leds.led_data[i] = leds.led_data[i - 1];
+			leds.led_data[NUM_LEDS - (i + 1)] = leds.led_data[NUM_LEDS - i];
+		}
+		for (int i = 0; i < ONE_SIDE / 2; i++) {                                        // Move to the left.
+			leds.led_data[i] = leds.led_data[i + 1];
+			leds.led_data[NUM_LEDS - 1 - i] = leds.led_data[NUM_LEDS - 1 - i - 1];
+		}
+	}
+} // waveit()
 
 
 

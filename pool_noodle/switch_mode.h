@@ -165,6 +165,16 @@ void switch_mode(LEDStruct& leds) {
 		case TWINKLE:
 			twinkle(leds);
 			break;
+
+		// Plasma Functions ---------------------------------------------------------------------
+		case PLASMA:
+			plasma(leds);
+			break;
+
+		// Outward Functions ---------------------------------------------------------------------
+		case OUTWARD:
+			outward(leds);
+			break;
 	}
 }
 

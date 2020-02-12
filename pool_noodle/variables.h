@@ -17,11 +17,10 @@ struct CRGB master_leds[NUM_LEDS];
 
 // LED Variables
 uint8_t max_bright = 255;		// used in initial LEDS.set_brightness
-bool	overlay_in_use = 0;
 
 
 // Array Variables
-enum ArrayType { CURRENT, NEXT, OVERLAY };
+enum ArrayType { CURRENT, NEXT, CURR_OVERLAY, NEXT_OVERLAY };
 uint8_t curr_delay;
 uint8_t next_delay;
 
@@ -30,7 +29,7 @@ uint8_t next_delay;
 uint8_t current_mode_number = 0;
 bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
 bool	mode_change			= 1;
-uint16_t mode_change_time = 20;			// seconds
+uint16_t mode_change_time	= 20;			// seconds
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, 
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_MARCH_BEAT, RAINBOW_1,
@@ -43,7 +42,9 @@ enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, J
 					NOISE, NOISE_MOVER,
 					BOUNCE, BOUNCING_BALLS,
 					LIGHTSABER,
-					TWINKLE
+					TWINKLE,
+					PLASMA,
+					OUTWARD
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, 
@@ -54,10 +55,12 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					ONE_SIN, TWO_SIN,		
 					FIREWORKS,
 					SHOOTING_POLE,
-					NOISE, NOISE_MOVER,
+					NOISE, NOISE_MOVER, 
 					BOUNCE, BOUNCING_BALLS,
 					LIGHTSABER,
-					TWINKLE
+					TWINKLE,
+					PLASMA,
+					OUTWARD
 				  };
 
 extern Mode start_mode;

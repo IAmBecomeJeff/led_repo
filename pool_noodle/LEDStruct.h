@@ -144,21 +144,34 @@ struct LEDStruct {
 	saber_stages	saber_stage;
 
 	// Twinkle Variables
-
 	uint8_t twinkle_speed;
 	uint8_t twinkle_density;
 	bool	cool_like_incandescent;
 	bool	auto_select_bg_color;
 
+	// Plasma Variables
+	int plasma_phase1;
+	int plasma_phase2;
+	uint8_t plasma_beat1;
+	uint8_t plasma_beat2;
+	uint8_t plasma_beat3;
+	uint8_t plasma_index;
+	uint8_t plasma_bright;
 
+	// Outward Variables
+	uint8_t out_beat1;
+	uint8_t out_beat2;
+	uint8_t out_min1;
+	uint8_t out_min2;
+	uint8_t out_fade;
 };
 
 
 // Create LED Structures
 LEDStruct curr_leds;
 LEDStruct next_leds;
-LEDStruct over_leds;
-
+LEDStruct curr_over_leds;
+LEDStruct next_over_leds;
 
 // To duplicate one side of the strip with the other
 void strip_sync(LEDStruct& leds) {
@@ -178,7 +191,6 @@ void LEDDebug(LEDStruct& leds) {
 	// Print which Array it is
 	if		(leds.array_type == CURRENT) { Serial.println("==============CURRENT============="); }
 	else if (leds.array_type == NEXT)	 { Serial.println("~~~~~~~~~~~~~~~NEXT~~~~~~~~~~~~~~~"); }
-	else if (leds.array_type == OVERLAY) { Serial.println("=============OVERLAY=============="); }
 
 	// Print Standard Variables
 	Serial.print("|| (B) Brightness:\t");
@@ -190,6 +202,9 @@ void LEDDebug(LEDStruct& leds) {
 	Serial.print("|| (N) this_dir:\t");
 	Serial.print(leds.this_dir);
 	Serial.println("\t||");
+	Serial.print("|| (F) blending:\t");
+	if (leds.current_blending == LINEARBLEND) { Serial.print("LINEARBLEND"); }
+	else { Serial.print("NOBLEND"); }
 	Serial.print("|| (M) mode_number:\t");
 	Serial.print(leds.mode_number);
 	Serial.println("\t||");
@@ -537,6 +552,42 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print(leds.auto_select_bg_color);
 			Serial.println("\t||");
 			break;
+
+		case PLASMA:
+			Serial.println("=============PLASMA===============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) plasma_beat1:\t");
+			Serial.print(leds.plasma_beat1);
+			Serial.println("\t||");
+			Serial.print("|| (c) plasma_beat2:\t");
+			Serial.print(leds.plasma_beat2);
+			Serial.println("\t||");
+			Serial.print("|| (d) plasma_beat3:\t");
+			Serial.print(leds.plasma_beat3);
+			Serial.println("\t||");
+			break;
+
+		case OUTWARD:
+			Serial.println("==============OUTWARD=============");
+			Serial.print("|| (a) out_fade:\t");
+			Serial.print(leds.out_fade);
+			Serial.println("\t||");
+			Serial.print("|| (b) out_beat1:\t");
+			Serial.print(leds.out_beat1);
+			Serial.println("\t||");
+			Serial.print("|| (c) out_beat2:\t");
+			Serial.print(leds.out_beat2);
+			Serial.println("\t||");
+			Serial.print("|| (d) out_min1:\t");
+			Serial.print(leds.out_min1);
+			Serial.println("\t||");
+			Serial.print("|| (e) out_min2:\t");
+			Serial.print(leds.out_min2);
+			Serial.println("\t||");
+			break;
+
 
 		default:
 			Serial.println("");
