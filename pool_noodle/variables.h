@@ -59,8 +59,8 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					BOUNCE, BOUNCING_BALLS,
 					LIGHTSABER,
 					TWINKLE,
-					PLASMA,
-					OUTWARD
+					PLASMA//,
+					//OUTWARD
 				  };
 
 extern Mode start_mode;

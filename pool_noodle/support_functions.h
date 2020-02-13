@@ -110,7 +110,7 @@ void global_debug() {
 	Serial.println(random_mode);
 	Serial.print("(Q) Change Palettes:\t");
 	Serial.println(random_palette);
-	Serial.print("(T) Mode Timer:\t");
+	Serial.print("(T) Mode Timer:\t\t");
 	Serial.println(mode_change_time);
 	Serial.print("Mode change number:\t");
 	Serial.println(number_of_mode_changes);

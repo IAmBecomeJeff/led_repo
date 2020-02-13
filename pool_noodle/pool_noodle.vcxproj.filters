@@ -90,5 +90,11 @@
     <ClInclude Include="twinkle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="outward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plasma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

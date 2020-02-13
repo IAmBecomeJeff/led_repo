@@ -203,8 +203,9 @@ void LEDDebug(LEDStruct& leds) {
 	Serial.print(leds.this_dir);
 	Serial.println("\t||");
 	Serial.print("|| (F) blending:\t");
-	if (leds.current_blending == LINEARBLEND) { Serial.print("LINEARBLEND"); }
+	if (leds.current_blending == LINEARBLEND) { Serial.print("LINEAR"); }
 	else { Serial.print("NOBLEND"); }
+	Serial.println("\t||");
 	Serial.print("|| (M) mode_number:\t");
 	Serial.print(leds.mode_number);
 	Serial.println("\t||");

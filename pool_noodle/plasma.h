@@ -2,7 +2,7 @@
 #define PLASMA_H
 
 
-void plasma_init(LEDStruct& leds, bool ufr = random8(2), uint8_t b1 = random8(3,11),  uint8_t b2 = random8(3,11), uint8_t b3 = random8(3,11)) {
+void plasma_init(LEDStruct& leds, bool ufr = random8(2), uint8_t b1 = random8(13,41),  uint8_t b2 = random8(13,41), uint8_t b3 = random8(3,31)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= PLASMA;
 	leds.use_palette		= 1;
