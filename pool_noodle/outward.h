@@ -32,13 +32,23 @@ void outward(LEDStruct& leds) {
 	if (!leds.mode_initialized) { outward_init(leds); }
 	if (keyboard_update) { outward_update(leds); }
 
-	leds.led_data[ONE_SIDE / 2]		= ColorFromPalette(leds.current_palette, millis(), beatsin8(leds.out_beat1, leds.out_min1, 255), leds.current_blending);
-	leds.led_data[ONE_SIDE / 2 - 1] = ColorFromPalette(leds.current_palette, millis(), beatsin8(leds.out_beat2, leds.out_min2, 255), leds.current_blending);
+	leds.led_data[ONE_SIDE / 2]		= ColorFromPalette(leds.current_palette, beatsin8(leds.out_beat2), beatsin8(leds.out_beat1, leds.out_min1, 255), leds.current_blending);
+	leds.led_data[ONE_SIDE / 2 - 1] = ColorFromPalette(leds.current_palette, beatsin8(leds.out_beat1), beatsin8(leds.out_beat2, leds.out_min2, 255), leds.current_blending);
 
-	waveit(leds);
+	for (int i = ONE_SIDE - 1; i > ONE_SIDE / 2; i--) {						// Move to the right.
+		leds.led_data[i] = leds.led_data[i - 1];
+		leds.led_data[NUM_LEDS - (i + 1)] = leds.led_data[NUM_LEDS - i];
+	}
+	for (int i = 0; i < ONE_SIDE / 2 - 1; i++) {							// Move to the left.
+		leds.led_data[i] = leds.led_data[i + 1];
+		leds.led_data[NUM_LEDS - 1 - i] = leds.led_data[NUM_LEDS - 1 - i - 1];
+	}
 
 	fadeToBlackBy(leds.led_data, NUM_LEDS, leds.out_fade);
 }
+
+
+
 
 
 #endif

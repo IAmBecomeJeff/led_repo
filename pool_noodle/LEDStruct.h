@@ -157,6 +157,8 @@ struct LEDStruct {
 	uint8_t plasma_beat3;
 	uint8_t plasma_index;
 	uint8_t plasma_bright;
+	uint8_t plasma_range1;
+	uint8_t plasma_range2;
 
 	// Outward Variables
 	uint8_t out_beat1;
@@ -567,6 +569,12 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (d) plasma_beat3:\t");
 			Serial.print(leds.plasma_beat3);
+			Serial.println("\t||");
+			Serial.print("|| (e) plasma_range1:\t");
+			Serial.print(leds.plasma_range1);
+			Serial.println("\t||");
+			Serial.print("|| (f) plasma_range2:\t");
+			Serial.print(leds.plasma_range2);
 			Serial.println("\t||");
 			break;
 

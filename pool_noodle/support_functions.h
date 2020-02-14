@@ -230,19 +230,6 @@ void switch_transition(TransitionType tt) {
 	}
 }
 
-void waveit(LEDStruct& leds) {                                                          // Shifting pixels from the center to the left and right.
-	if (!leds.use_full_range) {
-		for (int i = ONE_SIDE - 1; i > ONE_SIDE / 2; i--) {                             // Move to the right.
-			leds.led_data[i] = leds.led_data[i - 1];
-			leds.led_data[NUM_LEDS - (i + 1)] = leds.led_data[NUM_LEDS - i];
-		}
-		for (int i = 0; i < ONE_SIDE / 2; i++) {                                        // Move to the left.
-			leds.led_data[i] = leds.led_data[i + 1];
-			leds.led_data[NUM_LEDS - 1 - i] = leds.led_data[NUM_LEDS - 1 - i - 1];
-		}
-	}
-} // waveit()
-
 
 
 // Print palettes
