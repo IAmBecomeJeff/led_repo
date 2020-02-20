@@ -4,7 +4,7 @@
 // Includes
 #include "includes.h"
 
-Mode start_mode = PLASMA;
+Mode start_mode = MULTI_JUGGLE;
 
 // ================ SETUP ================
 

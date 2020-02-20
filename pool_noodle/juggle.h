@@ -117,12 +117,14 @@ void juggle_half(LEDStruct& leds) {
 		for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 			leds.led_data[beatsin16_halfdown(leds.juggle_beat + i + leds.juggle_numdots, ONE_SIDE / 2, ONE_SIDE - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
 			leds.led_data[beatsin16_halfup(leds.juggle_beat + i + leds.juggle_numdots, 0, ONE_SIDE / 2)]			  += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
+			leds.juggle_index += leds.juggle_diff;
 		}
 	}
 	else {
 		for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 			leds.led_data[beatsin16_halfup(leds.juggle_beat + i + leds.juggle_numdots, ONE_SIDE / 2, ONE_SIDE - 1)]	+= ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
 			leds.led_data[beatsin16_halfdown(leds.juggle_beat + i + leds.juggle_numdots, 0, ONE_SIDE / 2)]			+= ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
+			leds.juggle_index += leds.juggle_diff;
 		}
 	}
 
@@ -131,12 +133,14 @@ void juggle_half(LEDStruct& leds) {
 			for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 				leds.led_data[beatsin16_halfdown(leds.juggle_beat + i + leds.juggle_numdots + 1, ONE_SIDE + (ONE_SIDE / 2), NUM_LEDS - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
 				leds.led_data[beatsin16_halfup(leds.juggle_beat + i + leds.juggle_numdots + 1, ONE_SIDE, ONE_SIDE + (ONE_SIDE / 2) - 1)]   += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
+				leds.juggle_index += leds.juggle_diff;
 			}
 		}
 		else {
 			for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 				leds.led_data[beatsin16_halfup(leds.juggle_beat + i + leds.juggle_numdots + 1, ONE_SIDE + (ONE_SIDE / 2), NUM_LEDS - 1)]   += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
 				leds.led_data[beatsin16_halfdown(leds.juggle_beat + i + leds.juggle_numdots + 1, ONE_SIDE, ONE_SIDE + (ONE_SIDE / 2) - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
+				leds.juggle_index += leds.juggle_diff;
 			}
 		}
 	}
@@ -144,5 +148,31 @@ void juggle_half(LEDStruct& leds) {
 		strip_sync(leds);
 	}
 }
+
+
+
+
+void multi_juggle(LEDStruct& leds) {
+	// If not yet iniatilized, call init function with random variables.
+	if (!leds.mode_initialized) { juggle_init(leds); }
+	if (keyboard_update) { juggle_update(leds); }
+
+	// Keep the same color for each dot, or cycle through the palette
+	if (leds.juggle_index_reset) { leds.juggle_index = 0; }
+
+	// Fade all LEDs
+	fadeToBlackBy(leds.led_data, NUM_LEDS, leds.juggle_fade);
+
+	// Use juggle_numdots to determine how many divisions
+	for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
+		leds.led_data[beatsin16(leds.juggle_beat, i * (ONE_SIDE / leds.juggle_numdots), (i + 1) * (ONE_SIDE / leds.juggle_numdots) - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
+		leds.juggle_index += leds.juggle_diff;
+	}
+	strip_sync(leds);
+}
+
+
+
+
 
 #endif

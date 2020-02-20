@@ -26,6 +26,7 @@
 #include "twinkle.h"
 #include "plasma.h"
 #include "outward.h"
+#include "waves.h"
 
 // Mode switching
 #include "switch_mode.h"

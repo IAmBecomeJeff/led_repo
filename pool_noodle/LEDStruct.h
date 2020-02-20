@@ -166,6 +166,12 @@ struct LEDStruct {
 	uint8_t out_min1;
 	uint8_t out_min2;
 	uint8_t out_fade;
+
+	// Waves Variables
+	uint8_t wave_index;
+	uint8_t wave_beat;
+	uint8_t wave_speed;
+	uint8_t wave_brightness;
 };
 
 
@@ -223,8 +229,9 @@ void LEDDebug(LEDStruct& leds) {
 	// Print mode-specific variables
 	switch (leds.mode_type) {
 		case JUGGLE:
-			if(leds.mode_name == JUGGLE_HALF){ Serial.println("============JUGGLE HALF==========="); }
-			else							 { Serial.println("==============JUGGLE=============="); } // 34 characters
+			if(leds.mode_name == JUGGLE_HALF)		{ Serial.println("============JUGGLE HALF==========="); }
+			else if(leds.mode_name == MULTI_JUGGLE)	{ Serial.println("===========MULTI JUGGLE==========="); }
+			else									{ Serial.println("==============JUGGLE=============="); } // 34 characters
 			Serial.print("|| (a) use_full_range:\t");
 			Serial.print(leds.use_full_range);
 			Serial.println("\t||");
@@ -597,6 +604,15 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			break;
 
+		case WAVES:
+			Serial.println("==============WAVES===============");
+			Serial.print("|| (a) wave_beat:\t");
+			Serial.print(leds.wave_beat);
+			Serial.println("\t||");
+			Serial.print("|| (b) wave_speed:\t");
+			Serial.print(leds.wave_speed);
+			Serial.println("\t||");
+			break;
 
 		default:
 			Serial.println("");

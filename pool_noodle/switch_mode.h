@@ -37,6 +37,9 @@ void switch_mode(LEDStruct& leds) {
 			juggle(leds);
 			break;
 
+		case MULTI_JUGGLE:
+			multi_juggle(leds);
+			break;
 
 		// Rainbow March Functions -----------------------------------------------------------------------
 		case RAINBOW_MARCH:
@@ -174,6 +177,11 @@ void switch_mode(LEDStruct& leds) {
 		// Outward Functions ---------------------------------------------------------------------
 		case OUTWARD:
 			outward(leds);
+			break;
+
+		// Waves Functions -----------------------------------------------------------------------
+		case WAVES:
+			waves(leds);
 			break;
 	}
 }
