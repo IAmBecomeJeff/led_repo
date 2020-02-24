@@ -17,6 +17,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_diff		 = jd;
 	leds.juggle_index_reset  = jir;
 	if (leds.juggle_index_reset) { leds.juggle_diff *= 10; }
+	if (leds.mode_name == MULTI_JUGGLE) { leds.juggle_numdots += 10; leds.juggle_beat += 40 + leds.juggle_numdots; }
 }
 
 void juggle_update(LEDStruct& leds) {
@@ -150,7 +151,7 @@ void juggle_half(LEDStruct& leds) {
 }
 
 
-
+// TODO: halfdown/halfup, keep beat > 30, index reset off, diff low
 
 void multi_juggle(LEDStruct& leds) {
 	// If not yet iniatilized, call init function with random variables.
@@ -165,10 +166,11 @@ void multi_juggle(LEDStruct& leds) {
 
 	// Use juggle_numdots to determine how many divisions
 	for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
-		leds.led_data[beatsin16(leds.juggle_beat, i * (ONE_SIDE / leds.juggle_numdots), (i + 1) * (ONE_SIDE / leds.juggle_numdots) - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index, leds.brightness, leds.current_blending);
-		leds.juggle_index += leds.juggle_diff;
+		leds.led_data[beatsin16(leds.juggle_beat + i, i * (ONE_SIDE / leds.juggle_numdots), (i + 1) * (ONE_SIDE / leds.juggle_numdots) - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index + leds.juggle_diff * i, leds.brightness, leds.current_blending);
+		//leds.juggle_index += leds.juggle_diff;
 	}
 	strip_sync(leds);
+	EVERY_N_SECONDS(1) { leds.juggle_index++; }
 }
 
 
