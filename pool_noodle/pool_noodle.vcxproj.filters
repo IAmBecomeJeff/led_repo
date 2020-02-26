@@ -96,5 +96,8 @@
     <ClInclude Include="plasma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="waves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

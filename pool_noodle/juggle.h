@@ -17,7 +17,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_diff		 = jd;
 	leds.juggle_index_reset  = jir;
 	if (leds.juggle_index_reset) { leds.juggle_diff *= 10; }
-	if (leds.mode_name == MULTI_JUGGLE) { leds.juggle_numdots += 10; leds.juggle_beat += 40 + leds.juggle_numdots; }
+	if (leds.mode_name == MULTI_JUGGLE) { leds.juggle_numdots = 15; leds.juggle_beat += 55; }
 }
 
 void juggle_update(LEDStruct& leds) {
@@ -158,19 +158,16 @@ void multi_juggle(LEDStruct& leds) {
 	if (!leds.mode_initialized) { juggle_init(leds); }
 	if (keyboard_update) { juggle_update(leds); }
 
-	// Keep the same color for each dot, or cycle through the palette
-	if (leds.juggle_index_reset) { leds.juggle_index = 0; }
+	//if (leds.juggle_index_reset) { leds.juggle_index = 0; }
 
-	// Fade all LEDs
 	fadeToBlackBy(leds.led_data, NUM_LEDS, leds.juggle_fade);
 
-	// Use juggle_numdots to determine how many divisions
 	for (uint8_t i = 0; i < leds.juggle_numdots; i++) {
 		leds.led_data[beatsin16(leds.juggle_beat + i, i * (ONE_SIDE / leds.juggle_numdots), (i + 1) * (ONE_SIDE / leds.juggle_numdots) - 1)] += ColorFromPalette(leds.current_palette, leds.juggle_index + leds.juggle_diff * i, leds.brightness, leds.current_blending);
 		//leds.juggle_index += leds.juggle_diff;
 	}
 	strip_sync(leds);
-	EVERY_N_SECONDS(1) { leds.juggle_index++; }
+	EVERY_N_MILLIS(500) { leds.juggle_index++; }
 }
 
 

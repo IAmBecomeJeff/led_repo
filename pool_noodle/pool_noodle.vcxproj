@@ -178,6 +178,9 @@
     <ClInclude Include="variables.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="waves.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="__vm\.pool_noodle.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>
