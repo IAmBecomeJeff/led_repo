@@ -50,7 +50,7 @@ void bounce(LEDStruct& leds) {
 		nblend(leds.led_data[leds.bounce_start + i], leds.bounce[i], 255);
 	}
 
-	EVERY_N_MILLIS(25) { leds.bounce_start = beatsin8(leds.bounce_start_beat, 0, ONE_SIDE - leds.bounce_length - 1); }
+	EVERY_N_MILLIS(25) { leds.bounce_start = beatsin8(leds.bounce_start_beat, 0, ONE_SIDE - leds.bounce_length); }
 
 	strip_sync(leds);
 }

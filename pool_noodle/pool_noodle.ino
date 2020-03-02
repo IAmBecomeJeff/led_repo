@@ -47,19 +47,19 @@ void loop() {
 	random16_add_entropy(random());
 	
 	// Check for keyboard updates
-	read_keyboard();
+	if (DEBUG) { read_keyboard(); }
 
 	// Change patterns
-	EVERY_N_SECONDS_I(modeTimer,20){
+	EVERY_N_SECONDS_I(modeTimer,45){
 		modeTimer.setPeriod(mode_change_time);
 		if (mode_change) { change_mode(); }
 	}
 
 	// Change palette
-	EVERY_N_SECONDS(30) {
+	EVERY_N_SECONDS(25) {
 		if (random_palette) {
-			if (in_transition) { change_palette(next_leds); }
-			else { change_palette(curr_leds); }
+			change_palette(next_leds); 
+			change_palette(curr_leds); 
 		}
 	}
 

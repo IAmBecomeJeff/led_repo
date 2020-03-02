@@ -1,7 +1,7 @@
 #ifndef JUGGLE_H
 #define JUGGLE_H
 
-void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), bool td = random8(2), uint8_t jn = random8(1, 6), uint8_t jb = random8(8, 20), 
+void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), bool td = random8(2), uint8_t jn = random8(1, 6), uint8_t jb = random8(10, 20), 
 					uint8_t jf = random8(32, 80), uint8_t jd = random8(1, 3), bool jir = random8(2), bool ufr = random8(2)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= JUGGLE;
@@ -18,6 +18,7 @@ void juggle_init(LEDStruct& leds, bool jod = random8(2), bool jp = random8(2), b
 	leds.juggle_index_reset  = jir;
 	if (leds.juggle_index_reset) { leds.juggle_diff *= 10; }
 	if (leds.mode_name == MULTI_JUGGLE) { leds.juggle_numdots = 15; leds.juggle_beat += 55; }
+	if (leds.mode_name == JUGGLE_HALF) { leds.juggle_beat += 4; leds.juggle_numdots += random8(6); }
 }
 
 void juggle_update(LEDStruct& leds) {
