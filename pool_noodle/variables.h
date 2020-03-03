@@ -3,10 +3,10 @@
 // Setup variables
 #define NUM_LEDS	150
 #define ONE_SIDE	75
-#define DATA_PIN	14 // 14,7 for Teensy... 12/13 for ESP32
-#define CLOCK_PIN	7
 #define COLOR_ORDER BGR
 #define LED_TYPE	APA102	
+//#define DATA_PIN	12;	// 14  for Teensy
+//#define CLOCK_PIN	13;	//  7 
 
 // Master LED Array
 struct CRGB master_leds[NUM_LEDS];
@@ -33,36 +33,28 @@ uint16_t mode_change_time	= 20;			// seconds
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, MULTI_JUGGLE,
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_MARCH_BEAT, RAINBOW_1,
-					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, TORCH, TORCH_SYNC,
+					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, 
 					COLORWAVE, PRIDE, PACIFICA,
 					CONFETTI,
 					ONE_SIN, TWO_SIN,
-					FIREWORKS,
-					SHOOTING_POLE,
+					FIREWORKS,			
 					NOISE, NOISE_MOVER,
 					BOUNCE, BOUNCING_BALLS,
-					LIGHTSABER,
 					TWINKLE,
-					PLASMA,
-					WAVES,
-					OUTWARD
+					PLASMA
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, MULTI_JUGGLE,
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_MARCH_BEAT, RAINBOW_1,
-					FIRE, FIRE_SYNC, //FIRE_MIRROR, FIRE_MIRROR_SYNC, //TORCH, TORCH_SYNC,
+					FIRE, FIRE_SYNC, FIRE_MIRROR, FIRE_MIRROR_SYNC, 
 					COLORWAVE, PRIDE, PACIFICA,
 					CONFETTI,
 					ONE_SIN, TWO_SIN,		
 					FIREWORKS,
-					//SHOOTING_POLE,
 					NOISE, NOISE_MOVER, 
 					BOUNCE, BOUNCING_BALLS,
 					TWINKLE,
 					PLASMA
-					//LIGHTSABER
-					//WAVES
-					//OUTWARD
 				  };
 
 extern Mode start_mode;
@@ -116,8 +108,6 @@ uint8_t firework_bg_fade = 128;
 #define h0 1
 float   bouncing_vImpact0 = sqrt(-2 * GRAVITY * h0);
 
-// Ligthsaber Variables
-enum saber_stages { UP, WAIT, DOWN };
 
 uint8_t bad_juggle_palettes[] = { 7, 8, 9, 17, 18, 22, 23, 24, 25, 27, 30, 31, 32, 33, 34, 36, 43, 44, 45, 46,
 								50, 51, 53, 54, 60, 61, 62, 63, 64, 65, 66, 67, 77, 78, 79, 81, 82, 84, 89 };

@@ -16,17 +16,13 @@
 #include "one_sin.h"
 #include "pride.h"
 #include "fireworks.h"
-#include "shooting_pole.h"
 #include "two_sin.h"
 #include "noise.h"
 #include "pacific_waves.h"
 #include "bounce.h"
 #include "bouncing_balls.h"
-#include "lightsaber.h"
 #include "twinkle.h"
 #include "plasma.h"
-#include "outward.h"
-#include "waves.h"
 
 // Mode switching
 #include "switch_mode.h"

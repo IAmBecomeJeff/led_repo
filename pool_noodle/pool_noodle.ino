@@ -1,8 +1,11 @@
 // Pool Noodle Totems
 //		by JeffKarle
 
+
 // Includes
 #include "includes.h"
+//#define FASTLED_ALLOW_INTERRUPTS 0	// 0 for esp32, comment out otherwise.. maybe?
+//#define FASTLED_INTERRUPT_RETRY_COUNT 1	// Let's try this too, and maybe set to 0
 
 Mode start_mode = MULTI_JUGGLE;
 
@@ -13,7 +16,10 @@ void setup() {
 
 	delay(1000);
 
-	FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
+	//FastLED.addLeds<LED_TYPE, 12, 13, COLOR_ORDER>(master_leds, NUM_LEDS);		// ESP32
+	FastLED.addLeds<LED_TYPE, 14,  7, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
+	//FastLED>addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
+
 	FastLED.setBrightness(max_bright);
 	FastLED.setCorrection(TypicalLEDStrip);
 	set_max_power_in_volts_and_milliamps(5, 3000);
@@ -44,7 +50,7 @@ void setup() {
 
 void loop() {
 	// Add entropy to randomness
-	random16_add_entropy(random());
+	random16_add_entropy(random16());
 	
 	// Check for keyboard updates
 	if (DEBUG) { read_keyboard(); }

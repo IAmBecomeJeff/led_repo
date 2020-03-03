@@ -57,12 +57,7 @@ struct LEDStruct {
 	uint8_t fire_cooling2;
 	byte	heat[ONE_SIDE];
 	byte	heat2[ONE_SIDE];
-	uint8_t heat_length;		// for use with mirrored fire
-	uint8_t fire_offset;		// for use with mirrored fire
 	bool	fire_sync;
-	bool	fire_mirror;
-	uint8_t torch_index;
-	uint8_t torch_diff;
 
 	// Colorwave and Pride Variables
 	uint16_t sPseudotime;
@@ -111,9 +106,6 @@ struct LEDStruct {
 	float spark_bri[MAX_NUMBER_OF_SPARKS];
 	uint8_t brightest_spark;
 
-	// Shooting Pole
-	uint8_t pole_index;
-	uint8_t pole_diff;
 
 	// Noise Variables
 	uint16_t noise_scale;
@@ -133,15 +125,6 @@ struct LEDStruct {
 	long    bouncing_tLast[MAX_NUMBER_OF_BALLS];
 	float   bouncing_COR[MAX_NUMBER_OF_BALLS];
 
-	// Lightsaber Variables
-	uint16_t		tip_pos;
-	uint8_t			blade_color;
-	uint16_t		hold_time;
-	uint32_t		ls_begin;
-	uint32_t		ls_end;
-	uint8_t			ls_val;
-	uint8_t			delta_bright;
-	saber_stages	saber_stage;
 
 	// Twinkle Variables
 	uint8_t twinkle_speed;
@@ -160,18 +143,6 @@ struct LEDStruct {
 	uint8_t plasma_range1;
 	uint8_t plasma_range2;
 
-	// Outward Variables
-	uint8_t out_beat1;
-	uint8_t out_beat2;
-	uint8_t out_min1;
-	uint8_t out_min2;
-	uint8_t out_fade;
-
-	// Waves Variables
-	uint8_t wave_index;
-	uint8_t wave_beat;
-	uint8_t wave_speed;
-	uint8_t wave_brightness;
 };
 
 
@@ -286,8 +257,6 @@ void LEDDebug(LEDStruct& leds) {
 
 		case FIRE:
 			switch (leds.mode_name) {
-				case TORCH:				Serial.println("==============TORCH==============="); break;
-				case TORCH_SYNC:		Serial.println("============TORCH SYNC============"); break;
 				case FIRE:				Serial.println("==============FIRE================"); break;
 				case FIRE_SYNC:			Serial.println("============FIRE SYNC============="); break;
 				case FIRE_MIRROR:		Serial.println("===========FIRE MIRROR============"); break;
@@ -311,11 +280,6 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.print("|| (e) sync:\t\t");
 			Serial.print(leds.fire_sync);
 			Serial.println("\t||");
-			if (leds.mode_name == TORCH || leds.mode_name == TORCH_SYNC) {
-				Serial.print("|| (f) torch_diff:\t");
-				Serial.print(leds.torch_diff);
-				Serial.println("\t||");
-			}
 			break;
 		
 		case COLORWAVE:
@@ -445,25 +409,6 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			break;
 
-		case SHOOTING_POLE:
-			Serial.println("==========SHOOTING POLE===========");
-			Serial.print("|| (a) strip_range:\t");
-			Serial.print(leds.strip_range);
-			Serial.println("\t||");
-			Serial.print("|| (b) pole_diff:\t");
-			Serial.print(leds.pole_diff);
-			Serial.println("\t||");
-			Serial.print("|| (c) juggle_fade:\t");
-			Serial.print(leds.juggle_fade);
-			Serial.println("\t||");
-			Serial.print("|| (d) juggle_beat:\t");
-			Serial.print(leds.juggle_beat);
-			Serial.println("\t||");
-			Serial.print("|| (e) juggle_diff:\t");
-			Serial.print(leds.juggle_diff);
-			Serial.println("\t||");
-			break;
-
 		case NOISE:
 			Serial.println("===============NOISE==============");
 			Serial.print("|| (a) use_full_range:\t");
@@ -518,32 +463,6 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			break;
 
-		case LIGHTSABER:
-			Serial.println("============LIGHTSABER============");
-			Serial.print("|| (a) use_palette:\t");
-			Serial.print(leds.use_palette);
-			Serial.println("\t||");
-			Serial.print("|| (b) blade_color:\t");
-			Serial.print(leds.blade_color);
-			Serial.println("\t||");
-			Serial.print("|| (c) delta_bright:\t");
-			Serial.print(leds.delta_bright);
-			Serial.println("\t||");
-			Serial.print("|| (d) hold_time:\t");
-			Serial.print(leds.hold_time);
-			Serial.println("\t||");
-			Serial.print("|| saber_stage:\t\t");
-			switch (leds.saber_stage) {
-				case UP: Serial.print("UP"); break;
-				case DOWN: Serial.print("DOWN"); break;
-				case WAIT: Serial.print("WAIT"); break;
-			}
-			Serial.println("\t||");
-			Serial.print("|| tip_pos:\t\t");
-			Serial.print(leds.tip_pos);
-			Serial.println("\t||");
-			break;
-
 		case TWINKLE:
 			Serial.println("=============TWINKLE==============");
 			Serial.print("|| (a) use_full_range:\t");
@@ -585,34 +504,6 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			break;
 
-		case OUTWARD:
-			Serial.println("==============OUTWARD=============");
-			Serial.print("|| (a) out_fade:\t");
-			Serial.print(leds.out_fade);
-			Serial.println("\t||");
-			Serial.print("|| (b) out_beat1:\t");
-			Serial.print(leds.out_beat1);
-			Serial.println("\t||");
-			Serial.print("|| (c) out_beat2:\t");
-			Serial.print(leds.out_beat2);
-			Serial.println("\t||");
-			Serial.print("|| (d) out_min1:\t");
-			Serial.print(leds.out_min1);
-			Serial.println("\t||");
-			Serial.print("|| (e) out_min2:\t");
-			Serial.print(leds.out_min2);
-			Serial.println("\t||");
-			break;
-
-		case WAVES:
-			Serial.println("==============WAVES===============");
-			Serial.print("|| (a) wave_beat:\t");
-			Serial.print(leds.wave_beat);
-			Serial.println("\t||");
-			Serial.print("|| (b) wave_speed:\t");
-			Serial.print(leds.wave_speed);
-			Serial.println("\t||");
-			break;
 
 		default:
 			Serial.println("");

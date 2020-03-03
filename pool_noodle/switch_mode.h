@@ -29,7 +29,6 @@ void switch_mode(LEDStruct& leds) {
 			break;
 
 		case JUGGLE_HALF:
-			if (!leds.mode_initialized) { juggle_init(leds); }
 			juggle_half(leds);
 			break;
 
@@ -68,33 +67,23 @@ void switch_mode(LEDStruct& leds) {
 		
 		// Fire Functions -----------------------------------------------------------------------
 		case FIRE:
-			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror off
+			if (!leds.mode_initialized) { fire_init(leds, 0); }		// sync off | mirror off
 			fire(leds);
 			break;
 
 		case FIRE_SYNC:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror off
+			if (!leds.mode_initialized) { fire_init(leds, 1); }		// sync on  | mirror off
 			fire(leds);
 			break;
 
 		case FIRE_MIRROR:
-			if (!leds.mode_initialized) { fire_init(leds, 0, 1); }		// sync off | mirror on
-			fire(leds);
+			if (!leds.mode_initialized) { fire_init(leds, 0); }		// sync off | mirror on
+			fire_mirror(leds);
 			break;
 
 		case FIRE_MIRROR_SYNC:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 1); }		// sync on  | mirror on
-			fire(leds);
-			break;
-
-		case TORCH:
-			if (!leds.mode_initialized) { fire_init(leds, 0, 0); }		// sync off | mirror must be off
-			torch(leds);
-			break;
-
-		case TORCH_SYNC:
-			if (!leds.mode_initialized) { fire_init(leds, 1, 0); }		// sync on  | mirror must be off
-			torch(leds);
+			if (!leds.mode_initialized) { fire_init(leds, 1); }		// sync on  | mirror on
+			fire_mirror(leds);
 			break;
 
 
@@ -134,12 +123,6 @@ void switch_mode(LEDStruct& leds) {
 			break;
 
 
-		// Shooting Pole -----------------------------------------------------------------------
-		case SHOOTING_POLE:
-			shooting_pole(leds);
-			break;
-
-
 		// Noise Functions -----------------------------------------------------------------------
 		case NOISE:
 			noise(leds);
@@ -159,29 +142,16 @@ void switch_mode(LEDStruct& leds) {
 			bounce(leds);
 			break;
 
-		// Lightsaber Functions ---------------------------------------------------------------------
-		case LIGHTSABER:
-			lightsaber(leds);
-			break;
 
 		// Twinkle Functions ---------------------------------------------------------------------
 		case TWINKLE:
 			twinkle(leds);
 			break;
 
+
 		// Plasma Functions ---------------------------------------------------------------------
 		case PLASMA:
 			plasma(leds);
-			break;
-
-		// Outward Functions ---------------------------------------------------------------------
-		case OUTWARD:
-			outward(leds);
-			break;
-
-		// Waves Functions -----------------------------------------------------------------------
-		case WAVES:
-			waves(leds);
 			break;
 	}
 }
