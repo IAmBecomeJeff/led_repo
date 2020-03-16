@@ -5,7 +5,7 @@
 // Includes
 #include "includes.h"
 //#define FASTLED_ALLOW_INTERRUPTS 0	// 0 for esp32, comment out otherwise.. maybe?
-//#define FASTLED_INTERRUPT_RETRY_COUNT 1	// Let's try this too, and maybe set to 0
+//#define FASTLED_INTERRUPT_RETRY_COUNT 0	// Let's try this too, and maybe set to 0
 
 Mode start_mode = MULTI_JUGGLE;
 
