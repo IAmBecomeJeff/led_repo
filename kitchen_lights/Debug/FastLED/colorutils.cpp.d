@@ -1,17 +1,17 @@
-C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\FastLED\colorutils.cpp.o: \
+C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy36\Debug\FastLED\colorutils.cpp.o: \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\colorutils.cpp \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\FastLED.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\cpp_compat.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\fastled_config.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\led_sysdefs.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/led_sysdefs_arm_k20.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/led_sysdefs_arm_k66.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/avr/io.h \
  c:\program\ files\ (x86)\arduino\hardware\teensy\avr\cores\teensy3\avr_emulation.h \
  c:\program\ files\ (x86)\arduino\hardware\teensy\avr\cores\teensy3\kinetis.h \
  c:\program\ files\ (x86)\arduino\hardware\teensy\avr\cores\teensy3\core_pins.h \
  c:\program\ files\ (x86)\arduino\hardware\teensy\avr\cores\teensy3\pins_arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/avr/interrupt.h \
- C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug/pch/Arduino.h \
+ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy36\Debug/pch/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/WProgram.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/avr/pgmspace.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/avr_functions.h \
@@ -63,14 +63,14 @@ C:\Users\JeffKarle\AppData\Local\Temp\VMBuilds\kitchen_lights\teensy31\Debug\Fas
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\fastspi_types.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\dmx.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/fastled_arm_k20.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/fastpin_arm_k20.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/fastspi_arm_k20.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/octows2811_controller.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/ws2812serial_controller.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/smartmatrix_t3.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/clockless_arm_k20.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k20/clockless_block_arm_k20.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/fastled_arm_k66.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/fastpin_arm_k66.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/fastspi_arm_k66.h \
+ c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\platforms\arm\k20\octows2811_controller.h \
+ c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\platforms\arm\k20\ws2812serial_controller.h \
+ c:\program\ files\ (x86)\arduino\hardware\teensy\avr\libraries\fastled\platforms\arm\k20\smartmatrix_t3.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/clockless_arm_k66.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\platforms/arm/k66/clockless_block_arm_k66.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\cores\teensy3/kinetis.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\fastled_progmem.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\teensy\avr\libraries\FastLED\hsv2rgb.h \

@@ -51,6 +51,7 @@ void setup() {
 
 	LEDS.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS);
 
+	//LEDS.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
 	set_max_power_in_volts_and_milliamps(5, 3000);
 
 	random16_set_seed(4832);

@@ -20,13 +20,13 @@
 #define CLOCK_PIN	14
 
 // LED Meta Defines
-#define COLOR_ORDER BGR
+#define COLOR_ORDER GRB
 
 // WS2812B used for development testing
 #define LED_TYPE	APA102
 
 // 576 Length LED strip and mode start number
-#define NUM_LEDS		188 // 150 kitchen, 188 shelves
+#define NUM_LEDS		150 // 150 kitchen, 188 shelves
 #define STARTMODE 0
 
 // ---------- RUNTIME VARS ---------- //
