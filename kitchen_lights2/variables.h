@@ -1,7 +1,7 @@
 // Variables
 
 // Setup variables
-#define NUM_LEDS	150
+#define NUM_LEDS	288
 #define COLOR_ORDER BGR
 #define LED_TYPE	APA102	
 //#define DATA_PIN	12;	// 14  for Teensy
@@ -75,7 +75,7 @@ bool in_transition = 0;
 TransitionType transition_type;
 uint8_t transition_ratio;
 uint8_t transition_speed; // seconds
-uint8_t wipe_pos;
+uint16_t wipe_pos;
 bool color_up;
 CHSV colorfade_hue;
 CRGB colorfade_rgb;

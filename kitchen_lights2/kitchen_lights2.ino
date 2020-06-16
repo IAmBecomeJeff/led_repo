@@ -17,7 +17,7 @@ void setup() {
 	delay(1000);
 
 	//FastLED.addLeds<LED_TYPE, 12, 13, COLOR_ORDER>(master_leds, NUM_LEDS);		// ESP32
-	FastLED.addLeds<LED_TYPE, 7,  14, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
+	FastLED.addLeds<LED_TYPE, 11,  13, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
 	//FastLED>addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
 
 	FastLED.setBrightness(max_bright);
