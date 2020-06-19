@@ -38,7 +38,7 @@ void rainbow_update(LEDStruct& leds) {
 
 
 void rainbow_march(LEDStruct& leds) {
-	if (!leds.mode_initialized) { rainbow_init(leds, RAINBOW_MARCH); }
+	if (!leds.mode_initialized) { rainbow_init(leds); }
 	if (keyboard_update) { rainbow_update(leds); }
 
 	if (leds.this_dir == 0) leds.rainbow_index += leds.rainbow_rot; else leds.rainbow_index -= leds.rainbow_rot;

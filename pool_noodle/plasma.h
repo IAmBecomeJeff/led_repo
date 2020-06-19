@@ -21,12 +21,12 @@ void plasma_update(LEDStruct& leds) {
 	keyboard_update = 0;
 
 	switch (update_var) {
-		case 0:	leds.use_full_range = (bool)update_arg; break; //a
-		case 1: leds.plasma_beat1 = (uint8_t)update_arg; break; //b
-		case 2: leds.plasma_beat2 = (uint8_t)update_arg; break; //c
-		case 3: leds.plasma_beat3 = (uint8_t)update_arg; break; //d
-		case 4: leds.plasma_range1 = (uint8_t)update_arg; break; //e
-		case 5: leds.plasma_range2 = (uint8_t)update_arg; break; //f
+		case 0:	leds.use_full_range = (bool)update_arg;		break; //a
+		case 1: leds.plasma_beat1	= (uint8_t)update_arg;	break; //b
+		case 2: leds.plasma_beat2	= (uint8_t)update_arg;	break; //c
+		case 3: leds.plasma_beat3	= (uint8_t)update_arg;	break; //d
+		case 4: leds.plasma_range1	= (uint8_t)update_arg;	break; //e
+		case 5: leds.plasma_range2	= (uint8_t)update_arg;	break; //f
 		default: break;
 	}
 	LEDDebug(leds);

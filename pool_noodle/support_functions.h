@@ -126,7 +126,12 @@ void global_debug() {
 // Transition functions
 void begin_transition() {
 	in_transition = 1;
-	transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
+	if (random8(11) > 7) {				// ~70% chance of blending, also may blend from the random selection below
+		transition_type = BLENDING;
+	}
+	else {
+		transition_type = TransitionList[random8(ARRAY_SIZE(TransitionList))];
+	}
 	transition_speed = random8(3, 8);
 	switch (transition_type) {
 		case BLENDING:		transition_ratio = 0;		break;
@@ -348,7 +353,7 @@ void palette_check(LEDStruct& leds) {
 LIB8STATIC uint16_t beatsin16_halfdown(accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
 	uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
-	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 16384;     // Range of beat @ 144 is 15,159 - 17,604.  beat @ 0 is 47,923 - 50,367.  49,000 - 16,000 = 33,000.
+	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 16384;     
 	uint16_t beatsin = (sin16(beat + phase_offset) + 32768);
 	uint16_t rangewidth = highest - lowest;
 	uint16_t scaledbeat = scale16(beatsin, rangewidth);
@@ -359,7 +364,7 @@ LIB8STATIC uint16_t beatsin16_halfdown(accum88 beats_per_minute, uint16_t lowest
 LIB8STATIC uint16_t beatsin16_halfup(accum88 beats_per_minute, uint16_t lowest = 0, uint16_t highest = 65535,
 	uint32_t timebase = 0, uint16_t phase_offset = 0)
 {
-	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 49152;     // Range of beat @ 144 is 15,159 - 17,604.  beat @ 0 is 47,923 - 50,367.  49,000 - 16,000 = 33,000.
+	uint16_t beat = beat16(beats_per_minute, timebase) % 32768 + 49152;     
 	uint16_t beatsin = (sin16(beat + phase_offset) + 32768);
 	uint16_t rangewidth = highest - lowest;
 	uint16_t scaledbeat = scale16(beatsin, rangewidth);

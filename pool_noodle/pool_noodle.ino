@@ -17,8 +17,8 @@ void setup() {
 	delay(1000);
 
 	//FastLED.addLeds<LED_TYPE, 12, 13, COLOR_ORDER>(master_leds, NUM_LEDS);		// ESP32
-	FastLED.addLeds<LED_TYPE, 14,  7, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
-	//FastLED>addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
+	//FastLED.addLeds<LED_TYPE, 7,  14, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
+	FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(master_leds, NUM_LEDS);
 
 	FastLED.setBrightness(max_bright);
 	FastLED.setCorrection(TypicalLEDStrip);
@@ -49,8 +49,6 @@ void setup() {
 // ================ LOOP ================
 
 void loop() {
-	// Add entropy to randomness
-	random16_add_entropy(random16());
 	
 	// Check for keyboard updates
 	if (DEBUG) { read_keyboard(); }

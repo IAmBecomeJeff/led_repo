@@ -2,7 +2,7 @@
 #define NOISE_H
 
 
-void noise_init(LEDStruct& leds, bool ufr = random8(2), uint16_t s = random16(10,40), uint16_t y = random16(10,40), uint16_t d = random16(1000,50000), uint8_t nf = random8(32,60)) {
+void noise_init(LEDStruct& leds, bool ufr = random8(2), uint16_t s = random16(10,40), uint16_t y = random16(10,40), uint16_t d = random16(1000,50000), uint8_t nf = random8(32,60), uint8_t rr = random8(1,8), uint8_t rd = random8(1,6)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= NOISE;
 	leds.use_palette		= 1;
@@ -16,6 +16,10 @@ void noise_init(LEDStruct& leds, bool ufr = random8(2), uint16_t s = random16(10
 	leds.noise_yscale	= y;
 	leds.noise_dist		= d;
 	leds.noise_fade		= nf;
+
+	leds.rainbow_rot	= rr;
+	leds.rainbow_diff	= rd;
+	leds.rainbow_index	= 0;
 }
 
 void noise_update(LEDStruct& leds) {
@@ -57,6 +61,22 @@ void noise_mover(LEDStruct& leds) {
 	uint8_t locn = inoise8(leds.noise_scale, leds.noise_dist + leds.noise_yscale) % 255;          
 	uint8_t pixlen = map(locn, 0, 255, 0, leds.strip_range);     
 	leds.led_data[pixlen] = ColorFromPalette(leds.current_palette, pixlen, 255, LINEARBLEND);   
+
+	leds.noise_dist += beatsin8(10, 1, 4);
+
+	if (!leds.use_full_range) { strip_sync(leds); }
+}
+
+void noise_mover_rainbow(LEDStruct& leds) {
+	if (!leds.mode_initialized) { noise_init(leds); }
+	if (keyboard_update) { noise_update(leds); }
+
+	if (leds.this_dir == 0) leds.rainbow_index += leds.rainbow_rot; else leds.rainbow_index -= leds.rainbow_rot;
+	fill_rainbow(leds.led_data, leds.strip_range, leds.rainbow_index, leds.rainbow_diff);
+
+	uint8_t locn = inoise8(leds.noise_scale, leds.noise_dist + leds.noise_yscale) % 255;
+	uint8_t pixlen = map(locn, 0, 255, 0, leds.strip_range);
+	leds.led_data[pixlen] = CRGB::Black;
 
 	leds.noise_dist += beatsin8(10, 1, 4);
 

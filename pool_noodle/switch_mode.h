@@ -132,6 +132,10 @@ void switch_mode(LEDStruct& leds) {
 			noise_mover(leds);
 			break;
 
+		case NOISE_MOVER_RAINBOW:
+			noise_mover_rainbow(leds);
+			break;
+
 
 		// Bouncing Functions -----------------------------------------------------------------------
 		case BOUNCING_BALLS:
@@ -152,6 +156,15 @@ void switch_mode(LEDStruct& leds) {
 		// Plasma Functions ---------------------------------------------------------------------
 		case PLASMA:
 			plasma(leds);
+			break;
+
+		// Palette March Functions -----------------------------------------------------------------
+		case PALETTE_MARCH:
+			palette_march(leds);
+			break;
+
+		case PALETTE_MARCH_BEAT:
+			palette_march_beat(leds);
 			break;
 	}
 }

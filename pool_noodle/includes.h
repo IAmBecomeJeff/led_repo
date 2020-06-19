@@ -23,6 +23,8 @@
 #include "bouncing_balls.h"
 #include "twinkle.h"
 #include "plasma.h"
+#include "palette_march.h"
+//#include "starburst.h"
 
 // Mode switching
 #include "switch_mode.h"

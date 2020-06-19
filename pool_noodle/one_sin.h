@@ -61,7 +61,7 @@ void one_sin(LEDStruct& leds) {
 	for (int k = 0; k < leds.strip_range; k++) {
 		int sin_bright = qsuba(cubicwave8((k * leds.sin_all_freq) + leds.sin_phase), leds.sin_cutoff);
 		leds.led_data[k] = CHSV(leds.bg_clr, 255, leds.bg_bri);
-		leds.led_data[k] += ColorFromPalette(leds.current_palette, leds.sin_index + k * leds.sin_inc, sin_bright, leds. current_blending);
+		leds.led_data[k] += ColorFromPalette(leds.current_palette, leds.sin_index + k * leds.sin_inc, sin_bright, leds.current_blending);
 		leds.sin_index += leds.sin_rot;
 	}
 

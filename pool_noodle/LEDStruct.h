@@ -50,6 +50,12 @@ struct LEDStruct {
 	uint8_t rainbow_index;
 	bool	rainbow_split;
 
+	// Palette March Variables
+	uint8_t palette_march_rot;
+	uint8_t palette_march_diff;
+	uint8_t palette_march_index;
+	bool	palette_march_split;
+
 	// Fire and Torch Variables
 	uint8_t fire_sparking;
 	uint8_t fire_sparking2;
@@ -253,6 +259,22 @@ void LEDDebug(LEDStruct& leds) {
 				Serial.print(leds.juggle_beat);
 				Serial.println("\t||");
 			}
+			break;
+
+		case PALETTE_MARCH:
+			Serial.println("==========PALETTE MARCH===========");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) split:\t\t");
+			Serial.print(leds.palette_march_split);
+			Serial.println("\t||");
+			Serial.print("|| (c) diff:\t\t");
+			Serial.print(leds.palette_march_diff);
+			Serial.println("\t||");
+			Serial.print("|| (d) rot:\t\t");
+			Serial.print(leds.palette_march_rot);
+			Serial.println("\t||");
 			break;
 
 		case FIRE:
