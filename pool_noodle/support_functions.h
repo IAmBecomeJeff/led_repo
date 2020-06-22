@@ -102,6 +102,7 @@ void change_palette(LEDStruct& leds) {
 	}
 }
 
+
 // Debug
 void global_debug() {
 	Serial.print("(S) Change modes:\t");

@@ -18,3 +18,6 @@ led_tube/fireworks_in_place/.vs/__vm/Configuration.Release.vmps.xml
 led_tube/fireworks_in_place/.vs/__vm/Compile.vmps.xml
 led_tube/fireworks_in_place/.vs/VSWorkspaceState.json
 led_tube/fireworks_in_place/.vs/ProjectSettings.json
+.vs/
+pool_noodle/__vm/
+pool_noodle/Debug/

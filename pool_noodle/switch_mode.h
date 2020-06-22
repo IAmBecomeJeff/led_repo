@@ -122,6 +122,10 @@ void switch_mode(LEDStruct& leds) {
 			fireworks(leds);
 			break;
 
+		case STARBURST:
+			starburst(leds);
+			break;
+
 
 		// Noise Functions -----------------------------------------------------------------------
 		case NOISE:

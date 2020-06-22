@@ -112,6 +112,9 @@ struct LEDStruct {
 	float spark_bri[MAX_NUMBER_OF_SPARKS];
 	uint8_t brightest_spark;
 
+	// Starburst Variables
+	uint8_t star_speed;
+	star stars[NUM_STARS];
 
 	// Noise Variables
 	uint16_t noise_scale;

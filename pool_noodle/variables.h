@@ -42,7 +42,8 @@ enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, J
 					BOUNCE, BOUNCING_BALLS,
 					TWINKLE,
 					PLASMA,
-					PALETTE_MARCH, PALETTE_MARCH_BEAT
+					PALETTE_MARCH, PALETTE_MARCH_BEAT,
+					STARBURST
 				  };
 
 Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, MULTI_JUGGLE,
@@ -56,7 +57,8 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					BOUNCE, BOUNCING_BALLS,
 					TWINKLE,
 					PLASMA,
-					PALETTE_MARCH, PALETTE_MARCH_BEAT
+					PALETTE_MARCH, PALETTE_MARCH_BEAT,
+					STARBURST
 				  };
 
 extern Mode start_mode;
@@ -100,6 +102,19 @@ uint16_t max_wait = 1000;
 uint16_t min_wait = 500;
 float gravity = 0.97;
 uint8_t firework_bg_fade = 128;
+
+// Starburst Variables
+#define	NUM_STARS 10
+#define STARBURST_MAX_FRAG 12
+typedef struct particle {
+	CRGB     color;
+	uint32_t birth = 0;
+	uint32_t last = 0;
+	float    vel = 0;
+	uint16_t pos = -1;
+	float    fragment[STARBURST_MAX_FRAG];
+} star;
+
 
 // Bounce
 #define BOUNCE_MAX_LENGTH 20
