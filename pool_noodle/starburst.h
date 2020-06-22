@@ -5,7 +5,7 @@
 void starburst_init(LEDStruct& leds, bool ufr = random8(2), uint8_t ss = random8(200,255)) {
     leds.mode_initialized   = 1;
     leds.mode_type          = STARBURST;
-    leds.use_palette        = 0;
+    leds.use_palette        = 1;
     leds.delay_time         = 15;
 
     leds.use_full_range = ufr;
@@ -22,6 +22,7 @@ void starburst_update(LEDStruct& leds) {
         case 1:     leds.star_speed     = (uint8_t)update_arg;  break; //b
         default: break;
     }
+    LEDDebug(leds);
 }
 
 
@@ -68,7 +69,7 @@ void starburst(LEDStruct& leds) {
         float age = it - leds.stars[j].birth;
 
         if (age < particleIgnition) {
-            c = blend(CRGB::White, c, 254.5f * ((age / particleIgnition)));
+            nblend(c, CRGB::White, 254.5f * ((age / particleIgnition)));
         }
         else {
             // Figure out how much to fade and shrink the star based on 
@@ -82,7 +83,7 @@ void starburst(LEDStruct& leds) {
                 age -= particleIgnition;
                 fade = (age / particleFadeTime);  // Fading star
                 byte f = 254.5f * fade;
-                c = blend(c, CRGB::Black, f);
+                nblend(c, CRGB::Black, f);
             }
         }
 
@@ -118,8 +119,9 @@ void starburst(LEDStruct& leds) {
             uint16_t startPos = random16(leds.strip_range - 1);
             float multiplier = (float)(random8()) / 255.0 * 1.0;
 
-            CHSV temp_color = CHSV(random8(), 255, 255);
-            hsv2rgb_rainbow(temp_color, leds.stars[j].color);
+            //CHSV temp_color = CHSV(random8(), 255, 255);
+            //hsv2rgb_rainbow(temp_color, leds.stars[j].color);
+            leds.stars[j].color = ColorFromPalette(leds.current_palette, random8());
             //leds.stars[j].color = col_to_crgb(color_wheel(random8()));
             leds.stars[j].pos = startPos;
             leds.stars[j].vel = maxSpeed * (float)(random8()) / 255.0 * multiplier;

@@ -8,6 +8,8 @@
 #define DATA_PIN	7 //12;	// 14  for Teensy
 #define CLOCK_PIN	14 //;	//  7 
 
+#define FASTLED_INTERNAL // remove prgama message
+
 // Master LED Array
 struct CRGB master_leds[NUM_LEDS];
 

@@ -322,7 +322,7 @@ void LEDDebug(LEDStruct& leds) {
 			break;
 
 		case PACIFICA:
-			Serial.println("=============PACIFCIA=============");
+			Serial.println("=============PACIFICA=============");
 			Serial.print("|| (a) use_full_range:\t");
 			Serial.print(leds.use_full_range);
 			Serial.println("\t||");
@@ -360,6 +360,16 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (a) use_overlay:\t");
 			Serial.print(leds.use_overlay);
+			Serial.println("\t||");
+			break;
+
+		case STARBURST:
+			Serial.println("=============STARBURST=============");
+			Serial.print("|| (a) use_full_range:\t");
+			Serial.print(leds.use_full_range);
+			Serial.println("\t||");
+			Serial.print("|| (b) star_speed:\t");
+			Serial.print(leds.star_speed);
 			Serial.println("\t||");
 			break;
 
