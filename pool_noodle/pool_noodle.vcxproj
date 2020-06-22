@@ -148,6 +148,9 @@
     <ClInclude Include="palettes.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="palette_march.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="plasma.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -161,6 +164,9 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="shooting_pole.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="starburst.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="support_functions.h">

@@ -99,5 +99,11 @@
     <ClInclude Include="waves.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="palette_march.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starburst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
