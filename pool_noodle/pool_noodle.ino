@@ -14,7 +14,7 @@ Mode start_mode = MULTI_JUGGLE;
 void setup() {
 	if (DEBUG) { Serial.begin(57600); Serial.setTimeout(500); Serial.println("DEBUG ON"); }
 
-	delay(1000);
+	//delay(1000);
 
 	//FastLED.addLeds<LED_TYPE, 12, 13, COLOR_ORDER>(master_leds, NUM_LEDS);		// ESP32
 	//FastLED.addLeds<LED_TYPE, 7,  14, COLOR_ORDER>(master_leds, NUM_LEDS);	// Teensy
@@ -28,13 +28,13 @@ void setup() {
 	random16_add_entropy(analogRead(2));
 
 	FastLED.clear(); FastLED.show(); FastLED.delay(50);
-
+	/*
 	if (DEBUG) {
 		fill_solid(master_leds, NUM_LEDS, CRGB::Red);	FastLED.delay(250);
 		fill_solid(master_leds, NUM_LEDS, CRGB::Blue);  FastLED.delay(250);
 		fill_solid(master_leds, NUM_LEDS, CRGB::Green); FastLED.delay(250);
 		FastLED.clear();								FastLED.delay(250);
-	}
+	}*/
 
 	// Set up initial parameters for cur_leds and next_leds
 	initialize(); 

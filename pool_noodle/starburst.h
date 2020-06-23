@@ -2,7 +2,7 @@
 #define STARBURST_H
 
 
-void starburst_init(LEDStruct& leds, bool ufr = random8(2), uint8_t ss = random8(200,255)) {
+void starburst_init(LEDStruct& leds, bool ufr = random8(2), uint8_t ss = random8(200,255), uint8_t sf = random8(5,32), float sms = random16(100,300)) {
     leds.mode_initialized   = 1;
     leds.mode_type          = STARBURST;
     leds.use_palette        = 1;
@@ -13,13 +13,21 @@ void starburst_init(LEDStruct& leds, bool ufr = random8(2), uint8_t ss = random8
     else                     { leds.strip_range = ONE_SIDE; }
 
     leds.star_speed = ss;
+    leds.star_fade  = sf;
+    leds.star_maxspeed = (float)sms;
 }
 
 void starburst_update(LEDStruct& leds) {
     keyboard_update = 0;
     switch (update_var) {
-        case 0:     leds.use_full_range = (bool)update_arg;     break; //a
+        case 0:															//a
+            leds.use_full_range = (bool)update_arg;
+            if (leds.use_full_range) { leds.strip_range = NUM_LEDS; }
+            else { leds.strip_range = ONE_SIDE; }
+            break;
         case 1:     leds.star_speed     = (uint8_t)update_arg;  break; //b
+        case 2:     leds.star_fade      = (uint8_t)update_arg;  break; //c
+        case 3:     leds.star_maxspeed = (float)update_arg;     break; //d
         default: break;
     }
     LEDDebug(leds);
@@ -38,12 +46,12 @@ void starburst(LEDStruct& leds) {
 
     //star* stars = reinterpret_cast<star*>(SEGENV.data);
 
-    float          maxSpeed = 375.0f;  // Max velocity
+    //float          maxSpeed = 200.0f;  // Max velocity
     float          particleIgnition = 250.0f;  // How long to "flash"
     float          particleFadeTime = 1500.0f; // Fade out time
 
     //fill(SEGCOLOR(1));   FastLED.show() ?
-
+    fadeToBlackBy(leds.led_data, NUM_LEDS, leds.star_fade);
     for (int j = 0; j < NUM_STARS; j++)
     {
         if (leds.stars[j].birth != 0) {
@@ -124,7 +132,7 @@ void starburst(LEDStruct& leds) {
             leds.stars[j].color = ColorFromPalette(leds.current_palette, random8());
             //leds.stars[j].color = col_to_crgb(color_wheel(random8()));
             leds.stars[j].pos = startPos;
-            leds.stars[j].vel = maxSpeed * (float)(random8()) / 255.0 * multiplier;
+            leds.stars[j].vel = leds.star_maxspeed * (float)(random8()) / 255.0 * multiplier;
             leds.stars[j].birth = it;
             leds.stars[j].last = it;
             // more fragments means larger burst effect
@@ -137,6 +145,7 @@ void starburst(LEDStruct& leds) {
             }
         }
     }
+    if (!leds.use_full_range) { strip_sync(leds); }
 }
 
 #endif

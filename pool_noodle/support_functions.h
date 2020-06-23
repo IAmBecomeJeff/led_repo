@@ -127,7 +127,7 @@ void global_debug() {
 // Transition functions
 void begin_transition() {
 	in_transition = 1;
-	if (random8(11) > 7) {				// ~70% chance of blending, also may blend from the random selection below
+	if (random8(11) < 7) {				// ~70% chance of blending, also may blend from the random selection below
 		transition_type = BLENDING;
 	}
 	else {

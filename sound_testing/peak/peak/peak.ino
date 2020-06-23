@@ -14,7 +14,7 @@
 #define COLOR_ORDER BGR
 #define BRIGHTNESS 128
 
-CRGB leds[NUM_LEDS];
+tCRGB leds[NUM_LEDS];
 CRGBPalette16 currentPalette;
 TBlendType currentBlending;
 uint8_t color_left;

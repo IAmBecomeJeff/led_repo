@@ -18,7 +18,7 @@ void noise_init(LEDStruct& leds, bool ufr = random8(2), uint16_t s = random16(10
 	leds.noise_fade		= nf;
 
 	leds.rainbow_rot	= rr;
-	leds.rainbow_diff	= rd;
+	leds.rainbow_diff	= rr * 4 + random8(3);
 	leds.rainbow_index	= 0;
 }
 
@@ -34,6 +34,9 @@ void noise_update(LEDStruct& leds) {
 		case 2:		leds.noise_yscale	= (uint16_t)update_arg;	break;	//c
 		case 3:		leds.noise_dist		= (uint16_t)update_arg;	break;	//d
 		case 4:		leds.noise_fade		= (uint8_t)update_arg;	break;	//e
+		case 5:		leds.rainbow_rot	= (uint8_t)update_arg;	break;  //f
+		case 6:		leds.rainbow_diff	= (uint8_t)update_arg;	break;  //g
+		case 7:		leds.rainbow_index	= (uint8_t)update_arg;	break;	//h
 		default:	break;
 	}
 	LEDDebug(leds);
@@ -75,12 +78,13 @@ void noise_mover_rainbow(LEDStruct& leds) {
 	fill_rainbow(leds.led_data, leds.strip_range, leds.rainbow_index, leds.rainbow_diff);
 
 	uint8_t locn = inoise8(leds.noise_scale, leds.noise_dist + leds.noise_yscale) % 255;
-	uint8_t pixlen = map(locn, 0, 255, 0, leds.strip_range);
-	leds.led_data[pixlen] = CRGB::Black;
-
+	uint8_t pixlen = map(locn, 0, 255, 0, ONE_SIDE);
+	for (uint16_t i = pixlen - 1; i < pixlen + 2; i++) {
+		leds.led_data[i] = CRGB::Black;
+	}
 	leds.noise_dist += beatsin8(10, 1, 4);
 
-	if (!leds.use_full_range) { strip_sync(leds); }
+	strip_sync(leds); 
 }
 
 

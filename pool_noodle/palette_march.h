@@ -5,7 +5,7 @@
 // palette_march_diff
 // palette_march_rot
 
-void palette_init(LEDStruct& leds, bool ps = random8(2), uint8_t pd = random8(1, 20), uint8_t pr = random8(1, 4), bool ufr = random8(2), uint8_t jb = random8(3, 13)) {
+void palette_init(LEDStruct& leds, bool ps = random8(2), uint8_t pr = random8(1, 5), bool ufr = random8(2), uint8_t jb = random8(3, 13)) {
 	leds.mode_initialized	= 1;
 	leds.mode_type			= PALETTE_MARCH;
 	leds.use_palette		= 1;
@@ -14,9 +14,8 @@ void palette_init(LEDStruct& leds, bool ps = random8(2), uint8_t pd = random8(1,
 	leds.use_full_range = ufr;
 
 	leds.palette_march_split	= ps;
-	if (pd == 1) { pr = 1; }
-	leds.palette_march_diff	= pd;
-	leds.palette_march_rot	= pr;
+	leds.palette_march_rot		= pr;
+	leds.palette_march_diff		= pr * 3 + random8(4);
 
 	leds.juggle_beat	= jb;
 	if (DEBUG) { LEDDebug(leds); }
@@ -31,9 +30,9 @@ void palette_update(LEDStruct& leds) {
 		else { leds.strip_range = ONE_SIDE; }
 		break;
 	case 1:		leds.palette_march_split = (bool)update_arg;		break;	//b		
-	case 2:		leds.palette_march_diff = (uint8_t)update_arg;	break;	//c
+	case 2:		leds.palette_march_diff = (uint8_t)update_arg;		break;	//c
 	case 3:		leds.palette_march_rot = (uint8_t)update_arg;		break;	//d
-	case 4:		leds.juggle_beat = (uint8_t)update_arg;		break;  //e
+	case 4:		leds.juggle_beat = (uint8_t)update_arg;				break;  //e
 	default:	break;
 	}
 	LEDDebug(leds);
@@ -61,6 +60,7 @@ void palette_march(LEDStruct& leds) {
 		}
 	}
 	else {
+		fadeToBlackBy(leds.led_data, NUM_LEDS, 8);
 		for (uint8_t i = 0; i < ONE_SIDE / 2; i++) {
 			leds.led_data[i] = ColorFromPalette(leds.current_palette, leds.palette_march_index + i * leds.palette_march_diff, 255, leds.current_blending);
 		}
@@ -70,7 +70,7 @@ void palette_march(LEDStruct& leds) {
 		strip_sync(leds);
 	}
 }
-
+/*
 void palette_march_beat(LEDStruct& leds) {
 	if (!leds.mode_initialized) { palette_init(leds); }
 	if (keyboard_update) { palette_update(leds); }
@@ -100,6 +100,6 @@ void palette_march_beat(LEDStruct& leds) {
 		strip_sync(leds);
 	}
 }
-
+*/
 
 #endif

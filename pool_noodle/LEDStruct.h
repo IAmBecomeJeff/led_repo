@@ -115,6 +115,8 @@ struct LEDStruct {
 	// Starburst Variables
 	uint8_t star_speed;
 	star stars[NUM_STARS];
+	uint8_t star_fade;
+	float star_maxspeed;
 
 	// Noise Variables
 	uint16_t noise_scale;
@@ -370,6 +372,12 @@ void LEDDebug(LEDStruct& leds) {
 			Serial.println("\t||");
 			Serial.print("|| (b) star_speed:\t");
 			Serial.print(leds.star_speed);
+			Serial.println("\t||");
+			Serial.print("|| (c) star_fade:\t");
+			Serial.print(leds.star_fade);
+			Serial.println("\t||");
+			Serial.print("|| (d) star_maxspeed:\t");
+			Serial.print(leds.star_maxspeed);
 			Serial.println("\t||");
 			break;
 

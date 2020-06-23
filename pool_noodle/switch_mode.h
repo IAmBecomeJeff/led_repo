@@ -166,10 +166,6 @@ void switch_mode(LEDStruct& leds) {
 		case PALETTE_MARCH:
 			palette_march(leds);
 			break;
-
-		case PALETTE_MARCH_BEAT:
-			palette_march_beat(leds);
-			break;
 	}
 }
 

@@ -59,7 +59,7 @@ Mode ModeList[] = { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR
 					BOUNCE, BOUNCING_BALLS,
 					TWINKLE,
 					PLASMA,
-					PALETTE_MARCH, PALETTE_MARCH_BEAT,
+					PALETTE_MARCH, 
 					STARBURST
 				  };
 
@@ -106,8 +106,8 @@ float gravity = 0.97;
 uint8_t firework_bg_fade = 128;
 
 // Starburst Variables
-#define	NUM_STARS 10
-#define STARBURST_MAX_FRAG 12
+#define	NUM_STARS 5
+#define STARBURST_MAX_FRAG 10
 typedef struct particle {
 	CRGB     color;
 	uint32_t birth = 0;
