@@ -14,7 +14,7 @@
 struct CRGB master_leds[NUM_LEDS];
 
 // Debug
-#define DEBUG 1
+#define DEBUG 0
 
 
 // LED Variables
@@ -31,7 +31,7 @@ uint8_t next_delay;
 uint8_t current_mode_number = 0;
 bool	random_mode			= 1;		// Determines if we change randomly or in the order of ModeList
 bool	mode_change			= 1;
-uint16_t mode_change_time	= 20;			// seconds
+uint16_t mode_change_time	= 60;			// seconds
 
 enum Mode	  	  { JUGGLE, JUGGLE_ONE_DIR, JUGGLE_PHASED, JUGGLE_PHASED_ONE_DIR, JUGGLE_HALF, JUGGLE_RANDOM, MULTI_JUGGLE,
 					RAINBOW_MARCH, RAINBOW_MARCH_SPLIT, RAINBOW_MARCH_RANDOM, RAINBOW_MARCH_BEAT, RAINBOW_1,
@@ -82,7 +82,7 @@ bool in_transition = 0;
 TransitionType transition_type;
 uint8_t transition_ratio;
 uint8_t transition_speed; // seconds
-uint8_t wipe_pos;
+uint16_t wipe_pos;
 bool color_up;
 CHSV colorfade_hue;
 CRGB colorfade_rgb;
