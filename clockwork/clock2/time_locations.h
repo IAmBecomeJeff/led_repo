@@ -172,73 +172,65 @@ void draw_nine(uint8_t x, uint8_t y) {
 
 
 
-/*------------------------------------Hour LEDs------------------------------------*/
+//Hours
 
-void hour12()
-{
-    draw_one(2, 1);
-    draw_two(4, 1);
-}
-void hour1()
-{
-    draw_zero(2, 1);
-    draw_one(5, 1);
-}
-
-void hour2()
-{
-    draw_zero(2, 1);
-    draw_two(4, 1);
-}
-void hour3()
-{
-    draw_zero(2, 1);
-    draw_three(4, 1);
-}
-void hour4()
-{
-    draw_zero(2, 1);
-    draw_four(4, 2);
-}
-void hour5()
-{
-    draw_zero(2, 1);
-    draw_five(4, 1);
-}
-void hour6()
-{
-    draw_zero(2, 1);
-    draw_six(4, 1);
-}
-void hour7()
-{
-    draw_zero(2, 1);
-    draw_seven(4, 1);
-}
-void hour8()
-{
-    draw_zero(2, 1);
-    draw_eight(4, 1);
-}
-void hour9()
-{
-    draw_zero(2, 1);
-    draw_nine(4, 1);
-}
-void hour10()
-{
-    draw_one(2, 1);
-    draw_zero(4, 1);
-}
-void hour11()
-{
-    draw_one(2, 1);
-    draw_one(4, 1);
+hour_display(int h) {
+    switch (h) {
+    case  0: if (vert) { draw_one(2, 1); draw_two(4, 1);    } else { draw_one(0,5); draw_two(2,5); } break;
+    case  1: if (vert) { draw_zero(2, 1); draw_one(4, 1);   } else { draw_one(2,5); } break;
+    case  2: if (vert) { draw_zero(2, 1); draw_two(4, 1);   } else { draw_two(2,5); } break;
+    case  3: if (vert) { draw_zero(2, 1); draw_three(4, 1); } else { draw_three(2,5); } break;
+    case  4: if (vert) { draw_zero(2, 1); draw_four(4, 2);  } else { draw_four(2,6); } break;
+    case  5: if (vert) { draw_zero(2, 1); draw_five(4, 1);  } else { draw_five(2,5); } break;
+    case  6: if (vert) { draw_zero(2, 1); draw_six(4, 1);   } else { draw_six(2,5); } break;
+    case  7: if (vert) { draw_zero(2, 1); draw_seven(4, 1); } else { draw_seven(2,5); } break;
+    case  8: if (vert) { draw_zero(2, 1); draw_eight(4, 1); } else { draw_eight(2,5); } break;
+    case  9: if (vert) { draw_zero(2, 1); draw_nine(4, 1);  } else { draw_nine(2,5); } break;
+    case 10: if (vert) { draw_one(2, 1); draw_zero(4, 1);   } else { draw_one(0,5); draw_zero(2,5); } break;
+    case 11: if (vert) { draw_one(2, 1); draw_one(4, 1);    } else { draw_one(0,5); draw_one(2,5); } break;
+    case 12: if (vert) { draw_one(2, 1); draw_two(4, 1);    } else { draw_one(0,5); draw_two(2,5); } break;
+    default: break;
+    }
 }
 
+// Minutes
+first_digit(int m) {
+    switch (m) {
+    case 0: if (vert) { draw_zero( 2, 9); } else { draw_zero( 4, 5); } break;
+    case 1: if (vert) { draw_one(  2, 9); } else { draw_one(  4, 5); } break;
+    case 2: if (vert) { draw_two(  2, 9); } else { draw_two(  4, 5); } break;
+    case 3: if (vert) { draw_three(2, 9); } else { draw_three(4, 5); } break;
+    case 4: if (vert) { draw_four( 2,10); } else { draw_four( 4, 6); } break;
+    case 5: if (vert) { draw_five( 2, 9); } else { draw_five( 4, 5); } break;
+    case 6: if (vert) { draw_six(  2, 9); } else { draw_six(  4, 5); } break;
+    default: break;
+    }
+}
 
+second_digit(int m) {
+    switch (m) {
+    case 0: if (vert) { draw_zero( 4, 9); } else { draw_zero( 6, 5); } break;
+    case 1: if (vert) { draw_one(  4, 9); } else { draw_one(  6, 5); } break;
+    case 2: if (vert) { draw_two(  4, 9); } else { draw_two(  6, 5); } break;
+    case 3: if (vert) { draw_three(4, 9); } else { draw_three(6, 5); } break;
+    case 4: if (vert) { draw_four( 4,10); } else { draw_four( 6, 6); } break;
+    case 5: if (vert) { draw_five( 4, 9); } else { draw_five( 6, 5); } break;
+    case 6: if (vert) { draw_six(  4, 9); } else { draw_six(  6, 5); } break;
+    case 7: if (vert) { draw_seven(4, 9); } else { draw_seven(6, 5); } break;
+    case 8: if (vert) { draw_eight(4, 9); } else { draw_eight(6, 5); } break;
+    case 9: if (vert) { draw_nine( 4, 9); } else { draw_nine( 6, 5); } break;
+    default: break;
+    }
+}
 
-/*----------------------------Minutes LEDs----------------------------*/
+void switch_time(int h, int m) {
+    // Hours
+    hour_display(h);
+    // Minutes
+    first_digit( m / 10);
+    second_digit(m % 10);
+}
+/*
 void min0()
 {
     leds[62] = CRGB(r, g, b);
@@ -1265,7 +1257,7 @@ void min60()
     leds[92] = CRGB(r, g, b);
     leds[93] = CRGB(r, g, b);
 }
-
+*/
 
 
 #endif
