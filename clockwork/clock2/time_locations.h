@@ -6,6 +6,7 @@
 #define kMatrixWidth 8
 #define kMatrixHeight 15
 
+bool vert = 0;
 
 uint8_t XY(uint8_t x, uint8_t y) {
     if ((x >= kMatrixWidth) || (y >= kMatrixHeight)) {
@@ -75,9 +76,11 @@ uint8_t XY(uint8_t x, uint8_t y) {
 
 
 void draw_zero(uint8_t x, uint8_t y) {
-    for (uint8_t i = 0, i < 5; i++) {
+    for (uint8_t i = 0; i < 5; i++) {
+      if(i != 2){
         leds[XY(x,     y + i)] = CRGB(r, g, b);
         leds[XY(x + 1, y + i)] = CRGB(r, g, b);
+      }
     }
 }
 
@@ -132,7 +135,7 @@ void draw_five(uint8_t x, uint8_t y) {
 void draw_six(uint8_t x, uint8_t y) {
     for (uint8_t i = 0; i < 5; i++) {
         if (i == 1) {
-            leds[XY(x, y + 1)] + CRGB(r, g, b);
+            leds[XY(x, y + 1)] = CRGB(r, g, b);
         }
         else {
             leds[XY(x, y + i)] = CRGB(r, g, b);
@@ -174,7 +177,7 @@ void draw_nine(uint8_t x, uint8_t y) {
 
 //Hours
 
-hour_display(int h) {
+void hour_display(int h) {
     switch (h) {
     case  0: if (vert) { draw_one(2, 1); draw_two(4, 1);    } else { draw_one(0,5); draw_two(2,5); } break;
     case  1: if (vert) { draw_zero(2, 1); draw_one(4, 1);   } else { draw_one(2,5); } break;
@@ -194,10 +197,10 @@ hour_display(int h) {
 }
 
 // Minutes
-first_digit(int m) {
+void first_digit(int m) {
     switch (m) {
     case 0: if (vert) { draw_zero( 2, 9); } else { draw_zero( 4, 5); } break;
-    case 1: if (vert) { draw_one(  2, 9); } else { draw_one(  4, 5); } break;
+    case 1: if (vert) { draw_one(  2, 9); } else { draw_one(  5, 5); } break;
     case 2: if (vert) { draw_two(  2, 9); } else { draw_two(  4, 5); } break;
     case 3: if (vert) { draw_three(2, 9); } else { draw_three(4, 5); } break;
     case 4: if (vert) { draw_four( 2,10); } else { draw_four( 4, 6); } break;
@@ -207,10 +210,10 @@ first_digit(int m) {
     }
 }
 
-second_digit(int m) {
+void second_digit(int m) {
     switch (m) {
     case 0: if (vert) { draw_zero( 4, 9); } else { draw_zero( 6, 5); } break;
-    case 1: if (vert) { draw_one(  4, 9); } else { draw_one(  6, 5); } break;
+    case 1: if (vert) { draw_one(  4, 9); } else { draw_one(  7, 5); } break;
     case 2: if (vert) { draw_two(  4, 9); } else { draw_two(  6, 5); } break;
     case 3: if (vert) { draw_three(4, 9); } else { draw_three(6, 5); } break;
     case 4: if (vert) { draw_four( 4,10); } else { draw_four( 6, 6); } break;
@@ -1261,4 +1264,3 @@ void min60()
 
 
 #endif
-
