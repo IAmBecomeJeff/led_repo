@@ -5,6 +5,7 @@
 #include <ArduinoOTA.h>
 #include <time.h>
 #include "FastLED.h"
+#include "Arduino.h"
 
 #define DATA_PIN    2
 #define LED_TYPE    WS2811
@@ -18,6 +19,9 @@ int r = 255;
 int g = 255;
 int b = 255;
 
+// Pattern modes
+uint8_t current_mode = 0;
+
 //const char* ESP_HOST_NAME = "esp-" + ESP.getFlashChipId();
 //Your Wifi info
 const char* ssid = "UniversalMindLattice";
@@ -30,29 +34,7 @@ int dst = 1;
 #include "time_locations.h"
 #include "pride.h"
 #include "ota.h"
-
-
-
-/*
-WiFiClient wifiClient;
-
-void connectWifi() 
-{
-  WiFi.begin(ssid, password);
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  while (WiFi.status() != WL_CONNECTED) 
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected!");
-  Serial.println(WiFi.localIP());
-  Serial.println();
-}
-*/
-
+#include "switch_mode.h"
 
 
 
@@ -99,11 +81,12 @@ void loop()
     Serial.println(p_tm->tm_sec);
 
     // Background animations
-    pride();
+    run_mode(current_mode);
 
+    EVERY_N_MINUTES(1) {
+        current_mode = (current_mode + 1) % num_modes;
+    }
     // Add Clock
     switch_time(hour, minute);
     FastLED.show();
-    FastLED.clear();
-    FastLED.show();  
 }
