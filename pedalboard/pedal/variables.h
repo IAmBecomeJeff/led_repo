@@ -2,7 +2,7 @@
 
 #define LED_DT 14
 #define COLOR_ORDER GRB
-#define MAX_LEDS 197
+#define MAX_LEDS 136
 #define LED_TYPE WS2812
 
 uint8_t NUM_LEDS;
@@ -51,7 +51,7 @@ uint8_t this_speed = 24;
 int leftArray[35];
 int rightArray[35];
 int frontArray[66];
-int backArray[61];
+//int backArray[61];
 int LeftToRight[68];
 int Center[99];
 

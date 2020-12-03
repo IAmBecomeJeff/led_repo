@@ -18,8 +18,8 @@ void juggle_pal() {                                            // Several colore
   this_index = 0;                                           // Reset the hue values.
   fadeToBlackBy(leds, NUM_LEDS, this_fade);
   for( int i = 0; i < num_dots; i++) {
-    //leds[beatsin16(thisbeat+i+numdots,0,NUM_LEDS)] += ColorFromPalette(currentPalette, thisindex , thisbright, currentBlending);    // Munge the values and pick a colour from the palette
-    LtoR_PaletteAdd(beatsin16(this_beat + i + num_dots, 0, 67), currentPalette, this_index);
+	//leds[beatsin16(thisbeat+i+numdots,0,NUM_LEDS)] += ColorFromPalette(currentPalette, thisindex , thisbright, currentBlending);    // Munge the values and pick a colour from the palette
+	LtoR_PaletteAdd(beatsin16(this_beat + i + num_dots, 0, 67), currentPalette, this_index);
 	this_index += this_diff;
   }
 } // juggle_pal()
@@ -29,8 +29,8 @@ void juggle2_pal() {                                            // Several color
   //this_index = 0;                                           // Reset the hue values.
   fadeToBlackBy(leds, NUM_LEDS, this_fade);
   for( int i = 0; i < num_dots; i++) {
-    leds[beatsin16(this_beat+i+num_dots,0,NUM_LEDS)] += ColorFromPalette(currentPalette, this_index , this_bright, currentBlending);    // Munge the values and pick a colour from the palette
-    //LtoR_PaletteAdd(beatsin16(this_beat + i + num_dots, 0, 67), currentPalette, this_index);
+	leds[beatsin16(this_beat+i+num_dots,0,NUM_LEDS)] += ColorFromPalette(currentPalette, this_index , this_bright, currentBlending);    // Munge the values and pick a colour from the palette
+	//LtoR_PaletteAdd(beatsin16(this_beat + i + num_dots, 0, 67), currentPalette, this_index);
   this_index += this_diff;
   }
 } // juggle_pal()
@@ -47,9 +47,6 @@ void juggle_from_center_pal(){
 
   leds[frontArray[beatsin16_halfup(this_beat, 33,65)]] += ColorFromPalette(currentPalette, this_index, this_bright, currentBlending);
   leds[frontArray[beatsin16_halfdown(this_beat,0,32)]] += ColorFromPalette(currentPalette, this_index, this_bright, currentBlending);
-
-  leds[backArray[beatsin16_halfup(this_beat, 31,60)]] += ColorFromPalette(currentPalette, this_index, this_bright, currentBlending);
-  leds[backArray[beatsin16_halfdown(this_beat,0,30)]] += ColorFromPalette(currentPalette, this_index, this_bright, currentBlending);    
 
   this_index += this_diff;
   

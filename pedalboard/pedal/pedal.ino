@@ -23,15 +23,15 @@ void setup(){
 	currentBlending = LINEARBLEND;
 	
 	//Set up arrays
-	for (uint8_t i = 0; i < 61; i++) {
+	/*for (uint8_t i = 0; i < 61; i++) {
 		backArray[i] = i;
-	}
+	}*/
 	for (uint8_t i = 0; i < 35; i++) {
-		rightArray[i] = i + 61;
-		leftArray[i] = i + 162;
+		rightArray[i] = i;
+		leftArray[i] = i + 101;
 	}
 	for (uint8_t i = 0; i < 66; i++) {
-		frontArray[i] = i + 96;
+		frontArray[i] = i + 35;
 	}
 
 	strobe_mode(ledMode, 1);
